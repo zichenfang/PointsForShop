@@ -7,6 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import "TTVenderHeader.h"
+#import "MainMenuViewController.h"
+#import "GuideViewController.h"
+#import "LoginViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,36 +20,73 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    //强制竖屏
+    if(!UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)){
+        [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated:YES];
+    }
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [self.window makeKeyAndVisible];
+    if ([TTUserInfoManager appHasLaunched] ==YES) {
+        if ([TTUserInfoManager logined] == YES) {
+            MainMenuViewController *mainVC = [[MainMenuViewController alloc] init];
+            self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:mainVC];
+        }
+        else{
+            LoginViewController *loginVC = [[LoginViewController alloc] init];
+            self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:loginVC];
+        }
+    }
+    else{
+        GuideViewController *guideVC = [[GuideViewController alloc] init];
+        self.window.rootViewController = guideVC;
+    }
+    //注册推送
+    [self prepareAPNs];
+    [self prepareJPushWithOptions:launchOptions];
     return YES;
 }
-
-
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+//MARK:添加初始化APNs代码
+- (void)prepareAPNs{
+    JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
+    entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
+    [JPUSHService registerForRemoteNotificationConfig:entity delegate:nil];
 }
-
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+//MARK:初始化JPush代码
+- (void)prepareJPushWithOptions:(NSDictionary *)launchOptions {
+    // Required
+    // init Push
+    // notice: 2.1.5版本的SDK新增的注册方法，改成可上报IDFA，如果没有使用IDFA直接传nil
+    // 如需继续使用pushConfig.plist文件声明appKey等配置内容，请依旧使用[JPUSHService setupWithOption:launchOptions]方式初始化。
+    [JPUSHService setupWithOption:launchOptions appKey:@"ad4193fb8db76ad975194754"
+                          channel:@"1"
+                 apsForProduction:0
+            advertisingIdentifier:nil];
+    
 }
-
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+//MARK:DeviceToken
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    /// Required - 注册 DeviceToken
+    NSMutableString *deviceTokenStr = [NSMutableString string];
+    const char *bytes = deviceToken.bytes;
+    int iCount = (int)deviceToken.length;
+    for (int i = 0; i < iCount; i++) {
+        [deviceTokenStr appendFormat:@"%02x", bytes[i]&0x000000FF];
+    }
+    NSLog(@"方式1：%@", deviceTokenStr);
+    [JPUSHService registerDeviceToken:deviceToken];
+    if (deviceTokenStr) {
+        [TTUserInfoManager setAPNsDeviceToken:deviceTokenStr];
+    }
 }
-
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    //Optional
+    NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
 }
-
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+//MARK:处理APNs通知回调方法
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    // Required, iOS 7 Support
+    [JPUSHService handleRemoteNotification:userInfo];
+    completionHandler(UIBackgroundFetchResultNewData);
 }
-
 
 @end
