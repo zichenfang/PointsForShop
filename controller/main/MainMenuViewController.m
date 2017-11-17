@@ -10,6 +10,7 @@
 #import "UserHeaderCollectionReusableView.h"
 #import "UserCenterCollectionViewCell.h"
 #import "LoginViewController.h"
+#import "ShopInfoViewController.h"
 
 @interface MainMenuViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) IBOutlet UICollectionView *cv;
@@ -84,7 +85,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSString *title = self.menus[indexPath.row];
     if ([title isEqualToString:@"店铺维护"]) {
-        
+        [self goUserInfo];
     }
     else if ([title isEqualToString:@"积分纪录"]){}
     else if ([title isEqualToString:@"提现申请"]){}
@@ -100,9 +101,10 @@
 
     NSLog(@"%@",title);
 }
-//MARK:用户资料
+//MARK:店铺维护 用户资料
 - (void)goUserInfo{
-    NSLog(@"用户资料");
+    ShopInfoViewController *vc = [[ShopInfoViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 //MARK:退出登录
 - (void)loginOut{

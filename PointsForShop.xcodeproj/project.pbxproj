@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		288B54E620B9723A5A118ECE /* libPods-PointsForShop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 704646A00B4617E58855A948 /* libPods-PointsForShop.a */; };
+		E24D18E81FBD1BA10028C0AA /* ShopInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E24D18E61FBD1BA10028C0AA /* ShopInfoViewController.m */; };
+		E24D18E91FBD1BA10028C0AA /* ShopInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E24D18E71FBD1BA10028C0AA /* ShopInfoViewController.xib */; };
+		E24D18ED1FBD20170028C0AA /* ShopInfoBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E24D18EB1FBD20170028C0AA /* ShopInfoBaseViewController.m */; };
+		E24D18EE1FBD20170028C0AA /* ShopInfoBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E24D18EC1FBD20170028C0AA /* ShopInfoBaseViewController.xib */; };
+		E24D18F21FBD20520028C0AA /* ShopInfoShenHeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E24D18F01FBD20520028C0AA /* ShopInfoShenHeViewController.m */; };
+		E24D18F31FBD20520028C0AA /* ShopInfoShenHeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E24D18F11FBD20520028C0AA /* ShopInfoShenHeViewController.xib */; };
+		E24D18F71FBD206F0028C0AA /* ShopInfoMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E24D18F51FBD206F0028C0AA /* ShopInfoMoreViewController.m */; };
+		E24D18F81FBD206F0028C0AA /* ShopInfoMoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E24D18F61FBD206F0028C0AA /* ShopInfoMoreViewController.xib */; };
+		E25956C71FBD64530012E624 /* TTNormalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E25956C51FBD64530012E624 /* TTNormalPickerView.m */; };
+		E25956CD1FBD64BD0012E624 /* TTNormalPickerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E25956CC1FBD64BD0012E624 /* TTNormalPickerItem.m */; };
 		E2A2AD881FB9316C00C0C098 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A2AD871FB9316C00C0C098 /* AppDelegate.m */; };
 		E2A2AD901FB9316C00C0C098 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2A2AD8F1FB9316C00C0C098 /* Assets.xcassets */; };
 		E2A2AD931FB9316C00C0C098 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2A2AD911FB9316C00C0C098 /* LaunchScreen.storyboard */; };
@@ -50,6 +60,22 @@
 /* Begin PBXFileReference section */
 		053E69FA4ED3712E0BDE2C1D /* Pods-PointsForShop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PointsForShop.release.xcconfig"; path = "Pods/Target Support Files/Pods-PointsForShop/Pods-PointsForShop.release.xcconfig"; sourceTree = "<group>"; };
 		704646A00B4617E58855A948 /* libPods-PointsForShop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PointsForShop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E24D18E51FBD1BA10028C0AA /* ShopInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopInfoViewController.h; sourceTree = "<group>"; };
+		E24D18E61FBD1BA10028C0AA /* ShopInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopInfoViewController.m; sourceTree = "<group>"; };
+		E24D18E71FBD1BA10028C0AA /* ShopInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopInfoViewController.xib; sourceTree = "<group>"; };
+		E24D18EA1FBD20170028C0AA /* ShopInfoBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopInfoBaseViewController.h; sourceTree = "<group>"; };
+		E24D18EB1FBD20170028C0AA /* ShopInfoBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopInfoBaseViewController.m; sourceTree = "<group>"; };
+		E24D18EC1FBD20170028C0AA /* ShopInfoBaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopInfoBaseViewController.xib; sourceTree = "<group>"; };
+		E24D18EF1FBD20520028C0AA /* ShopInfoShenHeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopInfoShenHeViewController.h; sourceTree = "<group>"; };
+		E24D18F01FBD20520028C0AA /* ShopInfoShenHeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopInfoShenHeViewController.m; sourceTree = "<group>"; };
+		E24D18F11FBD20520028C0AA /* ShopInfoShenHeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopInfoShenHeViewController.xib; sourceTree = "<group>"; };
+		E24D18F41FBD206F0028C0AA /* ShopInfoMoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopInfoMoreViewController.h; sourceTree = "<group>"; };
+		E24D18F51FBD206F0028C0AA /* ShopInfoMoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopInfoMoreViewController.m; sourceTree = "<group>"; };
+		E24D18F61FBD206F0028C0AA /* ShopInfoMoreViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopInfoMoreViewController.xib; sourceTree = "<group>"; };
+		E25956C51FBD64530012E624 /* TTNormalPickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTNormalPickerView.m; sourceTree = "<group>"; };
+		E25956C61FBD64530012E624 /* TTNormalPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTNormalPickerView.h; sourceTree = "<group>"; };
+		E25956CB1FBD64BD0012E624 /* TTNormalPickerItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTNormalPickerItem.h; sourceTree = "<group>"; };
+		E25956CC1FBD64BD0012E624 /* TTNormalPickerItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTNormalPickerItem.m; sourceTree = "<group>"; };
 		E2A2AD831FB9316C00C0C098 /* PointsForShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PointsForShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2A2AD861FB9316C00C0C098 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E2A2AD871FB9316C00C0C098 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -192,6 +218,8 @@
 				E2A2ADBB1FB932EC00C0C098 /* TTObject.m */,
 				E2A2ADC81FB932EC00C0C098 /* TTStoreObj.h */,
 				E2A2ADC91FB932EC00C0C098 /* TTStoreObj.m */,
+				E25956CB1FBD64BD0012E624 /* TTNormalPickerItem.h */,
+				E25956CC1FBD64BD0012E624 /* TTNormalPickerItem.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -266,6 +294,18 @@
 				E2E9E33C1FB97D3900246122 /* ShopStatusViewController.h */,
 				E2E9E33D1FB97D3900246122 /* ShopStatusViewController.m */,
 				E2E9E33E1FB97D3900246122 /* ShopStatusViewController.xib */,
+				E24D18E51FBD1BA10028C0AA /* ShopInfoViewController.h */,
+				E24D18E61FBD1BA10028C0AA /* ShopInfoViewController.m */,
+				E24D18E71FBD1BA10028C0AA /* ShopInfoViewController.xib */,
+				E24D18EA1FBD20170028C0AA /* ShopInfoBaseViewController.h */,
+				E24D18EB1FBD20170028C0AA /* ShopInfoBaseViewController.m */,
+				E24D18EC1FBD20170028C0AA /* ShopInfoBaseViewController.xib */,
+				E24D18EF1FBD20520028C0AA /* ShopInfoShenHeViewController.h */,
+				E24D18F01FBD20520028C0AA /* ShopInfoShenHeViewController.m */,
+				E24D18F11FBD20520028C0AA /* ShopInfoShenHeViewController.xib */,
+				E24D18F41FBD206F0028C0AA /* ShopInfoMoreViewController.h */,
+				E24D18F51FBD206F0028C0AA /* ShopInfoMoreViewController.m */,
+				E24D18F61FBD206F0028C0AA /* ShopInfoMoreViewController.xib */,
 			);
 			path = "我的";
 			sourceTree = "<group>";
@@ -298,6 +338,8 @@
 				E2E9E3321FB9726100246122 /* UserCenterCollectionViewCell.h */,
 				E2E9E3331FB9726100246122 /* UserCenterCollectionViewCell.m */,
 				E2E9E3341FB9726100246122 /* UserCenterCollectionViewCell.xib */,
+				E25956C61FBD64530012E624 /* TTNormalPickerView.h */,
+				E25956C51FBD64530012E624 /* TTNormalPickerView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -368,12 +410,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E24D18E91FBD1BA10028C0AA /* ShopInfoViewController.xib in Resources */,
 				E2E9E3371FB974A100246122 /* FndPassWordViewController.xib in Resources */,
+				E24D18F81FBD206F0028C0AA /* ShopInfoMoreViewController.xib in Resources */,
+				E24D18EE1FBD20170028C0AA /* ShopInfoBaseViewController.xib in Resources */,
 				E2E9E3401FB97D3900246122 /* ShopStatusViewController.xib in Resources */,
 				E2E9E3381FB974A100246122 /* LoginViewController.xib in Resources */,
 				E2E9E3391FB974A100246122 /* RegistViewController.xib in Resources */,
 				E2E9E33A1FB974A100246122 /* SetLoginPasswordViewController.xib in Resources */,
 				E2E9E33B1FB974A100246122 /* SetPayPasswordViewController.xib in Resources */,
+				E24D18F31FBD20520028C0AA /* ShopInfoShenHeViewController.xib in Resources */,
 				E2A2AD931FB9316C00C0C098 /* LaunchScreen.storyboard in Resources */,
 				E2A2AF201FB9371E00C0C098 /* MainMenuViewController.xib in Resources */,
 				E2E9E3361FB9726100246122 /* UserCenterCollectionViewCell.xib in Resources */,
@@ -437,17 +483,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E25956C71FBD64530012E624 /* TTNormalPickerView.m in Sources */,
 				E2A2AEB51FB9340100C0C098 /* TTLocationManager.m in Sources */,
+				E25956CD1FBD64BD0012E624 /* TTNormalPickerItem.m in Sources */,
 				E2A2AEB61FB9340100C0C098 /* TTRequestOperationManager.m in Sources */,
 				E2A2AEB71FB9340100C0C098 /* TTUserInfoManager.m in Sources */,
 				E2A2AEB81FB9340100C0C098 /* NSDate+MyDate.m in Sources */,
 				E2A2AEB91FB9340100C0C098 /* NSString+MyCustomString.m in Sources */,
 				E2A2AEBA1FB9340100C0C098 /* UIBarButtonItem+TTStyle.m in Sources */,
 				E2A2AEBB1FB9340100C0C098 /* UIColor+MyColor.m in Sources */,
+				E24D18F71FBD206F0028C0AA /* ShopInfoMoreViewController.m in Sources */,
 				E2A2AEBC1FB9340100C0C098 /* UIImage+MyCustomImage.m in Sources */,
 				E2A2AEBD1FB9340100C0C098 /* UIViewController+MyViewController.m in Sources */,
 				E2A2AEBE1FB9340100C0C098 /* ImageBrowserVC.m in Sources */,
 				E2A2AEC01FB9340100C0C098 /* TTBaseNavigationViewController.m in Sources */,
+				E24D18ED1FBD20170028C0AA /* ShopInfoBaseViewController.m in Sources */,
 				E2A2AEC11FB9340100C0C098 /* TTBaseViewController.m in Sources */,
 				E2A2AED11FB9340100C0C098 /* GuideViewController.m in Sources */,
 				E2E9E3351FB9726100246122 /* UserCenterCollectionViewCell.m in Sources */,
@@ -460,8 +510,10 @@
 				E2E9E3301FB970EE00246122 /* UserHeaderCollectionReusableView.m in Sources */,
 				E2A2AEF71FB9340100C0C098 /* TTObject.m in Sources */,
 				E2E9E33F1FB97D3900246122 /* ShopStatusViewController.m in Sources */,
+				E24D18F21FBD20520028C0AA /* ShopInfoShenHeViewController.m in Sources */,
 				E2A2AEFE1FB9340100C0C098 /* TTStoreObj.m in Sources */,
 				E2A2AD961FB9316C00C0C098 /* main.m in Sources */,
+				E24D18E81FBD1BA10028C0AA /* ShopInfoViewController.m in Sources */,
 				E2A2AD881FB9316C00C0C098 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
