@@ -27,8 +27,15 @@
 
 //MARK: ●API修改用户名
 #define API_USER_CHANGE_USERNAME  @"&method=jingtu.user_center.editMemberInfo.post"
-//MARK: ●API上传头像
-#define API_USER_UPLOAD_AVATAR  @"&method=jingtu.user_center.editMemberAvatar.post"
+//MARK: ●API上传图片
+#define API_USER_UPLOAD_IMAGE  @"/api.php/v1.Seller/upload"
+//MARK: ●API上传不可修改信息
+#define API_USER_UPLOAD_INFORMATION_ONLY_ONCE  @"/api.php/v1.Seller/addInfo"
+//MARK: ●API更新商家产品信息
+#define API_USER_UPLOAD_INFORMATION_PRODUCT  @"/api.php/v1.Seller/updateDetail"
+//MARK: ●API省市区
+#define API_GET_PROVINCE_CITY_DISTRICT @"/api.php/v1.Publics/location"
+
 //MARK: ●API找回密码-发送短信验证码
 #define API_USER_FINDPASSWORD_CODE  @"&method=jingtu.user.sendForgetPwdSms.post"
 //MARK: ●API找回密码

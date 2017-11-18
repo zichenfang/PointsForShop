@@ -126,14 +126,14 @@
         image = self.image3;
     }
     [ProgressHUD show:nil Interaction:NO];
-    [TTRequestOperationManager POST:API_USER_UPLOAD_AVATAR parameters:para constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:UIImagePNGRepresentation(image) name:@"member_avatar" fileName:@"pic.png" mimeType:@"image/png"];
+    [TTRequestOperationManager POST:API_USER_UPLOAD_IMAGE parameters:para constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:UIImagePNGRepresentation(image) name:@"image" fileName:@"pic.png" mimeType:@"image/png"];
     } Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
         NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
-        if ([code isEqualToString:@"1"]){
-            NSString *imageUrl =[result string_ForKey:@"member_avatar"];
+        if ([code isEqualToString:@"200"]){
+            NSString *imageUrl =[result string_ForKey:@"file"];
             if (index ==1) {
                 self.imageUrl1 =imageUrl;
                 self.iv1.image =self.image1;
@@ -146,6 +146,7 @@
                 self.imageUrl3 =imageUrl;
                 self.iv3.image =self.image3;
             }
+            [ProgressHUD dismiss];
         }
         else{
             [ProgressHUD showError:msg];
@@ -156,7 +157,7 @@
 //MARK:保存
 - (IBAction)save:(id)sender {
     if (self.imageUrl1.length<2||self.imageUrl2.length<2||self.imageUrl3.length<2) {
-        [ProgressHUD showError:@"请上传完整图片" Interaction:NO];
+        [ProgressHUD showError:@"请上传完整介绍图片" Interaction:NO];
         return;
     }
     if (self.tv1.text.absolute_String.length<2||self.tv2.text.absolute_String.length<2||self.tv2.text.absolute_String.length<2) {
@@ -168,6 +169,31 @@
     } Cancel:nil];
 }
 - (void)saveNow{
-    
+    NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
+    [para setObject:[TTUserInfoManager token] forKey:@"token"];
+    [para setObject:self.image1 forKey:@"image"];
+    [para setObject:self.image2 forKey:@"image2"];
+    [para setObject:self.image3 forKey:@"image3"];
+    [para setObject:self.tv1.text forKey:@"desc"];
+    [para setObject:self.tv2.text forKey:@"desc2"];
+    [para setObject:self.tv3.text forKey:@"desc3"];
+    [ProgressHUD show:nil Interaction:NO];
+    [TTRequestOperationManager POST:API_USER_UPLOAD_INFORMATION_PRODUCT Parameters:para Success:^(NSDictionary *responseJsonObject) {
+        NSString *code = [responseJsonObject string_ForKey:@"code"];
+        NSString *msg = [responseJsonObject string_ForKey:@"msg"];
+        if ([code isEqualToString:@"200"]){
+            [ProgressHUD showSuccess:msg Interaction:NO];
+            [self performSelector:@selector(successBack) withObject:nil afterDelay:1.2];
+        }
+        else{
+            [ProgressHUD showError:msg];
+        }
+        
+    } Failure:^(NSError *error) {
+        
+    }];
+}
+- (void)successBack{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 @end

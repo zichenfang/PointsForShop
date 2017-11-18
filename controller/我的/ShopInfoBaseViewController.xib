@@ -15,6 +15,7 @@
                 <outlet property="shopNameLabel" destination="lKN-Gc-ZfI" id="Crz-2t-jIj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="workerNOTF" destination="hhR-bW-L8P" id="mcW-21-X84"/>
+                <outlet property="workerView" destination="mbM-AA-0nR" id="o3z-Tq-EWT"/>
                 <outlet property="xukezhengIV" destination="lzA-zb-NFB" id="f2a-I2-qwd"/>
                 <outlet property="zhizhaoIV" destination="Ei3-Bj-O7J" id="r7e-E8-uyd"/>
             </connections>
@@ -116,23 +117,6 @@
                                         <outlet property="delegate" destination="-1" id="qRM-Vj-vDB"/>
                                     </connections>
                                 </textField>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请在此输入业务员编号/好友手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hhR-bW-L8P">
-                                    <rect key="frame" x="84" y="372" width="281" height="40"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="40" id="3yz-0J-C0e"/>
-                                    </constraints>
-                                    <nil key="textColor"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </textField>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uh2-4q-vLp" userLabel="line View">
-                                    <rect key="frame" x="80" y="382" width="2" height="20"/>
-                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="20" id="Bus-EU-N1Z"/>
-                                        <constraint firstAttribute="width" constant="2" id="n1j-Rx-yLG"/>
-                                    </constraints>
-                                </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IdS-JS-OH2" userLabel="警告View">
                                     <rect key="frame" x="72" y="470" width="230" height="40"/>
                                     <subviews>
@@ -174,27 +158,46 @@
                                         <action selector="save:" destination="-1" eventType="touchUpInside" id="4Q8-PF-HRB"/>
                                     </connections>
                                 </button>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mbM-AA-0nR" userLabel="手机号View">
+                                    <rect key="frame" x="135" y="390" width="240" height="40"/>
+                                    <subviews>
+                                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请在此输入业务员编号/好友手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hhR-bW-L8P">
+                                            <rect key="frame" x="4" y="0.0" width="230" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uh2-4q-vLp" userLabel="line View">
+                                            <rect key="frame" x="0.0" y="10" width="2" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="amW-xN-kpc"/>
+                                        <constraint firstAttribute="width" constant="240" id="dS7-BC-Vgx"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="FEx-Cy-xCJ" firstAttribute="centerX" secondItem="7ok-UY-gB6" secondAttribute="centerX" id="4oQ-rt-qfc"/>
                                 <constraint firstAttribute="trailing" secondItem="aa0-HH-XJ2" secondAttribute="trailing" constant="10" id="7lC-kT-ssJ"/>
                                 <constraint firstItem="IdS-JS-OH2" firstAttribute="top" secondItem="7ok-UY-gB6" secondAttribute="top" constant="470" id="Cm0-v3-m5d"/>
-                                <constraint firstItem="hhR-bW-L8P" firstAttribute="leading" secondItem="uh2-4q-vLp" secondAttribute="trailing" constant="2" id="GRh-Ei-X5C"/>
                                 <constraint firstItem="aa0-HH-XJ2" firstAttribute="top" secondItem="7ok-UY-gB6" secondAttribute="top" constant="321" id="I9z-aZ-IlW"/>
                                 <constraint firstItem="oeh-0m-S2y" firstAttribute="leading" secondItem="7ok-UY-gB6" secondAttribute="leading" constant="100" id="Icf-Dg-pmk"/>
                                 <constraint firstItem="lKN-Gc-ZfI" firstAttribute="top" secondItem="7ok-UY-gB6" secondAttribute="top" constant="255" id="J3H-Bk-fcH"/>
-                                <constraint firstItem="hhR-bW-L8P" firstAttribute="top" secondItem="7ok-UY-gB6" secondAttribute="top" constant="372" id="QK6-Vy-6gZ"/>
-                                <constraint firstItem="uh2-4q-vLp" firstAttribute="leading" secondItem="7ok-UY-gB6" secondAttribute="leading" constant="80" id="Tnn-qJ-OVM"/>
                                 <constraint firstItem="IdS-JS-OH2" firstAttribute="centerX" secondItem="7ok-UY-gB6" secondAttribute="centerX" id="UU4-Bb-dMJ"/>
                                 <constraint firstAttribute="bottom" secondItem="FEx-Cy-xCJ" secondAttribute="bottom" constant="25" id="V0m-OP-2jc"/>
                                 <constraint firstItem="lKN-Gc-ZfI" firstAttribute="leading" secondItem="7ok-UY-gB6" secondAttribute="leading" constant="105" id="Yd7-64-U0z"/>
                                 <constraint firstAttribute="height" constant="667" id="Z4U-dj-X2g"/>
-                                <constraint firstItem="uh2-4q-vLp" firstAttribute="top" secondItem="7ok-UY-gB6" secondAttribute="top" constant="382" id="exi-dU-rFn"/>
+                                <constraint firstItem="mbM-AA-0nR" firstAttribute="top" secondItem="7ok-UY-gB6" secondAttribute="top" constant="390" id="cn0-FV-Hy2"/>
                                 <constraint firstAttribute="trailing" secondItem="lKN-Gc-ZfI" secondAttribute="trailing" constant="10" id="gKc-2c-jHQ"/>
+                                <constraint firstAttribute="trailing" secondItem="mbM-AA-0nR" secondAttribute="trailing" id="gNw-Uj-bPs"/>
                                 <constraint firstAttribute="trailing" secondItem="oeh-0m-S2y" secondAttribute="trailing" constant="44" id="hzW-0Z-MEs"/>
                                 <constraint firstItem="oeh-0m-S2y" firstAttribute="top" secondItem="7ok-UY-gB6" secondAttribute="top" constant="310" id="iS0-fZ-zKD"/>
-                                <constraint firstAttribute="trailing" secondItem="hhR-bW-L8P" secondAttribute="trailing" constant="10" id="kTp-Qr-lNG"/>
                             </constraints>
                         </view>
                     </subviews>

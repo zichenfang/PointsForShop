@@ -21,7 +21,7 @@
     self = [super init];
     if (self) {
         /*定位初始化*/
-        [AMapServices sharedServices].apiKey = @"860639d26c356f1153a62d5704e01ed6";
+        [AMapServices sharedServices].apiKey = @"36674764102ee717cc936692235f8cb0";
         self.mapManager = [[AMapLocationManager alloc] init];
         self.mapManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
         self.mapManager.locationTimeout = 10;

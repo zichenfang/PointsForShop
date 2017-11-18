@@ -83,6 +83,8 @@
     }
     [manager POST:URLString parameters:parameters constructingBodyWithBlock:block progress:^(NSProgress * _Nonnull uploadProgress) {
         //
+        NSString *percent = [NSString stringWithFormat:@"%.0f%%",100.0*uploadProgress.completedUnitCount/uploadProgress.totalUnitCount];
+        [ProgressHUD show:percent Interaction:NO];
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         //
         NSDictionary *cacheDic = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:nil];

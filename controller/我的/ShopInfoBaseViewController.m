@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *xukezhengIV;
 @property (strong, nonatomic) IBOutlet UILabel *shopNameLabel;
 @property (strong, nonatomic) IBOutlet UITextField *recmondFromTF;//推荐来源
+@property (strong, nonatomic) IBOutlet UIView *workerView;//推荐来源选择业务员或者好友的时候，显示此View
 @property (strong, nonatomic) IBOutlet UITextField *workerNOTF;//业务员编号
 //／／data
 @property (strong, nonatomic) UIImage *zhizhaoImage;//执照图片预上传
@@ -61,20 +62,20 @@
     [actionSheet showPreviewAnimated:YES];
 }
 //MARK:上传营业执照
-- (void)uploadZhiZhaoImage
-{
+- (void)uploadZhiZhaoImage{
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:[TTUserInfoManager token] forKey:@"token"];
     [ProgressHUD show:nil Interaction:NO];
-    [TTRequestOperationManager POST:API_USER_UPLOAD_AVATAR parameters:para constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:UIImagePNGRepresentation(self.zhizhaoImage) name:@"member_avatar" fileName:@"pic.png" mimeType:@"image/png"];
+    [TTRequestOperationManager POST:API_USER_UPLOAD_IMAGE parameters:para constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:UIImagePNGRepresentation(self.zhizhaoImage) name:@"image" fileName:@"pic.png" mimeType:@"image/png"];
     } Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
         NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
-        if ([code isEqualToString:@"1"]){
-            self.zhizhaoImageUrl = [result string_ForKey:@"member_avatar"];
+        if ([code isEqualToString:@"200"]){
+            self.zhizhaoImageUrl = [result string_ForKey:@"file"];
             self.zhizhaoIV.image =self.zhizhaoImage;
+            [ProgressHUD dismiss];
         }
         else{
             [ProgressHUD showError:msg];
@@ -109,15 +110,16 @@
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:[TTUserInfoManager token] forKey:@"token"];
     [ProgressHUD show:nil Interaction:NO];
-    [TTRequestOperationManager POST:API_USER_UPLOAD_AVATAR parameters:para constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:UIImagePNGRepresentation(self.zhizhaoImage) name:@"member_avatar" fileName:@"pic.png" mimeType:@"image/png"];
+    [TTRequestOperationManager POST:API_USER_UPLOAD_IMAGE parameters:para constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:UIImagePNGRepresentation(self.zhizhaoImage) name:@"image" fileName:@"pic.png" mimeType:@"image/png"];
     } Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
         NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
-        if ([code isEqualToString:@"1"]){
-            self.xukezhengImageUrl = [result string_ForKey:@"member_avatar"];
+        if ([code isEqualToString:@"200"]){
+            self.xukezhengImageUrl = [result string_ForKey:@"file"];
             self.xukezhengIV.image =self.xukezhengImage;
+            [ProgressHUD dismiss];
         }
         else{
             [ProgressHUD showError:msg];
@@ -127,6 +129,7 @@
 }
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     if (textField == self.recmondFromTF) {
+        [self resignKeyBorad];
         [self selectRecmondFrom];
         return NO;
     }
@@ -140,8 +143,8 @@
         self.recommendFromDatas = [NSMutableArray array];
     }
     if (self.recommendFromDatas.count<=0) {
-        NSArray *item_titles = @[@"客户端",@"电视广告",@"楼宇海报",@"宣传单",@"微信公众号",@"微信朋友圈",@"公司网站",@"百度搜索",@"其他"];
-        NSArray *item_ids = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9"];
+        NSArray *item_titles = @[@"业务员",@"好友推荐",@"客户端",@"电视广告",@"楼宇海报",@"宣传单",@"微信公众号",@"微信朋友圈",@"公司网站",@"百度搜索",@"其他"];
+        NSArray *item_ids = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11"];
         for (int i=0; i<item_titles.count; i++) {
             TTNormalPickerItem *item = [[TTNormalPickerItem alloc] init];
             item.item_id = item_ids[i];
@@ -153,6 +156,12 @@
     [pickerView showWithItems:self.recommendFromDatas SelectedIndex:0 Handler:^(TTNormalPickerItem *item) {
         self.recommendItem = item;
         self.recmondFromTF.text = item.item_name;
+        if ([self.recommendItem.item_id isEqualToString:@"1"]||[self.recommendItem.item_id isEqualToString:@"2"]) {
+            self.workerView.hidden = NO;
+        }
+        else{
+            self.workerView.hidden = YES;
+        }
     }];
 
 }
@@ -167,12 +176,53 @@
         [ProgressHUD showError:@"请上传许可证照片" Interaction:NO];
         return;
     }
+    if (self.workerNOTF.text.absolute_String.length<2) {
+        //    推荐业务员电话
+        if ([self.recommendItem.item_id isEqualToString:@"1"]) {
+            [ProgressHUD showError:@"请输入推荐业务员电话" Interaction:NO];
+            return;
+        }
+        //推荐用户电话
+        if ([self.recommendItem.item_id isEqualToString:@"2"]) {
+            [ProgressHUD showError:@"请输入推荐好友电话" Interaction:NO];
+            return;
+        }
+    }
     [self presentAlertWithTitle:@"确认提交？" Handler:^{
         [self saveNow];
     } Cancel:nil];
 }
 - (void)saveNow{
-    
-}
+    NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
+    [para setObject:[TTUserInfoManager token] forKey:@"token"];
+    [para setObject:self.zhizhaoImageUrl forKey:@"business_license"];
+    [para setObject:self.xukezhengImageUrl forKey:@"business_permit"];
+//    推荐业务员电话
+    if ([self.recommendItem.item_id isEqualToString:@"1"]) {
+        [para setObject:self.workerNOTF.text forKey:@"recommend_admin"];//推荐业务员电话
+    }
+    //推荐用户电话
+    if ([self.recommendItem.item_id isEqualToString:@"2"]) {
+        [para setObject:self.workerNOTF.text forKey:@"recommend_phone"];//
+    }
+    [para setObject:self.recommendItem.item_name forKey:@"source"];
+    [ProgressHUD show:nil Interaction:NO];
+    [TTRequestOperationManager POST:API_USER_UPLOAD_INFORMATION_ONLY_ONCE Parameters:para Success:^(NSDictionary *responseJsonObject) {
+        NSString *code = [responseJsonObject string_ForKey:@"code"];
+        NSString *msg = [responseJsonObject string_ForKey:@"msg"];
+        if ([code isEqualToString:@"200"]){
+            [ProgressHUD showSuccess:msg Interaction:NO];
+            [self performSelector:@selector(successBack) withObject:nil afterDelay:1.2];
+        }
+        else{
+            [ProgressHUD showError:msg];
+        }
 
+    } Failure:^(NSError *error) {
+        
+    }];
+}
+- (void)successBack{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end
