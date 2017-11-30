@@ -11,6 +11,7 @@
 #import "TTNormalPickerItem.h"
 
 @interface ShopInfoBaseViewController ()<UITextFieldDelegate>
+@property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (strong, nonatomic) IBOutlet UIImageView *zhizhaoIV;
 @property (strong, nonatomic) IBOutlet UIImageView *xukezhengIV;
 @property (strong, nonatomic) IBOutlet UILabel *shopNameLabel;
@@ -26,6 +27,9 @@
 
 @property (strong, nonatomic) NSMutableArray *recommendFromDatas;//推荐来源
 @property (strong, nonatomic) TTNormalPickerItem *recommendItem;//推荐来源选中
+@property (strong, nonatomic) IBOutlet UIButton *saveBtn;
+@property (strong, nonatomic) IBOutlet UILabel *uploadTipLabel1;
+@property (strong, nonatomic) IBOutlet UILabel *uploadTipLabel2;
 
 @end
 
@@ -34,8 +38,57 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"基本信息";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(resignKeyBorad)];
     self.shopNameLabel.text = [[TTUserInfoManager userInfo] string_ForKey:@"name"];
+    [self loadShopInfo];
+}
+//MARK:获取店铺信息-不可修改信息
+- (void)loadShopInfo{
+    NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
+    [para setObject:[TTUserInfoManager token] forKey:@"token"];
+    [ProgressHUD show:nil Interaction:NO];
+    [TTRequestOperationManager POST:API_GET_SHOP_CANNOT_CHANGE_INFO Parameters:para Success:^(NSDictionary *responseJsonObject) {
+        NSString *code = [responseJsonObject string_ForKey:@"code"];
+        NSString *msg = [responseJsonObject string_ForKey:@"msg"];
+        NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
+        if ([code isEqualToString:@"200"]){
+            [ProgressHUD dismiss];
+            [self updateInfoUI:result];
+        }
+        else{
+            [ProgressHUD showError:msg];
+        }
+    } Failure:^(NSError *error) {
+    }];
+}
+- (void)updateInfoUI:(NSDictionary *)info{
+//    "status": "integer,0可上传 1不可上传"
+    NSString *status = [info string_ForKey:@"status"];
+    //页面默认为不可交互，
+    if ([status isEqualToString:@"1"]) {
+        //将已经上传过的信息赋值到当前页面
+        NSString *business_license = [info string_ForKey:@"business_license"];//营业执照
+        [self.zhizhaoIV sd_setImageWithURL:[NSURL URLWithString:business_license] placeholderImage:PLACEHOLDER_GENERAL];
+        NSString *business_permit = [info string_ForKey:@"business_permit"];//许可证
+        [self.xukezhengIV sd_setImageWithURL:[NSURL URLWithString:business_permit] placeholderImage:PLACEHOLDER_GENERAL];
+        NSString *source =[info string_ForKey:@"source"];//推荐来源 中文描述
+        self.recmondFromTF.text = source;
+        if ([source isEqualToString:@"业务员"]) {
+            self.workerView.hidden = NO;
+            self.workerNOTF.text = [info string_ForKey:@"recommend_admin"];
+        }
+        else if ([source isEqualToString:@"好友推荐"]){
+            self.workerView.hidden = NO;
+            self.workerNOTF.text = [info string_ForKey:@"recommend_phone"];
+        }
+    }
+    else{
+        //若未上传过此页面信息，则打开交互，显示保存按钮
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(resignKeyBorad)];
+        self.contentView.userInteractionEnabled = YES;
+        self.uploadTipLabel1.hidden = NO;
+        self.uploadTipLabel2.hidden = NO;
+        self.saveBtn.hidden = NO;
+    }
 }
 - (void)resignKeyBorad{
     [self.zhizhaoIV.superview endEditing:YES];

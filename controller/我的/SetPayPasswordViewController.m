@@ -35,9 +35,9 @@
 - (IBAction)getCode:(id)sender {
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:[TTUserInfoManager token] forKey:@"token"];
-    [para setObject:@"edit_pwd" forKey:@"mes_tpl"];
+    [para setObject:[TTUserInfoManager account] forKey:@"mobile"];
     [ProgressHUD show:nil Interaction:NO];
-    [TTRequestOperationManager POST:API_GET_PAY_LOGIN_PASSWORD_CODE Parameters:para Success:^(NSDictionary *responseJsonObject) {
+    [TTRequestOperationManager POST:API_USER_SEND_CODE Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
         if ([code isEqualToString:@"200"])//
@@ -95,19 +95,17 @@
     }
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:[TTUserInfoManager token] forKey:@"token"];
-    [para setObject:self.passWordTF.text.md5_32Bit_String forKey:@"password"];
-    [para setObject:[para objectForKey:@"password"] forKey:@"password_confirm"];
-    [para setObject:self.codeTF.text forKey:@"vcode"];
+    [para setObject:self.passWordTF.text.md5_32Bit_String forKey:@"withdraw_password"];
+    [para setObject:self.codeTF.text forKey:@"verify_code"];
     [ProgressHUD show:nil Interaction:NO];
-    [TTRequestOperationManager POST:API_SET_PAY_LOGIN_PASSWORD Parameters:para Success:^(NSDictionary *responseJsonObject) {
+    [TTRequestOperationManager POST:API_SET_TAKECASH_PASSWORD Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
-        if ([code isEqualToString:@"200"])//
-        {
+        if ([code isEqualToString:@"200"]) {
             //设置支付密码
             NSString *member_paypwd = self.passWordTF.text.absolute_String.md5_32Bit_String;
             NSMutableDictionary *userinfo = [NSMutableDictionary dictionaryWithDictionary:[TTUserInfoManager userInfo]];
-            [userinfo setObject:member_paypwd forKey:@"member_paypwd"];
+            [userinfo setObject:member_paypwd forKey:@"withdraw_password"];
             [TTUserInfoManager setUserInfo:userinfo];
             [ProgressHUD showSuccess:msg Interaction:NO];
             [self performSelector:@selector(setPassWordSuccess) withObject:nil afterDelay:1.5];
@@ -121,9 +119,6 @@
     }];
 }
 - (void)setPassWordSuccess{
-    if (self.handler) {
-        self.handler(@{@"type":@"success"});
-    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -30,7 +30,7 @@
     [para setObject:phone forKey:@"mobile"];
     [para setObject:@"ios" forKey:@"client"];
     [ProgressHUD show:nil Interaction:NO];
-    [TTRequestOperationManager POST:API_USER_FINDPASSWORD_CODE Parameters:para Success:^(NSDictionary *responseJsonObject) {
+    [TTRequestOperationManager POST:nil Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
         if ([code isEqualToString:@"200"])//

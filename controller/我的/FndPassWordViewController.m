@@ -34,9 +34,8 @@
     
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:phone forKey:@"mobile"];
-    [para setObject:@"ios" forKey:@"client"];
     [ProgressHUD show:nil Interaction:NO];
-    [TTRequestOperationManager POST:API_USER_FINDPASSWORD_CODE Parameters:para Success:^(NSDictionary *responseJsonObject) {
+    [TTRequestOperationManager POST:API_USER_SEND_CODE Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
         if ([code isEqualToString:@"200"])//
@@ -97,9 +96,7 @@
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:phone forKey:@"mobile"];
     [para setObject:self.passWordTF.text.md5_32Bit_String forKey:@"password"];
-
-    [para setObject:self.codeTF.text forKey:@"vcode"];
-    [para setObject:@"ios" forKey:@"client"];
+    [para setObject:self.codeTF.text forKey:@"code"];
     [ProgressHUD show:nil Interaction:NO];
     [TTRequestOperationManager POST:API_USER_FINDPASSWORD Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];

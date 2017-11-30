@@ -11,6 +11,11 @@
 #import "UserCenterCollectionViewCell.h"
 #import "LoginViewController.h"
 #import "ShopInfoViewController.h"
+#import "TakeCashViewController.h"
+#import "PoinstHistoryListViewController.h"
+#import "SetTakeCashAccountViewController.h"
+#import "RechargeViewController.h"
+#import "DealViewController.h"
 
 @interface MainMenuViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) IBOutlet UICollectionView *cv;
@@ -75,7 +80,7 @@
 #pragma mark --UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    float itemWidth =(SCREEN_WIDTH-2)/3;
+    float itemWidth =(SCREEN_WIDTH-3)/3;
     return CGSizeMake(itemWidth, itemWidth*1.12);
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
@@ -87,23 +92,53 @@
     if ([title isEqualToString:@"店铺维护"]) {
         [self goUserInfo];
     }
-    else if ([title isEqualToString:@"积分纪录"]){}
-    else if ([title isEqualToString:@"提现申请"]){}
-    else if ([title isEqualToString:@"充值"]){}
-    else if ([title isEqualToString:@"买单"]){}
-    else if ([title isEqualToString:@"设置"]){}
+    else if ([title isEqualToString:@"积分记录"]){
+        [self goPointsHistory];
+    }
+    else if ([title isEqualToString:@"提现申请"]){
+        [self takeCash];
+    }
+    else if ([title isEqualToString:@"充值"]){
+        [self recharge];
+    }
+    else if ([title isEqualToString:@"买单"]){
+        [self deal];
+    }
+    else if ([title isEqualToString:@"设置"]){
+        SetTakeCashAccountViewController *vc =[[SetTakeCashAccountViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     else if ([title isEqualToString:@"查看店铺"]){}
     else if ([title isEqualToString:@"退出登录"]){
         [self presentAlertWithTitle:@"退出登录" Handler:^{
             [self loginOut];
         } Cancel:nil];
     }
-
     NSLog(@"%@",title);
 }
 //MARK:店铺维护 用户资料
 - (void)goUserInfo{
     ShopInfoViewController *vc = [[ShopInfoViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+//MARK:积分纪录
+- (void)goPointsHistory{
+    PoinstHistoryListViewController *vc = [[PoinstHistoryListViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+//MARK:提现
+- (void)takeCash{
+    TakeCashViewController *vc = [[TakeCashViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+//MARK:积分充值
+- (void)recharge{
+    RechargeViewController *vc = [[RechargeViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+//MARK:买单
+- (void)deal{
+    DealViewController *vc = [[DealViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 //MARK:退出登录

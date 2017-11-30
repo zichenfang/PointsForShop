@@ -9,6 +9,8 @@
 #import "ShopInfoShenHeViewController.h"
 
 @interface ShopInfoShenHeViewController ()
+@property (strong, nonatomic) IBOutlet UIView *contentView;
+
 @property (strong, nonatomic) IBOutlet UIImageView *iv1;
 @property (strong, nonatomic) IBOutlet UIImageView *iv2;
 @property (strong, nonatomic) IBOutlet UIImageView *iv3;
@@ -27,6 +29,11 @@
 @property (strong, nonatomic) IBOutlet UILabel *placeHolderLabel2;
 @property (strong, nonatomic) IBOutlet UILabel *placeHolderLabel3;
 
+@property (strong, nonatomic) IBOutlet UILabel *uploadTipLabel1;
+@property (strong, nonatomic) IBOutlet UILabel *uploadTipLabel2;
+@property (strong, nonatomic) IBOutlet UILabel *uploadTipLabel3;
+@property (strong, nonatomic) IBOutlet UIButton *saveBtn;
+
 @end
 
 @implementation ShopInfoShenHeViewController
@@ -37,8 +44,60 @@
     [super viewDidLoad];
     self.title = @"审核信息";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tvChanged:) name:UITextViewTextDidChangeNotification object:nil];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(resignKeyBorad)];
-
+    [self loadShopInfo];
+}
+//MARK:获取店铺信息-不可修改信息
+- (void)loadShopInfo{
+    NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
+    [para setObject:[TTUserInfoManager token] forKey:@"token"];
+    [ProgressHUD show:nil Interaction:NO];
+    [TTRequestOperationManager POST:API_GET_SHOP_PRODUCT_INFO Parameters:para Success:^(NSDictionary *responseJsonObject) {
+        NSString *code = [responseJsonObject string_ForKey:@"code"];
+        NSString *msg = [responseJsonObject string_ForKey:@"msg"];
+        NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
+        if ([code isEqualToString:@"200"]){
+            [ProgressHUD dismiss];
+            [self updateInfoUI:result];
+        }
+        else{
+            [ProgressHUD showError:msg];
+        }
+    } Failure:^(NSError *error) {
+    }];
+}
+- (void)updateInfoUI:(NSDictionary *)info{
+    //    "state": "string,1待审核2审核通过0未通过",
+    NSString *state = [info string_ForKey:@"state"];
+    //页面默认为不可交互
+    if ([state isEqualToString:@"1"]||[state isEqualToString:@"2"]) {
+        //待审核或者审核通过状态下，将已经上传过的信息赋值到当前页面
+        NSString *image1 = [info string_ForKey:@"image"];//
+        [self.iv1 sd_setImageWithURL:[NSURL URLWithString:image1] placeholderImage:PLACEHOLDER_GENERAL];
+        NSString *image2 = [info string_ForKey:@"image2"];//
+        [self.iv2 sd_setImageWithURL:[NSURL URLWithString:image2] placeholderImage:PLACEHOLDER_GENERAL];
+        NSString *image3 = [info string_ForKey:@"image3"];//
+        [self.iv3 sd_setImageWithURL:[NSURL URLWithString:image3] placeholderImage:PLACEHOLDER_GENERAL];
+        self.tv1.text = [info string_ForKey:@"desc"];
+        self.tv2.text = [info string_ForKey:@"desc2"];
+        self.tv3.text = [info string_ForKey:@"desc3"];
+        self.placeHolderLabel1.hidden = YES;
+        self.placeHolderLabel2.hidden = YES;
+        self.placeHolderLabel3.hidden = YES;
+        if ([state isEqualToString:@"1"]){
+            //待审核
+            self.saveBtn.hidden = NO;
+            self.saveBtn.enabled = NO;//待审核
+        }
+    }
+    else{
+        //若未上传过此页面信息，则打开交互，显示保存按钮
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(resignKeyBorad)];
+        self.contentView.userInteractionEnabled = YES;
+        self.uploadTipLabel1.hidden = NO;
+        self.uploadTipLabel2.hidden = NO;
+        self.uploadTipLabel3.hidden = NO;
+        self.saveBtn.hidden = NO;
+    }
 }
 - (void)resignKeyBorad{
     [self.iv1.superview.superview endEditing:YES];
@@ -171,9 +230,9 @@
 - (void)saveNow{
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:[TTUserInfoManager token] forKey:@"token"];
-    [para setObject:self.image1 forKey:@"image"];
-    [para setObject:self.image2 forKey:@"image2"];
-    [para setObject:self.image3 forKey:@"image3"];
+    [para setObject:self.imageUrl1 forKey:@"image"];
+    [para setObject:self.imageUrl2 forKey:@"image2"];
+    [para setObject:self.imageUrl3 forKey:@"image3"];
     [para setObject:self.tv1.text forKey:@"desc"];
     [para setObject:self.tv2.text forKey:@"desc2"];
     [para setObject:self.tv3.text forKey:@"desc3"];

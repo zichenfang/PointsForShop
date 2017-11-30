@@ -20,8 +20,8 @@
 #define API_USER_LOGIN  @"/api.php/v1.Publics/sellerLogin"
 //MARK: ●注册
 #define API_USER_REGIST @"/api.php/v1.Publics/sellerRegister"
-//MARK: ●注册发送短信验证码
-#define API_USER_REGIST_CODE  @"/api.php/v1.Publics/sendSms"
+//MARK: ●发送短信验证码
+#define API_USER_SEND_CODE  @"/api.php/v1.Publics/sendSms"
 
 
 
@@ -30,22 +30,42 @@
 //MARK: ●API上传图片
 #define API_USER_UPLOAD_IMAGE  @"/api.php/v1.Seller/upload"
 //MARK: ●API上传不可修改信息
-#define API_USER_UPLOAD_INFORMATION_ONLY_ONCE  @"/api.php/v1.Seller/addInfo"
+#define API_USER_UPLOAD_INFORMATION_ONLY_ONCE  @"/api.php/v1.Seller/addQualifications"
 //MARK: ●API更新商家产品信息
 #define API_USER_UPLOAD_INFORMATION_PRODUCT  @"/api.php/v1.Seller/updateDetail"
+//MARK: ●API更新不需要审核信息
+#define API_USER_UPLOAD_INFORMATION_OTHER  @"/api.php/v1.Seller/updateInfo"
+
 //MARK: ●API省市区
 #define API_GET_PROVINCE_CITY_DISTRICT @"/api.php/v1.Publics/location"
+//MARK: ●API获取所有的商家分类
+#define API_GET_SHOP_CATEGORY @"/api.php/v1.Publics/sellerCategory"
+//MARK: ●API获取商家信息-不可修改信息(营业执照、许可证等)
+#define API_GET_SHOP_CANNOT_CHANGE_INFO @"/api.php/v1.Seller/qualifications"
+//MARK: ●API获取商户产品信息
+#define API_GET_SHOP_PRODUCT_INFO @"/api.php/v1.Seller/detail"
+//MARK: ●API获取商户信息
+#define API_GET_SHOP_OTHER_INFO @"/api.php/v1.Seller/info"
 
-//MARK: ●API找回密码-发送短信验证码
-#define API_USER_FINDPASSWORD_CODE  @"&method=jingtu.user.sendForgetPwdSms.post"
 //MARK: ●API找回密码
-#define API_USER_FINDPASSWORD  @"&method=jingtu.user.forgetPwd.post"
+#define API_USER_FINDPASSWORD  @"/api.php/v1.Publics/sellerRetrievePassword"
+
+
 
 //MARK: ●API
 #define API_GET_PAY_LOGIN_PASSWORD_CODE  @" "
-//MARK: ●API
-#define API_SET_PAY_LOGIN_PASSWORD  @" "
-
+//MARK: ●API设置提现密码
+#define API_SET_TAKECASH_PASSWORD  @"/api.php/v1.Seller/setWithdrawPassword"
+//MARK: ●API提现申请提现
+#define API_USER_POINTS_TAKE_CASH  @"/api.php/v1.Seller/applyWithdraw"
+//MARK: ●API获取商户积分流水
+#define API_USER_POINTS_HISTORY  @"/api.php/v1.Seller/statement"
+//MARK: ●API获取当前的费率
+#define API_USER_GET_RATE  @"/api.php/v1.Seller/getRate"
+//MARK: ●API设置提现账户
+#define API_SET_TAKECASH_ACCOUNT  @"/api.php/v1.Seller/setWithdrawAccount"
+//MARK: ●API积分充值
+#define API_POINTS_RECHARGE  @"/api.php/v1.Seller/integralRecharge"
 
 @interface TTRequestOperationManager : NSObject
 

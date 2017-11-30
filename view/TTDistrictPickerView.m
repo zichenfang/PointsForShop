@@ -73,18 +73,18 @@
     if (self.handler) {
         TTDistrictObj *districtModel = [[TTDistrictObj alloc] init];
         if (self.provinces.count>0) {
-            districtModel.provinceID = [[self.provinces objectAtIndex:self.province_selectedRow] string_ForKey:@"area_id"];
-            districtModel.provinceName = [[self.provinces objectAtIndex:self.province_selectedRow] string_ForKey:@"area_name"];
+            districtModel.provinceID = [[self.provinces objectAtIndex:self.province_selectedRow] string_ForKey:@"id"];
+            districtModel.provinceName = [[self.provinces objectAtIndex:self.province_selectedRow] string_ForKey:@"name"];
             
         }
         if (self.cities.count>0) {
-            districtModel.cityID = [[self.cities objectAtIndex:self.city_selectedRow] string_ForKey:@"area_id"];
-            districtModel.cityName = [[self.cities objectAtIndex:self.city_selectedRow] string_ForKey:@"area_name"];
+            districtModel.cityID = [[self.cities objectAtIndex:self.city_selectedRow] string_ForKey:@"id"];
+            districtModel.cityName = [[self.cities objectAtIndex:self.city_selectedRow] string_ForKey:@"name"];
             
         }
         if (self.districts.count>0) {
-            districtModel.districtID = [[self.districts objectAtIndex:self.district_selectedRow] string_ForKey:@"area_id"];
-            districtModel.districtName = [[self.districts objectAtIndex:self.district_selectedRow] string_ForKey:@"area_name"];
+            districtModel.districtID = [[self.districts objectAtIndex:self.district_selectedRow] string_ForKey:@"id"];
+            districtModel.districtName = [[self.districts objectAtIndex:self.district_selectedRow] string_ForKey:@"name"];
             
         }
         self.handler(districtModel);
@@ -136,17 +136,17 @@
     switch (component) {
         case 0:
         {
-            return [[self.provinces objectAtIndex:row] string_ForKey:@"area_name"];
+            return [[self.provinces objectAtIndex:row] string_ForKey:@"name"];
         }
             break;
         case 1:
         {
-            return [[self.cities objectAtIndex:row] string_ForKey:@"area_name"];
+            return [[self.cities objectAtIndex:row] string_ForKey:@"name"];
         }
             break;
         case 2:
         {
-            return [[self.districts objectAtIndex:row] string_ForKey:@"area_name"];
+            return [[self.districts objectAtIndex:row] string_ForKey:@"name"];
         }
             break;
             
@@ -226,22 +226,18 @@
     }
 }
 - (void)loadProvinceList{
-    
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:@"0" forKey:@"parent_id"];
-    
     [TTRequestOperationManager GET:API_GET_PROVINCE_CITY_DISTRICT Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSArray *result = [responseJsonObject array_ForKey:@"result"];
-
-        if ([code isEqualToString:@"1"]&&result.count>0)//
+        if ([code isEqualToString:@"200"]&&result.count>0)//
         {
             self.provinces = result;
             self.province_selectedRow = 0;
             self.city_selectedRow = 0;
             self.district_selectedRow = 0;
             [self loadCityList];
-
         }
         else{
             self.provinces = @[];
@@ -253,13 +249,11 @@
 }
 - (void)loadCityList{
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
-    [para setObject:[[self.provinces objectAtIndex:self.province_selectedRow] string_ForKey:@"area_id"] forKey:@"parent_id"];
-    
+    [para setObject:[[self.provinces objectAtIndex:self.province_selectedRow] string_ForKey:@"id"] forKey:@"parent_id"];
     [TTRequestOperationManager GET:API_GET_PROVINCE_CITY_DISTRICT Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSArray *result = [responseJsonObject array_ForKey:@"result"];
-        
-        if ([code isEqualToString:@"1"]&&result.count>0)//
+        if ([code isEqualToString:@"200"]&&result.count>0)//
         {
             self.cities = result;
             self.city_selectedRow = 0;
@@ -271,39 +265,28 @@
         }
         [self.pickerView reloadComponent:1];
         [self.pickerView selectRow:0 inComponent:1 animated:YES];
-        
     } Failure:^(NSError *error) {
     }];
 }
 - (void)loaddistrictList{
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
-    [para setObject:[[self.cities objectAtIndex:self.city_selectedRow] string_ForKey:@"area_id"] forKey:@"parent_id"];
-    
+    [para setObject:[[self.cities objectAtIndex:self.city_selectedRow] string_ForKey:@"id"] forKey:@"parent_id"];
     [TTRequestOperationManager GET:API_GET_PROVINCE_CITY_DISTRICT Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSArray *result = [responseJsonObject array_ForKey:@"result"];
-        
-        if ([code isEqualToString:@"1"])//
-        {
+        if ([code isEqualToString:@"200"]){
             if (self.districts ==nil) {
                 self.districts = [NSMutableArray array];
             }
             else{
                 [self.districts removeAllObjects];
             }
-            //添加一个默认值,用于选择城市作为目的地景点
-//            NSDictionary *dic = @{
-//                                  @"area_name" :[[self.cities objectAtIndex:self.city_selectedRow] string_ForKey:@"area_name"],
-//                                  @"area_id" :[[self.cities objectAtIndex:self.city_selectedRow] string_ForKey:@"area_id"]
-//                                  };
-//            [self.districts addObject:dic];
             if (result.count>0) {
                 [self.districts addObjectsFromArray:result];
             }
             self.district_selectedRow = 0;
         }
 
-//        [self updateSelectedModelInfo];
         [self.pickerView reloadComponent:2];
         [self.pickerView selectRow:0 inComponent:2 animated:YES];
         

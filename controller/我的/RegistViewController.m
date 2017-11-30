@@ -7,7 +7,7 @@
 //
 
 #import "RegistViewController.h"
-#import "MainMenuViewController.h"
+//#import "MainMenuViewController.h"
 
 @interface RegistViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *shopNameTF;
@@ -40,7 +40,7 @@
     [para setObject:phone forKey:@"mobile"];
     
     [ProgressHUD show:nil Interaction:NO];
-    [TTRequestOperationManager POST:API_USER_REGIST_CODE Parameters:para Success:^(NSDictionary *responseJsonObject) {
+    [TTRequestOperationManager POST:API_USER_SEND_CODE Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
         if ([code isEqualToString:@"200"])//
@@ -107,7 +107,7 @@
     [para setObject:self.passWordTF.text.md5_32Bit_String forKey:@"password"];
     [para setObject:self.codeTF.text forKey:@"code"];
     if ([TTUserInfoManager deviceToken]) {
-        [para setObject:[TTUserInfoManager deviceToken] forKey:@"push_token"];
+        [para setObject:[TTUserInfoManager jPushRegistID] forKey:@"push_token"];
     }
     else{
         [para setObject:@"没有token" forKey:@"push_token"];
@@ -117,8 +117,7 @@
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
         NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
-        if ([code isEqualToString:@"200"])//
-        {
+        if ([code isEqualToString:@"200"]) {
             [ProgressHUD showSuccess:@"注册成功" Interaction:NO];
             [TTUserInfoManager setUserInfo:result];
             [TTUserInfoManager setLogined:YES];
@@ -128,14 +127,12 @@
         else{
             [ProgressHUD showError:msg Interaction:NO];
         }
-        
     } Failure:^(NSError *error) {
         [ProgressHUD showError:@"网络请求错误" Interaction:NO];
     }];
 }
-//注册成功之后，直接跳转到主页，无须登录操作
+//注册成功之后，须登录操作
 - (void)registSuccess{
-    MainMenuViewController *mainVC = [[MainMenuViewController alloc] init];
-    [[UIApplication sharedApplication] delegate].window.rootViewController = mainVC;
+    [self.navigationController popViewControllerAnimated:YES];
 }
 @end

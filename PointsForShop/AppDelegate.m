@@ -53,14 +53,20 @@
 }
 //MARK:初始化JPush代码
 - (void)prepareJPushWithOptions:(NSDictionary *)launchOptions {
-    // Required
-    // init Push
-    // notice: 2.1.5版本的SDK新增的注册方法，改成可上报IDFA，如果没有使用IDFA直接传nil
     // 如需继续使用pushConfig.plist文件声明appKey等配置内容，请依旧使用[JPUSHService setupWithOption:launchOptions]方式初始化。
     [JPUSHService setupWithOption:launchOptions appKey:@"ad4193fb8db76ad975194754"
                           channel:@"1"
                  apsForProduction:0
             advertisingIdentifier:nil];
+    [JPUSHService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
+        if(resCode == 0){
+            NSLog(@"registrationID获取成功：%@",registrationID);
+            [TTUserInfoManager setJPUSHRegistID:registrationID];
+        }
+        else{
+            NSLog(@"registrationID获取失败，code：%d",resCode);
+        }
+    }];
     
 }
 //MARK:DeviceToken
@@ -77,6 +83,7 @@
     if (deviceTokenStr) {
         [TTUserInfoManager setAPNsDeviceToken:deviceTokenStr];
     }
+    
 }
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     //Optional

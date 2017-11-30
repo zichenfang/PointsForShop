@@ -20,7 +20,8 @@ NSString *const AppHasLaunched = @"AppHasLaunched";
 NSString *const Logined = @"Logined";
 //deivceToken
 NSString *const deviceTokenKey = @"deviceToken";
-
+//极光推送注册ID
+NSString *const jpushRid = @"jpushRid";
 
 @interface TTUserInfoManager()
 @property(nonatomic, strong)NSDictionary *userInfo;
@@ -129,6 +130,14 @@ NSString *const deviceTokenKey = @"deviceToken";
 }
 + (NSString *)deviceToken{
     return [[NSUserDefaults standardUserDefaults] stringForKey:deviceTokenKey];
+}
+//极光推送注册ID
++ (void)setJPUSHRegistID:(NSString *)rID{
+    [[NSUserDefaults standardUserDefaults] setObject:rID forKey:jpushRid];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
++ (NSString *)jPushRegistID{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:jpushRid];
 }
 + (void)setArea_name:(NSString *)area_name
 {

@@ -14,9 +14,10 @@
     [super awakeFromNib];
     //设置不规则圆角
     self.whiteBackView.layer.cornerRadius = 4;
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.whiteBackView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(34, 34)];
+    CGRect whiteBackViewRect =CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width -120, 150);
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:whiteBackViewRect byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(34, 34)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-    maskLayer.frame = self.whiteBackView.bounds;
+    maskLayer.frame = whiteBackViewRect;
     maskLayer.path = maskPath.CGPath;
     self.whiteBackView.layer.mask = maskLayer;
     //添加手势

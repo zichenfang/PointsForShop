@@ -36,7 +36,9 @@
 //注册APNs通知token
 + (void)setAPNsDeviceToken:(NSString *)deviceToken;
 + (NSString *)deviceToken;
-
+//极光推送注册ID
++ (void)setJPUSHRegistID:(NSString *)rID;
++ (NSString *)jPushRegistID;
 //地区
 + (void)setArea_name:(NSString *)area_name;
 + (NSString *)area_name;

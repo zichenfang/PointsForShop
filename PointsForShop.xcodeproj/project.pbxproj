@@ -10,6 +10,16 @@
 		288B54E620B9723A5A118ECE /* libPods-PointsForShop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 704646A00B4617E58855A948 /* libPods-PointsForShop.a */; };
 		E20267831FBFDEFF00970DEE /* TTDistrictPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E20267811FBFDEFF00970DEE /* TTDistrictPickerView.m */; };
 		E20267861FBFDF0C00970DEE /* TTDistrictObj.m in Sources */ = {isa = PBXBuildFile; fileRef = E20267851FBFDF0B00970DEE /* TTDistrictObj.m */; };
+		E23952831FC2A5DE00502FCC /* PointsDesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E23952811FC2A5DE00502FCC /* PointsDesViewController.m */; };
+		E23952841FC2A5DE00502FCC /* PointsDesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23952821FC2A5DE00502FCC /* PointsDesViewController.xib */; };
+		E23952871FC4083700502FCC /* TTShopInfoObj.m in Sources */ = {isa = PBXBuildFile; fileRef = E23952861FC4083700502FCC /* TTShopInfoObj.m */; };
+		E239528B1FC4147700502FCC /* TakeCashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E23952881FC4147600502FCC /* TakeCashViewController.m */; };
+		E239528C1FC4149A00502FCC /* TakeCashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23952891FC4147700502FCC /* TakeCashViewController.xib */; };
+		E239528F1FC4150600502FCC /* ResignKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = E239528E1FC4150600502FCC /* ResignKeyboardView.m */; };
+		E23952931FC50D8A00502FCC /* TakeCashDesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E23952911FC50D8A00502FCC /* TakeCashDesViewController.m */; };
+		E23952941FC50D8A00502FCC /* TakeCashDesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23952921FC50D8A00502FCC /* TakeCashDesViewController.xib */; };
+		E247EF241FC693B30092651F /* SetTakeCashAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E247EF221FC693B20092651F /* SetTakeCashAccountViewController.m */; };
+		E247EF251FC693B30092651F /* SetTakeCashAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E247EF231FC693B20092651F /* SetTakeCashAccountViewController.xib */; };
 		E24D18E81FBD1BA10028C0AA /* ShopInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E24D18E61FBD1BA10028C0AA /* ShopInfoViewController.m */; };
 		E24D18E91FBD1BA10028C0AA /* ShopInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E24D18E71FBD1BA10028C0AA /* ShopInfoViewController.xib */; };
 		E24D18ED1FBD20170028C0AA /* ShopInfoBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E24D18EB1FBD20170028C0AA /* ShopInfoBaseViewController.m */; };
@@ -20,6 +30,18 @@
 		E24D18F81FBD206F0028C0AA /* ShopInfoMoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E24D18F61FBD206F0028C0AA /* ShopInfoMoreViewController.xib */; };
 		E25956C71FBD64530012E624 /* TTNormalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E25956C51FBD64530012E624 /* TTNormalPickerView.m */; };
 		E25956CD1FBD64BD0012E624 /* TTNormalPickerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E25956CC1FBD64BD0012E624 /* TTNormalPickerItem.m */; };
+		E26A284F1FCCF0EF003CEC32 /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E26A284D1FCCF0EF003CEC32 /* RechargeViewController.m */; };
+		E26A28501FCCF0F0003CEC32 /* RechargeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E26A284E1FCCF0EF003CEC32 /* RechargeViewController.xib */; };
+		E26A28541FCD2A82003CEC32 /* DealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E26A28521FCD2A82003CEC32 /* DealViewController.m */; };
+		E26A28551FCD2A82003CEC32 /* DealViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E26A28531FCD2A82003CEC32 /* DealViewController.xib */; };
+		E26A28571FCD2D6C003CEC32 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26A28561FCD2D6C003CEC32 /* CoreImage.framework */; };
+		E28720731FC514930001AD67 /* PoinstHistoryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E28720711FC514930001AD67 /* PoinstHistoryListViewController.m */; };
+		E28720741FC514930001AD67 /* PoinstHistoryListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E28720721FC514930001AD67 /* PoinstHistoryListViewController.xib */; };
+		E28720781FC515210001AD67 /* PointsHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E28720771FC515210001AD67 /* PointsHistoryTableViewCell.m */; };
+		E287207B1FC5155D0001AD67 /* TTPointsHistoryObj.m in Sources */ = {isa = PBXBuildFile; fileRef = E28720791FC5155D0001AD67 /* TTPointsHistoryObj.m */; };
+		E287207F1FC516BB0001AD67 /* TTNullDataTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E287207E1FC516BA0001AD67 /* TTNullDataTableViewCell.m */; };
+		E28720801FC51E0D0001AD67 /* TTNullDataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E287207C1FC516BA0001AD67 /* TTNullDataTableViewCell.xib */; };
+		E28720811FC51E170001AD67 /* PointsHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E28720761FC515210001AD67 /* PointsHistoryTableViewCell.xib */; };
 		E2A2AD881FB9316C00C0C098 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A2AD871FB9316C00C0C098 /* AppDelegate.m */; };
 		E2A2AD901FB9316C00C0C098 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2A2AD8F1FB9316C00C0C098 /* Assets.xcassets */; };
 		E2A2AD931FB9316C00C0C098 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2A2AD911FB9316C00C0C098 /* LaunchScreen.storyboard */; };
@@ -43,7 +65,6 @@
 		E2A2AEE21FB9340100C0C098 /* SetLoginPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A2AE421FB932ED00C0C098 /* SetLoginPasswordViewController.m */; };
 		E2A2AEE31FB9340100C0C098 /* SetPayPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A2AE451FB932ED00C0C098 /* SetPayPasswordViewController.m */; };
 		E2A2AEF71FB9340100C0C098 /* TTObject.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A2ADBB1FB932EC00C0C098 /* TTObject.m */; };
-		E2A2AEFE1FB9340100C0C098 /* TTStoreObj.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A2ADC91FB932EC00C0C098 /* TTStoreObj.m */; };
 		E2A2AF1F1FB9371E00C0C098 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A2AF1D1FB9371E00C0C098 /* MainMenuViewController.m */; };
 		E2A2AF201FB9371E00C0C098 /* MainMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2A2AF1E1FB9371E00C0C098 /* MainMenuViewController.xib */; };
 		E2E9E3301FB970EE00246122 /* UserHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E9E32E1FB970EE00246122 /* UserHeaderCollectionReusableView.m */; };
@@ -66,6 +87,22 @@
 		E20267821FBFDEFF00970DEE /* TTDistrictPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTDistrictPickerView.h; sourceTree = "<group>"; };
 		E20267841FBFDF0B00970DEE /* TTDistrictObj.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTDistrictObj.h; sourceTree = "<group>"; };
 		E20267851FBFDF0B00970DEE /* TTDistrictObj.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTDistrictObj.m; sourceTree = "<group>"; };
+		E23952801FC2A5DE00502FCC /* PointsDesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PointsDesViewController.h; sourceTree = "<group>"; };
+		E23952811FC2A5DE00502FCC /* PointsDesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PointsDesViewController.m; sourceTree = "<group>"; };
+		E23952821FC2A5DE00502FCC /* PointsDesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PointsDesViewController.xib; sourceTree = "<group>"; };
+		E23952851FC4083700502FCC /* TTShopInfoObj.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTShopInfoObj.h; sourceTree = "<group>"; };
+		E23952861FC4083700502FCC /* TTShopInfoObj.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTShopInfoObj.m; sourceTree = "<group>"; };
+		E23952881FC4147600502FCC /* TakeCashViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TakeCashViewController.m; sourceTree = "<group>"; };
+		E23952891FC4147700502FCC /* TakeCashViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TakeCashViewController.xib; sourceTree = "<group>"; };
+		E239528A1FC4147700502FCC /* TakeCashViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TakeCashViewController.h; sourceTree = "<group>"; };
+		E239528D1FC4150600502FCC /* ResignKeyboardView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResignKeyboardView.h; sourceTree = "<group>"; };
+		E239528E1FC4150600502FCC /* ResignKeyboardView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResignKeyboardView.m; sourceTree = "<group>"; };
+		E23952901FC50D8A00502FCC /* TakeCashDesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TakeCashDesViewController.h; sourceTree = "<group>"; };
+		E23952911FC50D8A00502FCC /* TakeCashDesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TakeCashDesViewController.m; sourceTree = "<group>"; };
+		E23952921FC50D8A00502FCC /* TakeCashDesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TakeCashDesViewController.xib; sourceTree = "<group>"; };
+		E247EF211FC693B20092651F /* SetTakeCashAccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetTakeCashAccountViewController.h; sourceTree = "<group>"; };
+		E247EF221FC693B20092651F /* SetTakeCashAccountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetTakeCashAccountViewController.m; sourceTree = "<group>"; };
+		E247EF231FC693B20092651F /* SetTakeCashAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetTakeCashAccountViewController.xib; sourceTree = "<group>"; };
 		E24D18E51FBD1BA10028C0AA /* ShopInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopInfoViewController.h; sourceTree = "<group>"; };
 		E24D18E61FBD1BA10028C0AA /* ShopInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopInfoViewController.m; sourceTree = "<group>"; };
 		E24D18E71FBD1BA10028C0AA /* ShopInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopInfoViewController.xib; sourceTree = "<group>"; };
@@ -82,6 +119,24 @@
 		E25956C61FBD64530012E624 /* TTNormalPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTNormalPickerView.h; sourceTree = "<group>"; };
 		E25956CB1FBD64BD0012E624 /* TTNormalPickerItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTNormalPickerItem.h; sourceTree = "<group>"; };
 		E25956CC1FBD64BD0012E624 /* TTNormalPickerItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTNormalPickerItem.m; sourceTree = "<group>"; };
+		E26A284C1FCCF0EF003CEC32 /* RechargeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
+		E26A284D1FCCF0EF003CEC32 /* RechargeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RechargeViewController.m; sourceTree = "<group>"; };
+		E26A284E1FCCF0EF003CEC32 /* RechargeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RechargeViewController.xib; sourceTree = "<group>"; };
+		E26A28511FCD2A82003CEC32 /* DealViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DealViewController.h; sourceTree = "<group>"; };
+		E26A28521FCD2A82003CEC32 /* DealViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DealViewController.m; sourceTree = "<group>"; };
+		E26A28531FCD2A82003CEC32 /* DealViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DealViewController.xib; sourceTree = "<group>"; };
+		E26A28561FCD2D6C003CEC32 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		E28720701FC514930001AD67 /* PoinstHistoryListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PoinstHistoryListViewController.h; sourceTree = "<group>"; };
+		E28720711FC514930001AD67 /* PoinstHistoryListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PoinstHistoryListViewController.m; sourceTree = "<group>"; };
+		E28720721FC514930001AD67 /* PoinstHistoryListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PoinstHistoryListViewController.xib; sourceTree = "<group>"; };
+		E28720751FC515210001AD67 /* PointsHistoryTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PointsHistoryTableViewCell.h; sourceTree = "<group>"; };
+		E28720761FC515210001AD67 /* PointsHistoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PointsHistoryTableViewCell.xib; sourceTree = "<group>"; };
+		E28720771FC515210001AD67 /* PointsHistoryTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PointsHistoryTableViewCell.m; sourceTree = "<group>"; };
+		E28720791FC5155D0001AD67 /* TTPointsHistoryObj.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTPointsHistoryObj.m; sourceTree = "<group>"; };
+		E287207A1FC5155D0001AD67 /* TTPointsHistoryObj.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTPointsHistoryObj.h; sourceTree = "<group>"; };
+		E287207C1FC516BA0001AD67 /* TTNullDataTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TTNullDataTableViewCell.xib; sourceTree = "<group>"; };
+		E287207D1FC516BA0001AD67 /* TTNullDataTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTNullDataTableViewCell.h; sourceTree = "<group>"; };
+		E287207E1FC516BA0001AD67 /* TTNullDataTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTNullDataTableViewCell.m; sourceTree = "<group>"; };
 		E2A2AD831FB9316C00C0C098 /* PointsForShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PointsForShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2A2AD861FB9316C00C0C098 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E2A2AD871FB9316C00C0C098 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -91,8 +146,6 @@
 		E2A2AD951FB9316C00C0C098 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E2A2ADBA1FB932EC00C0C098 /* TTObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTObject.h; sourceTree = "<group>"; };
 		E2A2ADBB1FB932EC00C0C098 /* TTObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTObject.m; sourceTree = "<group>"; };
-		E2A2ADC81FB932EC00C0C098 /* TTStoreObj.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTStoreObj.h; sourceTree = "<group>"; };
-		E2A2ADC91FB932EC00C0C098 /* TTStoreObj.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTStoreObj.m; sourceTree = "<group>"; };
 		E2A2ADCB1FB932EC00C0C098 /* TTLocationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTLocationManager.h; sourceTree = "<group>"; };
 		E2A2ADCC1FB932EC00C0C098 /* TTLocationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTLocationManager.m; sourceTree = "<group>"; };
 		E2A2ADCD1FB932EC00C0C098 /* TTRequestOperationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTRequestOperationManager.h; sourceTree = "<group>"; };
@@ -156,6 +209,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E26A28571FCD2D6C003CEC32 /* CoreImage.framework in Frameworks */,
 				288B54E620B9723A5A118ECE /* libPods-PointsForShop.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -175,6 +229,7 @@
 		C34040B61D0151C8EA69692A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E26A28561FCD2D6C003CEC32 /* CoreImage.framework */,
 				704646A00B4617E58855A948 /* libPods-PointsForShop.a */,
 			);
 			name = Frameworks;
@@ -222,12 +277,14 @@
 			children = (
 				E2A2ADBA1FB932EC00C0C098 /* TTObject.h */,
 				E2A2ADBB1FB932EC00C0C098 /* TTObject.m */,
-				E2A2ADC81FB932EC00C0C098 /* TTStoreObj.h */,
-				E2A2ADC91FB932EC00C0C098 /* TTStoreObj.m */,
 				E25956CB1FBD64BD0012E624 /* TTNormalPickerItem.h */,
 				E25956CC1FBD64BD0012E624 /* TTNormalPickerItem.m */,
 				E20267841FBFDF0B00970DEE /* TTDistrictObj.h */,
 				E20267851FBFDF0B00970DEE /* TTDistrictObj.m */,
+				E23952851FC4083700502FCC /* TTShopInfoObj.h */,
+				E23952861FC4083700502FCC /* TTShopInfoObj.m */,
+				E287207A1FC5155D0001AD67 /* TTPointsHistoryObj.h */,
+				E28720791FC5155D0001AD67 /* TTPointsHistoryObj.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -299,6 +356,9 @@
 				E2A2AE441FB932ED00C0C098 /* SetPayPasswordViewController.h */,
 				E2A2AE451FB932ED00C0C098 /* SetPayPasswordViewController.m */,
 				E2A2AE461FB932ED00C0C098 /* SetPayPasswordViewController.xib */,
+				E247EF211FC693B20092651F /* SetTakeCashAccountViewController.h */,
+				E247EF221FC693B20092651F /* SetTakeCashAccountViewController.m */,
+				E247EF231FC693B20092651F /* SetTakeCashAccountViewController.xib */,
 				E2E9E33C1FB97D3900246122 /* ShopStatusViewController.h */,
 				E2E9E33D1FB97D3900246122 /* ShopStatusViewController.m */,
 				E2E9E33E1FB97D3900246122 /* ShopStatusViewController.xib */,
@@ -314,6 +374,24 @@
 				E24D18F41FBD206F0028C0AA /* ShopInfoMoreViewController.h */,
 				E24D18F51FBD206F0028C0AA /* ShopInfoMoreViewController.m */,
 				E24D18F61FBD206F0028C0AA /* ShopInfoMoreViewController.xib */,
+				E23952801FC2A5DE00502FCC /* PointsDesViewController.h */,
+				E23952811FC2A5DE00502FCC /* PointsDesViewController.m */,
+				E23952821FC2A5DE00502FCC /* PointsDesViewController.xib */,
+				E239528A1FC4147700502FCC /* TakeCashViewController.h */,
+				E23952881FC4147600502FCC /* TakeCashViewController.m */,
+				E23952891FC4147700502FCC /* TakeCashViewController.xib */,
+				E23952901FC50D8A00502FCC /* TakeCashDesViewController.h */,
+				E23952911FC50D8A00502FCC /* TakeCashDesViewController.m */,
+				E23952921FC50D8A00502FCC /* TakeCashDesViewController.xib */,
+				E28720701FC514930001AD67 /* PoinstHistoryListViewController.h */,
+				E28720711FC514930001AD67 /* PoinstHistoryListViewController.m */,
+				E28720721FC514930001AD67 /* PoinstHistoryListViewController.xib */,
+				E26A284C1FCCF0EF003CEC32 /* RechargeViewController.h */,
+				E26A284D1FCCF0EF003CEC32 /* RechargeViewController.m */,
+				E26A284E1FCCF0EF003CEC32 /* RechargeViewController.xib */,
+				E26A28511FCD2A82003CEC32 /* DealViewController.h */,
+				E26A28521FCD2A82003CEC32 /* DealViewController.m */,
+				E26A28531FCD2A82003CEC32 /* DealViewController.xib */,
 			);
 			path = "我的";
 			sourceTree = "<group>";
@@ -350,6 +428,14 @@
 				E25956C51FBD64530012E624 /* TTNormalPickerView.m */,
 				E20267821FBFDEFF00970DEE /* TTDistrictPickerView.h */,
 				E20267811FBFDEFF00970DEE /* TTDistrictPickerView.m */,
+				E239528D1FC4150600502FCC /* ResignKeyboardView.h */,
+				E239528E1FC4150600502FCC /* ResignKeyboardView.m */,
+				E28720751FC515210001AD67 /* PointsHistoryTableViewCell.h */,
+				E28720771FC515210001AD67 /* PointsHistoryTableViewCell.m */,
+				E28720761FC515210001AD67 /* PointsHistoryTableViewCell.xib */,
+				E287207D1FC516BA0001AD67 /* TTNullDataTableViewCell.h */,
+				E287207E1FC516BA0001AD67 /* TTNullDataTableViewCell.m */,
+				E287207C1FC516BA0001AD67 /* TTNullDataTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -420,21 +506,30 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E28720811FC51E170001AD67 /* PointsHistoryTableViewCell.xib in Resources */,
+				E28720801FC51E0D0001AD67 /* TTNullDataTableViewCell.xib in Resources */,
+				E239528C1FC4149A00502FCC /* TakeCashViewController.xib in Resources */,
 				E24D18E91FBD1BA10028C0AA /* ShopInfoViewController.xib in Resources */,
 				E2E9E3371FB974A100246122 /* FndPassWordViewController.xib in Resources */,
+				E23952941FC50D8A00502FCC /* TakeCashDesViewController.xib in Resources */,
 				E24D18F81FBD206F0028C0AA /* ShopInfoMoreViewController.xib in Resources */,
 				E24D18EE1FBD20170028C0AA /* ShopInfoBaseViewController.xib in Resources */,
+				E26A28501FCCF0F0003CEC32 /* RechargeViewController.xib in Resources */,
+				E23952841FC2A5DE00502FCC /* PointsDesViewController.xib in Resources */,
 				E2E9E3401FB97D3900246122 /* ShopStatusViewController.xib in Resources */,
 				E2E9E3381FB974A100246122 /* LoginViewController.xib in Resources */,
+				E26A28551FCD2A82003CEC32 /* DealViewController.xib in Resources */,
 				E2E9E3391FB974A100246122 /* RegistViewController.xib in Resources */,
 				E2E9E33A1FB974A100246122 /* SetLoginPasswordViewController.xib in Resources */,
 				E2E9E33B1FB974A100246122 /* SetPayPasswordViewController.xib in Resources */,
 				E24D18F31FBD20520028C0AA /* ShopInfoShenHeViewController.xib in Resources */,
 				E2A2AD931FB9316C00C0C098 /* LaunchScreen.storyboard in Resources */,
 				E2A2AF201FB9371E00C0C098 /* MainMenuViewController.xib in Resources */,
+				E28720741FC514930001AD67 /* PoinstHistoryListViewController.xib in Resources */,
 				E2E9E3361FB9726100246122 /* UserCenterCollectionViewCell.xib in Resources */,
 				E2A2AD901FB9316C00C0C098 /* Assets.xcassets in Resources */,
 				E2E9E3311FB970EE00246122 /* UserHeaderCollectionReusableView.xib in Resources */,
+				E247EF251FC693B30092651F /* SetTakeCashAccountViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,36 +589,47 @@
 			buildActionMask = 2147483647;
 			files = (
 				E25956C71FBD64530012E624 /* TTNormalPickerView.m in Sources */,
+				E28720781FC515210001AD67 /* PointsHistoryTableViewCell.m in Sources */,
 				E20267831FBFDEFF00970DEE /* TTDistrictPickerView.m in Sources */,
 				E2A2AEB51FB9340100C0C098 /* TTLocationManager.m in Sources */,
 				E25956CD1FBD64BD0012E624 /* TTNormalPickerItem.m in Sources */,
+				E287207B1FC5155D0001AD67 /* TTPointsHistoryObj.m in Sources */,
 				E2A2AEB61FB9340100C0C098 /* TTRequestOperationManager.m in Sources */,
 				E2A2AEB71FB9340100C0C098 /* TTUserInfoManager.m in Sources */,
 				E2A2AEB81FB9340100C0C098 /* NSDate+MyDate.m in Sources */,
+				E23952871FC4083700502FCC /* TTShopInfoObj.m in Sources */,
+				E247EF241FC693B30092651F /* SetTakeCashAccountViewController.m in Sources */,
 				E2A2AEB91FB9340100C0C098 /* NSString+MyCustomString.m in Sources */,
 				E2A2AEBA1FB9340100C0C098 /* UIBarButtonItem+TTStyle.m in Sources */,
 				E2A2AEBB1FB9340100C0C098 /* UIColor+MyColor.m in Sources */,
 				E24D18F71FBD206F0028C0AA /* ShopInfoMoreViewController.m in Sources */,
+				E26A284F1FCCF0EF003CEC32 /* RechargeViewController.m in Sources */,
 				E2A2AEBC1FB9340100C0C098 /* UIImage+MyCustomImage.m in Sources */,
+				E28720731FC514930001AD67 /* PoinstHistoryListViewController.m in Sources */,
+				E23952931FC50D8A00502FCC /* TakeCashDesViewController.m in Sources */,
 				E2A2AEBD1FB9340100C0C098 /* UIViewController+MyViewController.m in Sources */,
+				E239528B1FC4147700502FCC /* TakeCashViewController.m in Sources */,
 				E2A2AEBE1FB9340100C0C098 /* ImageBrowserVC.m in Sources */,
 				E2A2AEC01FB9340100C0C098 /* TTBaseNavigationViewController.m in Sources */,
 				E24D18ED1FBD20170028C0AA /* ShopInfoBaseViewController.m in Sources */,
 				E2A2AEC11FB9340100C0C098 /* TTBaseViewController.m in Sources */,
 				E2A2AED11FB9340100C0C098 /* GuideViewController.m in Sources */,
+				E287207F1FC516BB0001AD67 /* TTNullDataTableViewCell.m in Sources */,
+				E239528F1FC4150600502FCC /* ResignKeyboardView.m in Sources */,
 				E2E9E3351FB9726100246122 /* UserCenterCollectionViewCell.m in Sources */,
 				E2A2AF1F1FB9371E00C0C098 /* MainMenuViewController.m in Sources */,
 				E2A2AED81FB9340100C0C098 /* FndPassWordViewController.m in Sources */,
 				E20267861FBFDF0C00970DEE /* TTDistrictObj.m in Sources */,
+				E26A28541FCD2A82003CEC32 /* DealViewController.m in Sources */,
 				E2A2AEDA1FB9340100C0C098 /* LoginViewController.m in Sources */,
 				E2A2AEE11FB9340100C0C098 /* RegistViewController.m in Sources */,
 				E2A2AEE21FB9340100C0C098 /* SetLoginPasswordViewController.m in Sources */,
 				E2A2AEE31FB9340100C0C098 /* SetPayPasswordViewController.m in Sources */,
+				E23952831FC2A5DE00502FCC /* PointsDesViewController.m in Sources */,
 				E2E9E3301FB970EE00246122 /* UserHeaderCollectionReusableView.m in Sources */,
 				E2A2AEF71FB9340100C0C098 /* TTObject.m in Sources */,
 				E2E9E33F1FB97D3900246122 /* ShopStatusViewController.m in Sources */,
 				E24D18F21FBD20520028C0AA /* ShopInfoShenHeViewController.m in Sources */,
-				E2A2AEFE1FB9340100C0C098 /* TTStoreObj.m in Sources */,
 				E2A2AD961FB9316C00C0C098 /* main.m in Sources */,
 				E24D18E81FBD1BA10028C0AA /* ShopInfoViewController.m in Sources */,
 				E2A2AD881FB9316C00C0C098 /* AppDelegate.m in Sources */,

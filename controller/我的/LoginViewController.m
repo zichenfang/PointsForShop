@@ -51,15 +51,14 @@
     [para setObject:phone forKey:@"mobile"];
     [para setObject:self.passWordTF.text.md5_32Bit_String forKey:@"password"];
     if ([TTUserInfoManager deviceToken]) {
-        [para setObject:[TTUserInfoManager deviceToken] forKey:@"push_token"];
+        [para setObject:[TTUserInfoManager jPushRegistID] forKey:@"push_token"];
     }
     [ProgressHUD show:nil Interaction:NO];
     [TTRequestOperationManager POST:API_USER_LOGIN Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
         NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
-        if ([code isEqualToString:@"200"])//
-        {
+        if ([code isEqualToString:@"200"]) {
             [ProgressHUD showSuccess:@"登录成功" Interaction:NO];
             [TTUserInfoManager setUserInfo:result];
             [TTUserInfoManager setLogined:YES];
@@ -79,7 +78,7 @@
     MainMenuViewController *mainVC = [[MainMenuViewController alloc] init];
     UIWindow *keyWindow =[[UIApplication sharedApplication] delegate].window;
     [UIView transitionWithView:keyWindow duration:0.4 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
-        keyWindow.rootViewController = mainVC;
+        keyWindow.rootViewController = [[UINavigationController alloc] initWithRootViewController:mainVC];
     } completion:nil];
 }
 @end
