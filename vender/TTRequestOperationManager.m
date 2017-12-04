@@ -11,7 +11,7 @@
 #import "TTUserInfoManager.h"
 #import "ProgressHUD.h"
 #import "LoginViewController.h"
-#define REQUEST_TIMEOUT 30
+#define REQUEST_TIMEOUT 10
 
 @interface TTRequestOperationManager()
 @end
@@ -77,7 +77,7 @@
 {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    manager.requestSerializer.timeoutInterval =REQUEST_TIMEOUT *1.5;
+    manager.requestSerializer.timeoutInterval =REQUEST_TIMEOUT *2.5;
     if (![URLString hasPrefix:@"http"]) {
         URLString = [NSString stringWithFormat:@"%@%@",kHTTP,URLString];
     }

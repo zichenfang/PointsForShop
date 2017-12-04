@@ -8,10 +8,13 @@
 
 #import "DealViewController.h"
 #import <CoreImage/CoreImage.h>
+#import "QRCodeImageShowViewController.h"
+#import "RechargeViewController.h"
 
 @interface DealViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *inputMoneyTF;
-@property (strong, nonatomic) IBOutlet UIImageView *qrIV;
+@property (strong, nonatomic) IBOutlet UIButton *rechargeBtn;//充值按钮
+@property (strong, nonatomic) IBOutlet UILabel *pointsLabel;//积分余额
 
 @end
 
@@ -20,11 +23,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"买单";
+    [self configUI];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)configUI{
+    self.rechargeBtn.layer.masksToBounds = YES;
+    self.rechargeBtn.layer.cornerRadius = 12;
+    self.rechargeBtn.layer.borderWidth =1;
+    self.rechargeBtn.layer.borderColor = [UIColor stylePinkColor].CGColor;
+    self.pointsLabel.text = [[TTUserInfoManager userInfo] string_ForKey:@"integral_recharge"];
+}
+//MARK:充值
+- (IBAction)goRecharge:(id)sender {
+    RechargeViewController *vc = [[RechargeViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (IBAction)makeQRCode:(id)sender {
     if (self.inputMoneyTF.text.intValue<=0) {
@@ -43,8 +54,9 @@
     [filter setValue:data forKeyPath:@"inputMessage"];
     CIImage *ciimage = [filter outputImage];
     UIImage *bigImage = [self createNonInterpolatedUIImageFormCIImage:ciimage withSize:600];
-    self.qrIV.image = bigImage;
-    [ProgressHUD showSuccess:@"成功" Interaction:NO];
+    QRCodeImageShowViewController *vc = [[QRCodeImageShowViewController alloc] init];
+    vc.qrImage = bigImage;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 /**
  * 根据CIImage生成指定大小的UIImage

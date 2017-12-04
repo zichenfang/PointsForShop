@@ -40,6 +40,9 @@
 @property (nonatomic,assign)NSTimeInterval update_time;//
 @property (nonatomic,strong)NSString *withdraw_account;//
 @property (nonatomic,strong)NSString *withdraw_password;//
+@property (nonatomic,strong)NSString *use_range;//积分使用范围
+@property (nonatomic,strong)NSString *check_remark;//check_remark
+
 
 @end
 

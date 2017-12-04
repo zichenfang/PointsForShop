@@ -9,8 +9,12 @@
 #import "ShopInfoBaseViewController.h"
 #import "TTNormalPickerView.h"
 #import "TTNormalPickerItem.h"
-
+/*
+ 当前页面变化的控件比较多，为统一减少代码，对于可能会变化的控件，在xib中默认统一为隐藏（Hidden = YES）,contentView的用户交互默认为NO
+ */
 @interface ShopInfoBaseViewController ()<UITextFieldDelegate>
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIView *shenhezhongView;//上传成功之后，如果在审核中，则显示此View
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (strong, nonatomic) IBOutlet UIImageView *zhizhaoIV;
 @property (strong, nonatomic) IBOutlet UIImageView *xukezhengIV;
@@ -30,6 +34,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *saveBtn;
 @property (strong, nonatomic) IBOutlet UILabel *uploadTipLabel1;
 @property (strong, nonatomic) IBOutlet UILabel *uploadTipLabel2;
+@property (strong, nonatomic) IBOutlet UILabel *rejectReasonLabel;//审核未通过的原因
 
 @end
 
@@ -38,13 +43,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"基本信息";
-    self.shopNameLabel.text = [[TTUserInfoManager userInfo] string_ForKey:@"name"];
     [self loadShopInfo];
 }
 //MARK:获取店铺信息-不可修改信息
 - (void)loadShopInfo{
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:[TTUserInfoManager token] forKey:@"token"];
+    [para setObject:@"pending" forKey:@"type"];
     [ProgressHUD show:nil Interaction:NO];
     [TTRequestOperationManager POST:API_GET_SHOP_CANNOT_CHANGE_INFO Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
@@ -52,7 +57,7 @@
         NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
         if ([code isEqualToString:@"200"]){
             [ProgressHUD dismiss];
-            [self updateInfoUI:result];
+            [self switchUIHiddenWithInfo:result];
         }
         else{
             [ProgressHUD showError:msg];
@@ -60,35 +65,58 @@
     } Failure:^(NSError *error) {
     }];
 }
-- (void)updateInfoUI:(NSDictionary *)info{
-//    "status": "integer,0可上传 1不可上传"
-    NSString *status = [info string_ForKey:@"status"];
-    //页面默认为不可交互，
-    if ([status isEqualToString:@"1"]) {
-        //将已经上传过的信息赋值到当前页面
-        NSString *business_license = [info string_ForKey:@"business_license"];//营业执照
-        [self.zhizhaoIV sd_setImageWithURL:[NSURL URLWithString:business_license] placeholderImage:PLACEHOLDER_GENERAL];
-        NSString *business_permit = [info string_ForKey:@"business_permit"];//许可证
-        [self.xukezhengIV sd_setImageWithURL:[NSURL URLWithString:business_permit] placeholderImage:PLACEHOLDER_GENERAL];
-        NSString *source =[info string_ForKey:@"source"];//推荐来源 中文描述
-        self.recmondFromTF.text = source;
-        if ([source isEqualToString:@"业务员"]) {
-            self.workerView.hidden = NO;
-            self.workerNOTF.text = [info string_ForKey:@"recommend_admin"];
-        }
-        else if ([source isEqualToString:@"好友推荐"]){
-            self.workerView.hidden = NO;
-            self.workerNOTF.text = [info string_ForKey:@"recommend_phone"];
-        }
+//根据状态status，选择需要显示和隐藏的控件
+- (void)switchUIHiddenWithInfo:(NSDictionary *)info{
+    //type=pending时:1：待审核2：审核通过9：未上传信息 ；0未通过 type=其他值时:不存在
+    NSInteger state = [[info string_ForKey:@"state"] integerValue];
+    //待审核
+    if (state ==1) {
+        self.shenhezhongView.hidden = NO;
     }
-    else{
-        //若未上传过此页面信息，则打开交互，显示保存按钮
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(resignKeyBorad)];
-        self.contentView.userInteractionEnabled = YES;
+    //审核通过，显示已上传的信息
+    else if (state ==2){
+        self.scrollView.hidden = NO;
+        [self updateInfoUI:info];
+    }
+    //未上传信息
+    else if (state ==9){
+        self.scrollView.hidden = NO;
         self.uploadTipLabel1.hidden = NO;
         self.uploadTipLabel2.hidden = NO;
         self.saveBtn.hidden = NO;
+        self.contentView.userInteractionEnabled = YES;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(resignKeyBorad)];
     }
+    //未通过
+    else if (state ==0){
+        self.scrollView.hidden = NO;
+        self.uploadTipLabel1.hidden = NO;
+        self.uploadTipLabel2.hidden = NO;
+        self.saveBtn.hidden = NO;
+        self.rejectReasonLabel.hidden = NO;
+        self.contentView.userInteractionEnabled = YES;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(resignKeyBorad)];
+        [self updateInfoUI:info];
+    }
+}
+- (void)updateInfoUI:(NSDictionary *)info{
+    self.shopNameLabel.text = [[TTUserInfoManager userInfo] string_ForKey:@"name"];
+    //将已经上传过的信息赋值到当前页面
+    NSString *business_license = [info string_ForKey:@"business_license"];//营业执照
+    [self.zhizhaoIV sd_setImageWithURL:[NSURL URLWithString:business_license] placeholderImage:PLACEHOLDER_GENERAL];
+    NSString *business_permit = [info string_ForKey:@"business_permit"];//许可证
+    [self.xukezhengIV sd_setImageWithURL:[NSURL URLWithString:business_permit] placeholderImage:PLACEHOLDER_GENERAL];
+    NSString *source =[info string_ForKey:@"source"];//推荐来源 中文描述
+    self.recmondFromTF.text = source;
+    if ([source isEqualToString:@"业务员"]) {
+        self.workerView.hidden = NO;
+        self.workerNOTF.text = [info string_ForKey:@"recommend_admin"];
+    }
+    else if ([source isEqualToString:@"好友推荐"]){
+        self.workerView.hidden = NO;
+        self.workerNOTF.text = [info string_ForKey:@"recommend_phone"];
+    }
+    self.rejectReasonLabel.text =[info string_ForKey:@"check_remark"];//审核意见（审核不通过的原因）
 }
 - (void)resignKeyBorad{
     [self.zhizhaoIV.superview endEditing:YES];
@@ -265,6 +293,12 @@
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
         if ([code isEqualToString:@"200"]){
             [ProgressHUD showSuccess:msg Interaction:NO];
+            //提交成功之后，会获取state，该state等效于登录接口中的state
+            NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
+            NSString *state = [result string_ForKey:@"state"];
+            NSMutableDictionary *userinfo = [NSMutableDictionary dictionaryWithDictionary:[TTUserInfoManager userInfo]];
+            [userinfo setObject:state forKey:@"state"];
+            [TTUserInfoManager setUserInfo:userinfo];
             [self performSelector:@selector(successBack) withObject:nil afterDelay:1.2];
         }
         else{

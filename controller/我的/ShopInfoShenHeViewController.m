@@ -7,32 +7,38 @@
 //
 
 #import "ShopInfoShenHeViewController.h"
-
+/*
+ 当前页面变化的控件比较多，为统一减少代码，对于可能会变化的控件，在xib中默认统一为隐藏（Hidden = YES）,contentView的用户交互默认为NO
+ */
 @interface ShopInfoShenHeViewController ()
-@property (strong, nonatomic) IBOutlet UIView *contentView;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIView *shenhezhongView;//上传成功之后，如果在审核中，则显示此View
 
+@property (strong, nonatomic) IBOutlet UIImageView *iv_head;//新增加的门头照片
 @property (strong, nonatomic) IBOutlet UIImageView *iv1;
 @property (strong, nonatomic) IBOutlet UIImageView *iv2;
 @property (strong, nonatomic) IBOutlet UIImageView *iv3;
+
+@property (strong, nonatomic) UIImage *image_head;
 @property (strong, nonatomic) UIImage *image1;
 @property (strong, nonatomic) UIImage *image2;
 @property (strong, nonatomic) UIImage *image3;
+
+@property (strong, nonatomic) NSString *imageUrl_head;
 @property (strong, nonatomic) NSString *imageUrl1;
 @property (strong, nonatomic) NSString *imageUrl2;
 @property (strong, nonatomic) NSString *imageUrl3;
 
-
+@property (strong, nonatomic) IBOutlet UITextView *tv_head;
 @property (strong, nonatomic) IBOutlet UITextView *tv1;
 @property (strong, nonatomic) IBOutlet UITextView *tv2;
 @property (strong, nonatomic) IBOutlet UITextView *tv3;
+
+@property (strong, nonatomic) IBOutlet UILabel *placeHolderLabel_head;
 @property (strong, nonatomic) IBOutlet UILabel *placeHolderLabel1;
 @property (strong, nonatomic) IBOutlet UILabel *placeHolderLabel2;
 @property (strong, nonatomic) IBOutlet UILabel *placeHolderLabel3;
-
-@property (strong, nonatomic) IBOutlet UILabel *uploadTipLabel1;
-@property (strong, nonatomic) IBOutlet UILabel *uploadTipLabel2;
-@property (strong, nonatomic) IBOutlet UILabel *uploadTipLabel3;
-@property (strong, nonatomic) IBOutlet UIButton *saveBtn;
+@property (strong, nonatomic) IBOutlet UILabel *rejectReasonLabel;//审核未通过的原因
 
 @end
 
@@ -46,18 +52,19 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tvChanged:) name:UITextViewTextDidChangeNotification object:nil];
     [self loadShopInfo];
 }
-//MARK:获取店铺信息-不可修改信息
+//MARK:获取店铺信息
 - (void)loadShopInfo{
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:[TTUserInfoManager token] forKey:@"token"];
+    [para setObject:@"pending" forKey:@"type"];
     [ProgressHUD show:nil Interaction:NO];
     [TTRequestOperationManager POST:API_GET_SHOP_PRODUCT_INFO Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
         NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
         if ([code isEqualToString:@"200"]){
+            [self switchUIHiddenWithInfo:result];
             [ProgressHUD dismiss];
-            [self updateInfoUI:result];
         }
         else{
             [ProgressHUD showError:msg];
@@ -65,39 +72,50 @@
     } Failure:^(NSError *error) {
     }];
 }
-- (void)updateInfoUI:(NSDictionary *)info{
-    //    "state": "string,1待审核2审核通过0未通过",
-    NSString *state = [info string_ForKey:@"state"];
-    //页面默认为不可交互
-    if ([state isEqualToString:@"1"]||[state isEqualToString:@"2"]) {
-        //待审核或者审核通过状态下，将已经上传过的信息赋值到当前页面
-        NSString *image1 = [info string_ForKey:@"image"];//
-        [self.iv1 sd_setImageWithURL:[NSURL URLWithString:image1] placeholderImage:PLACEHOLDER_GENERAL];
-        NSString *image2 = [info string_ForKey:@"image2"];//
-        [self.iv2 sd_setImageWithURL:[NSURL URLWithString:image2] placeholderImage:PLACEHOLDER_GENERAL];
-        NSString *image3 = [info string_ForKey:@"image3"];//
-        [self.iv3 sd_setImageWithURL:[NSURL URLWithString:image3] placeholderImage:PLACEHOLDER_GENERAL];
-        self.tv1.text = [info string_ForKey:@"desc"];
-        self.tv2.text = [info string_ForKey:@"desc2"];
-        self.tv3.text = [info string_ForKey:@"desc3"];
-        self.placeHolderLabel1.hidden = YES;
-        self.placeHolderLabel2.hidden = YES;
-        self.placeHolderLabel3.hidden = YES;
-        if ([state isEqualToString:@"1"]){
-            //待审核
-            self.saveBtn.hidden = NO;
-            self.saveBtn.enabled = NO;//待审核
-        }
+//根据状态status，选择需要显示和隐藏的控件
+- (void)switchUIHiddenWithInfo:(NSDictionary *)info{
+    //type=pending时:1：待审核2：审核通过9：未上传信息 ；0未通过 type=其他值时:不存在
+    NSInteger state = [[info string_ForKey:@"state"] integerValue];
+    //待审核
+    if (state ==1) {
+        self.shenhezhongView.hidden = NO;
     }
-    else{
-        //若未上传过此页面信息，则打开交互，显示保存按钮
+    //审核通过，显示已上传的信息
+    else if (state ==2){
+        self.scrollView.hidden = NO;
+        [self updateInfoUI:info];
+    }
+    //未上传信息
+    else if (state ==9){
+        self.scrollView.hidden = NO;
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(resignKeyBorad)];
-        self.contentView.userInteractionEnabled = YES;
-        self.uploadTipLabel1.hidden = NO;
-        self.uploadTipLabel2.hidden = NO;
-        self.uploadTipLabel3.hidden = NO;
-        self.saveBtn.hidden = NO;
     }
+    //未通过
+    else if (state ==0){
+        self.scrollView.hidden = NO;
+        self.rejectReasonLabel.hidden = NO;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(resignKeyBorad)];
+        [self updateInfoUI:info];
+    }
+}
+- (void)updateInfoUI:(NSDictionary *)info{
+    //头图
+    NSString *head_img = [info string_ForKey:@"head_img"];
+    [self.iv_head sd_setImageWithURL:[NSURL URLWithString:head_img] placeholderImage:PLACEHOLDER_GENERAL];
+    self.tv_head.text =[info string_ForKey:@"introduction"];
+    //主图
+    NSString *imageUrl_1 = [info string_ForKey:@"image"];
+    [self.iv1 sd_setImageWithURL:[NSURL URLWithString:imageUrl_1] placeholderImage:PLACEHOLDER_GENERAL];
+    self.tv1.text =[info string_ForKey:@"desc"];
+    //副图1
+    NSString *imageUrl_2 = [info string_ForKey:@"image2"];
+    [self.iv_head sd_setImageWithURL:[NSURL URLWithString:imageUrl_2] placeholderImage:PLACEHOLDER_GENERAL];
+    self.tv_head.text =[info string_ForKey:@"desc2"];
+    //副图2
+    NSString *imageUrl_3 = [info string_ForKey:@"image3"];
+    [self.iv_head sd_setImageWithURL:[NSURL URLWithString:imageUrl_3] placeholderImage:PLACEHOLDER_GENERAL];
+    self.tv_head.text =[info string_ForKey:@"desc3"];
+    self.rejectReasonLabel.text =[info string_ForKey:@"check_remark"];//审核意见（审核不通过的原因）
 }
 - (void)resignKeyBorad{
     [self.iv1.superview.superview endEditing:YES];
@@ -128,6 +146,14 @@
             self.placeHolderLabel3.hidden = NO;
         }
     }
+    else if (tv == self.tv_head){
+        if (self.tv_head.text.absolute_String.length>0) {
+            self.placeHolderLabel_head.hidden = YES;
+        }
+        else{
+            self.placeHolderLabel_head.hidden = NO;
+        }
+    }
 }
 - (IBAction)selectImage1:(id)sender {
     [self selectPhotoIndex:1];
@@ -138,8 +164,12 @@
 - (IBAction)selectImage3:(id)sender {
     [self selectPhotoIndex:3];
 }
+//MARK:门头照片
+- (IBAction)selectImageHead:(id)sender {
+    [self selectPhotoIndex:10];
+}
 //MARK:选择图片
-- (IBAction)selectPhotoIndex:(int)index {
+- (void)selectPhotoIndex:(int)index {
     [self resignKeyBorad];
     ZLPhotoActionSheet *actionSheet = [[ZLPhotoActionSheet alloc] init];
     //设置照片最大选择数
@@ -164,6 +194,10 @@
                 weakSelf.image3 = images[0];
                 [self uploadImageIndex:3];
             }
+            else if (index ==10){
+                weakSelf.image_head = images[0];
+                [self uploadImageIndex:10];
+            }
         }
     }];
     //调用相册
@@ -183,6 +217,9 @@
     }
     else if (index ==3){
         image = self.image3;
+    }
+    else if (index ==10){
+        image = self.image_head;
     }
     [ProgressHUD show:nil Interaction:NO];
     [TTRequestOperationManager POST:API_USER_UPLOAD_IMAGE parameters:para constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
@@ -205,6 +242,10 @@
                 self.imageUrl3 =imageUrl;
                 self.iv3.image =self.image3;
             }
+            else if (index ==10){
+                self.imageUrl_head =imageUrl;
+                self.iv_head.image =self.image_head;
+            }
             [ProgressHUD dismiss];
         }
         else{
@@ -215,11 +256,11 @@
 }
 //MARK:保存
 - (IBAction)save:(id)sender {
-    if (self.imageUrl1.length<2||self.imageUrl2.length<2||self.imageUrl3.length<2) {
+    if (self.imageUrl1.length<2||self.imageUrl2.length<2||self.imageUrl3.length<2||self.imageUrl_head.length<2) {
         [ProgressHUD showError:@"请上传完整介绍图片" Interaction:NO];
         return;
     }
-    if (self.tv1.text.absolute_String.length<2||self.tv2.text.absolute_String.length<2||self.tv2.text.absolute_String.length<2) {
+    if (self.tv1.text.absolute_String.length<2||self.tv2.text.absolute_String.length<2||self.tv2.text.absolute_String.length<2||self.tv_head.text.absolute_String.length<2) {
         [ProgressHUD showError:@"请输入完整店铺介绍" Interaction:NO];
         return;
     }
@@ -233,21 +274,30 @@
     [para setObject:self.imageUrl1 forKey:@"image"];
     [para setObject:self.imageUrl2 forKey:@"image2"];
     [para setObject:self.imageUrl3 forKey:@"image3"];
+    [para setObject:self.imageUrl_head forKey:@"head_img"];
+
     [para setObject:self.tv1.text forKey:@"desc"];
     [para setObject:self.tv2.text forKey:@"desc2"];
     [para setObject:self.tv3.text forKey:@"desc3"];
+    [para setObject:self.tv_head.text forKey:@"introduction"];
+
     [ProgressHUD show:nil Interaction:NO];
     [TTRequestOperationManager POST:API_USER_UPLOAD_INFORMATION_PRODUCT Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
         if ([code isEqualToString:@"200"]){
             [ProgressHUD showSuccess:msg Interaction:NO];
+            //提交成功之后，会获取state，该state等效于登录接口中的state
+            NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
+            NSString *state = [result string_ForKey:@"state"];
+            NSMutableDictionary *userinfo = [NSMutableDictionary dictionaryWithDictionary:[TTUserInfoManager userInfo]];
+            [userinfo setObject:state forKey:@"state"];
+            [TTUserInfoManager setUserInfo:userinfo];
             [self performSelector:@selector(successBack) withObject:nil afterDelay:1.2];
         }
         else{
             [ProgressHUD showError:msg];
         }
-        
     } Failure:^(NSError *error) {
         
     }];

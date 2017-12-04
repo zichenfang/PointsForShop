@@ -40,7 +40,10 @@ typedef void (^TTBlock)(NSDictionary *info);
 #define kNoti_RCMsgUpdated @"NNNNOTI_003"
 /*收到新的好友验证消息*/
 #define kNoti_FriendAuthReceived @"NNNNOTI_004"
-
+/*支付成功*/
+#define kNoti_AliPaySuccess @"NNNNOTI_005"
+/*支付失败*/
+#define kNoti_AliPayFailed @"NNNNOTI_006"
 
 
 #endif /* TTVenderHeader_h */

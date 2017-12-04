@@ -10,6 +10,7 @@
 
 @interface SetTakeCashAccountViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *accountTF;
+@property (strong, nonatomic) IBOutlet UITextField *passWordTF;
 
 @end
 
@@ -17,7 +18,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
 }
 - (IBAction)ok:(id)sender {
     if (self.accountTF.text.length<6) {
@@ -27,6 +27,8 @@
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:[TTUserInfoManager token] forKey:@"token"];
     [para setObject:self.accountTF.text forKey:@"withdraw_account"];
+    [para setObject:self.passWordTF.text.md5_32Bit_String forKey:@"withdraw_password"];
+
     [ProgressHUD show:nil Interaction:NO];
     [TTRequestOperationManager POST:API_SET_TAKECASH_ACCOUNT Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];

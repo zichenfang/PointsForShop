@@ -9,13 +9,14 @@
 #import "MainMenuViewController.h"
 #import "UserHeaderCollectionReusableView.h"
 #import "UserCenterCollectionViewCell.h"
-#import "LoginViewController.h"
 #import "ShopInfoViewController.h"
 #import "TakeCashViewController.h"
 #import "PoinstHistoryListViewController.h"
-#import "SetTakeCashAccountViewController.h"
 #import "RechargeViewController.h"
 #import "DealViewController.h"
+#import "SettingViewController.h"
+#import "SetTakeCashAccountViewController.h"
+#import "SetPayPasswordViewController.h"
 
 @interface MainMenuViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) IBOutlet UICollectionView *cv;
@@ -31,7 +32,7 @@
     [self prepareCV];
 }
 - (void)prepareCV{
-    self.menus =@[@"店铺维护",@"积分记录",@"提现申请",@"充值",@"买单",@"设置",@"查看店铺",@"退出登录"];
+    self.menus =@[@"店铺维护",@"积分记录",@"提现申请",@"充值",@"买单",@"设置",@"查看店铺",@"退单",@"联系我们"];
     UINib *nibHeader = [UINib nibWithNibName:@"UserHeaderCollectionReusableView" bundle:nil];
     [self.cv registerNib:nibHeader forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"home"];
     
@@ -89,6 +90,38 @@
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSString *title = self.menus[indexPath.row];
+//    商户状态:0禁用 1审核中 2审核通过9注册未填写信息
+    NSInteger state =[[[TTUserInfoManager userInfo] string_ForKey:@"state"] integerValue];
+//    state =9;
+    NSArray *disabledMenus= @[@"积分记录",@"提现申请",@"充值",@"买单",@"查看店铺"];//禁用掉的菜单
+    NSString *errMsg =@"";//禁用弹窗描述
+    if (state ==0) {
+        errMsg = @"当前账户已被禁用";
+        disabledMenus= @[@"店铺维护",@"积分记录",@"提现申请",@"充值",@"买单",@"查看店铺"];
+    }
+    else if (state ==1){
+        errMsg = @"店铺信息审核中";
+    }
+    else if (state ==9){
+        errMsg = @"店铺信息不完整，前往店铺维护中完善信息";
+    }
+    else if (state ==2){
+        disabledMenus =@[];
+    }
+    //在禁用菜单当中
+    if ([disabledMenus indexOfObject:title]!=NSNotFound) {
+        if (state ==9) {
+            //信息不完整，则弹出alert，提示进入设置信息维护页面
+            [self presentAlertWithTitle:errMsg Handler:^{
+                [self goUserInfo];
+            } Cancel:nil];
+        }
+        else{
+            //信息不完整，则弹出alert
+            [self presentToastAlertWithTitle:errMsg Handler:nil];
+        }
+        return;
+    }
     if ([title isEqualToString:@"店铺维护"]) {
         [self goUserInfo];
     }
@@ -105,14 +138,12 @@
         [self deal];
     }
     else if ([title isEqualToString:@"设置"]){
-        SetTakeCashAccountViewController *vc =[[SetTakeCashAccountViewController alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
+        [self goSetting];
     }
     else if ([title isEqualToString:@"查看店铺"]){}
-    else if ([title isEqualToString:@"退出登录"]){
-        [self presentAlertWithTitle:@"退出登录" Handler:^{
-            [self loginOut];
-        } Cancel:nil];
+    else if ([title isEqualToString:@"退单"]){
+    }
+    else if ([title isEqualToString:@"联系我们"]){
     }
     NSLog(@"%@",title);
 }
@@ -128,27 +159,50 @@
 }
 //MARK:提现
 - (void)takeCash{
-    TakeCashViewController *vc = [[TakeCashViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    //检测是否设置过支付账号，没有的话则进入支付账号设置页面
+    if ([[TTUserInfoManager userInfo] string_ForKey:@"withdraw_password"].length<=4) {
+        [self presentAlertWithTitle:@"您尚未设置支付密码" Handler:^{
+            [self goSettingPayPassword];
+        } Cancel:^{
+        }];
+    }
+    //检查是否有设置过支付密码，没有则进入支付密码设置界面
+    else if ([[TTUserInfoManager userInfo] string_ForKey:@"withdraw_account"].length<=4) {
+        [self presentAlertWithTitle:@"您尚未设置提现账号" Handler:^{
+            [self goSettingPayAccount];
+        } Cancel:^{
+        }];
+    }
+    else{
+        TakeCashViewController *vc = [[TakeCashViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 //MARK:积分充值
 - (void)recharge{
     RechargeViewController *vc = [[RechargeViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
+- (void)goSettingPayAccount{
+    SetTakeCashAccountViewController *vc = [[SetTakeCashAccountViewController alloc] init];
+    vc.hidesBottomBarWhenPushed  =NO;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+- (void)goSettingPayPassword{
+    SetPayPasswordViewController *vc = [[SetPayPasswordViewController alloc] init];
+    vc.hidesBottomBarWhenPushed  =NO;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
 //MARK:买单
 - (void)deal{
     DealViewController *vc = [[DealViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
-//MARK:退出登录
-- (void)loginOut{
-    [TTUserInfoManager setLogined:NO];
-    [TTUserInfoManager setUserInfo:@{}];
-    LoginViewController *vc = [[LoginViewController alloc] init];
-    UIWindow *keyWindow =[[UIApplication sharedApplication] delegate].window;
-    [UIView transitionWithView:keyWindow duration:0.4 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
-        keyWindow.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];;
-    } completion:nil];
+//MARK:设置
+- (void)goSetting{
+    SettingViewController *vc = [[SettingViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
+
 @end

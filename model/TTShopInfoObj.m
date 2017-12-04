@@ -43,6 +43,8 @@
     self.update_time = [[info string_ForKey:@"update_time"] doubleValue];
     self.withdraw_account = [info string_ForKey:@"withdraw_account"];
     self.withdraw_password = [info string_ForKey:@"withdraw_password"];
+    self.use_range = [info string_ForKey:@"use_range"];
+    self.check_remark = [info string_ForKey:@"check_remark"];
 
     return self;
 }

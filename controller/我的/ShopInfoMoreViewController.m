@@ -18,8 +18,10 @@
 #import "TTShopInfoObj.h"
 
 @interface ShopInfoMoreViewController ()<UITextFieldDelegate,MAMapViewDelegate,AMapSearchDelegate,MAMapViewDelegate>
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIView *shenhezhongView;//上传成功之后，如果在审核中，则显示此View
 @property (strong, nonatomic) IBOutlet UITextField *pointsPercentTF;//积分比例
-@property (strong, nonatomic) IBOutlet UITextField *pointsDesTF;//积分说明
+@property (strong, nonatomic) IBOutlet UITextView *pointsUseDesTV;//积分使用说明
 @property (strong, nonatomic) IBOutlet UITextField *phoneTF;
 @property (strong, nonatomic) IBOutlet UITextField *areaTF;//地区
 @property (strong, nonatomic) IBOutlet UITextField *addressTF;//详细地址
@@ -35,7 +37,7 @@
 @property (strong, nonatomic) MAPointAnnotation *pointAnnotation;//点击地图，选择地图位置
 @property (strong, nonatomic) NSMutableArray *pinleiDatas;//选择品类候选
 @property (strong, nonatomic) TTNormalPickerItem *pinleiItem;//选中品类
-
+@property (strong, nonatomic) IBOutlet UILabel *rejectReasonLabel;//审核未通过的原因
 
 @end
 
@@ -44,7 +46,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"更多信息";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(resignKeyBorad)];
     [self configMapUIAndOtherUI];
     [self loadShopInfo];
 }
@@ -52,6 +53,7 @@
 - (void)loadShopInfo{
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:[TTUserInfoManager token] forKey:@"token"];
+    [para setObject:@"pending" forKey:@"type"];
     [ProgressHUD show:nil Interaction:NO];
     [TTRequestOperationManager POST:API_GET_SHOP_OTHER_INFO Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
@@ -60,7 +62,7 @@
         if ([code isEqualToString:@"200"]){
             [ProgressHUD dismiss];
             self.shopInfo = [[TTShopInfoObj alloc] initWithDic:result];
-            [self updateInfoUI];
+            [self switchUIHidden];
         }
         else{
             [ProgressHUD showError:msg];
@@ -69,11 +71,42 @@
     } Failure:^(NSError *error) {
     }];
 }
+//根据状态status，选择需要显示和隐藏的控件
+- (void)switchUIHidden{
+    //type=pending时:1：待审核2：审核通过9：未上传信息 ；0未通过 type=其他值时:不存在
+    NSInteger state = self.shopInfo.state.integerValue;
+    //待审核
+    if (state ==1) {
+        self.shenhezhongView.hidden = NO;
+    }
+    //审核通过，显示已上传的信息
+    else if (state ==2){
+        self.scrollView.hidden = NO;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"积分说明" style:UIBarButtonItemStylePlain target:self action:@selector(checkPoinsDes)];
+        [self updateInfoUI];
+    }
+    //未上传信息
+    else if (state ==9){
+        self.scrollView.hidden = NO;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"积分说明" style:UIBarButtonItemStylePlain target:self action:@selector(checkPoinsDes)];
+    }
+    //未通过
+    else if (state ==0){
+        self.scrollView.hidden = NO;
+        self.rejectReasonLabel.hidden = NO;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"积分说明" style:UIBarButtonItemStylePlain target:self action:@selector(checkPoinsDes)];
+        [self updateInfoUI];
+    }
+}
+
 - (void)updateInfoUI{
     if (self.shopInfo.shop_id.intValue>0) {
         //待审核或者审核通过状态下，将已经上传过的信息赋值到当前页面
         if (self.shopInfo.integral_ratio.length>1) {
-            self.pointsPercentTF.text =self.shopInfo.integral_ratio;//积分比例
+            self.pointsPercentTF.text =[NSString stringWithFormat:@"%@%%",self.shopInfo.integral_ratio];//积分比例
+        }
+        if (self.shopInfo.use_range.length>1) {
+            self.pointsUseDesTV.text =self.shopInfo.use_range;//积分使用说明
         }
         if (self.shopInfo.mobile.length>1) {
             self.phoneTF.text =self.shopInfo.mobile;//电话
@@ -97,6 +130,7 @@
         if (self.shopInfo.business_hours.length>1) {
             self.openTimeTF.text =self.shopInfo.business_hours;//时间
         }
+        self.rejectReasonLabel.text =self.shopInfo.check_remark;//审核意见（审核不通过的原因）
     }
 }
 - (void)resignKeyBorad{
@@ -144,13 +178,6 @@
         [self resignKeyBorad];
         [self selectPointsPercent];
         return NO;
-    }
-    else if (textField ==self.pointsDesTF){
-        //积分说明
-        [self resignKeyBorad];
-        [self checkPoinsDes];
-        return NO;
-        
     }
     else if (textField ==self.areaTF){
         //省市区
@@ -316,6 +343,10 @@
     if (self.pointsPercentItem.item_id.intValue !=self.shopInfo.integral_ratio.intValue &&self.pointsPercentItem.item_id.intValue>0) {
         [para setObject:self.pointsPercentItem.item_id forKey:@"integral_ratio"];
     }
+    //积分使用说明
+    if (![self.pointsUseDesTV.text.absolute_String isEqualToString:self.shopInfo.use_range.absolute_String]&&self.pointsUseDesTV.text.absolute_String.length>1) {
+        [para setObject:self.phoneTF.text forKey:@"use_range"];
+    }
     //电话
     if (![self.phoneTF.text.absolute_String isEqualToString:self.shopInfo.mobile.absolute_String]&&self.phoneTF.text.absolute_String.length>1) {
         [para setObject:self.phoneTF.text forKey:@"mobile"];
@@ -353,6 +384,12 @@
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
         if ([code isEqualToString:@"200"]){
             [ProgressHUD showSuccess:msg Interaction:NO];
+            //提交成功之后，会获取state，该state等效于登录接口中的state
+            NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
+            NSString *state = [result string_ForKey:@"state"];
+            NSMutableDictionary *userinfo = [NSMutableDictionary dictionaryWithDictionary:[TTUserInfoManager userInfo]];
+            [userinfo setObject:state forKey:@"state"];
+            [TTUserInfoManager setUserInfo:userinfo];
             [self performSelector:@selector(successBack) withObject:nil afterDelay:1.2];
         }
         else{

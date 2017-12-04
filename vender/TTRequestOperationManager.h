@@ -23,8 +23,6 @@
 //MARK: ●发送短信验证码
 #define API_USER_SEND_CODE  @"/api.php/v1.Publics/sendSms"
 
-
-
 //MARK: ●API修改用户名
 #define API_USER_CHANGE_USERNAME  @"&method=jingtu.user_center.editMemberInfo.post"
 //MARK: ●API上传图片
@@ -49,7 +47,8 @@
 
 //MARK: ●API找回密码
 #define API_USER_FINDPASSWORD  @"/api.php/v1.Publics/sellerRetrievePassword"
-
+//MARK: ●API修改登录
+#define API_USER_CHANGE_LOGIN_PASSWORD  @"/api.php/v1.Seller/changePassword"
 
 
 //MARK: ●API
@@ -60,12 +59,18 @@
 #define API_USER_POINTS_TAKE_CASH  @"/api.php/v1.Seller/applyWithdraw"
 //MARK: ●API获取商户积分流水
 #define API_USER_POINTS_HISTORY  @"/api.php/v1.Seller/statement"
-//MARK: ●API获取当前的费率
-#define API_USER_GET_RATE  @"/api.php/v1.Seller/getRate"
+
 //MARK: ●API设置提现账户
 #define API_SET_TAKECASH_ACCOUNT  @"/api.php/v1.Seller/setWithdrawAccount"
 //MARK: ●API积分充值
 #define API_POINTS_RECHARGE  @"/api.php/v1.Seller/integralRecharge"
+//MARK: ●API积分充值记录
+#define API_USER_RECHARGE_HISTORY  @""
+
+
+
+//MARK: ●API获取用户当前信息（包括用户信息、积分账户信息、积分汇率等）
+#define API_USER_GET_ALLINFO  @"/api.php/v1.Seller/account"
 
 @interface TTRequestOperationManager : NSObject
 

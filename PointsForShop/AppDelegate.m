@@ -11,6 +11,7 @@
 #import "MainMenuViewController.h"
 #import "GuideViewController.h"
 #import "LoginViewController.h"
+#import <AlipaySDK/AlipaySDK.h>
 
 @interface AppDelegate ()
 
@@ -95,5 +96,40 @@
     [JPUSHService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
 }
+//MARK:处理支付宝客户端返回的url（在app被杀模式下，通过这个方法获取支付结果）。
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    if ([url.host isEqualToString:@"safepay"]) {
+        //跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            [self handlerAlipaySuccess:resultDic];
+        }];
+    }
+    return YES;
+}
 
+// NOTE: 9.0以后使用新API接口 处理支付宝客户端返回的url（在app被杀模式下，通过这个方法获取支付结果）。
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
+{
+    if ([url.host isEqualToString:@"safepay"]) {
+        //跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            [self handlerAlipaySuccess:resultDic];
+        }];
+    }
+    return YES;
+}
+//MARK:支付宝支付回掉处理
+- (void)handlerAlipaySuccess :(NSDictionary *)resultDic{
+    NSLog(@"result = %@",resultDic);
+    NSString *resultStatus = [resultDic objectForKey:@"resultStatus"];
+    if ([resultStatus isEqualToString:@"9000"]) {
+        //success
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNoti_AliPaySuccess object:nil];
+    }
+    else{
+        //FAILED
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNoti_AliPayFailed object:resultDic];
+    }
+
+}
 @end

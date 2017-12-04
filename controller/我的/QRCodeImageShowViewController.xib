@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QRCodeImageShowViewController">
+            <connections>
+                <outlet property="iv" destination="yXq-OW-eo6" id="uWV-z5-Aod"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="erweimabeijing" translatesAutoresizingMaskIntoConstraints="NO" id="iAe-od-pmg" userLabel="背景Image View">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="扫一扫 向我支付积分" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X2h-7z-2LV">
+                    <rect key="frame" x="87.5" y="126" width="200" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="hij-Am-XT8"/>
+                        <constraint firstAttribute="height" constant="45" id="tyA-vz-GDx"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xEd-aN-JeM" userLabel="二维码View">
+                    <rect key="frame" x="25" y="201" width="325" height="325"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yXq-OW-eo6">
+                            <rect key="frame" x="20" y="20" width="285" height="285"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="xEd-aN-JeM" secondAttribute="height" multiplier="1:1" id="7Yf-iL-nii"/>
+                        <constraint firstAttribute="bottom" secondItem="yXq-OW-eo6" secondAttribute="bottom" constant="20" id="CcO-1P-UY3"/>
+                        <constraint firstItem="yXq-OW-eo6" firstAttribute="leading" secondItem="xEd-aN-JeM" secondAttribute="leading" constant="20" id="VLd-Ei-9KF"/>
+                        <constraint firstAttribute="trailing" secondItem="yXq-OW-eo6" secondAttribute="trailing" constant="20" id="fCO-kS-Gg2"/>
+                        <constraint firstItem="yXq-OW-eo6" firstAttribute="top" secondItem="xEd-aN-JeM" secondAttribute="top" constant="20" id="kyZ-iX-aU7"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="iAe-od-pmg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1Mn-hQ-5rz"/>
+                <constraint firstItem="xEd-aN-JeM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="25" id="ExW-Wg-c22"/>
+                <constraint firstItem="xEd-aN-JeM" firstAttribute="top" secondItem="X2h-7z-2LV" secondAttribute="bottom" constant="30" id="NDa-2z-byt"/>
+                <constraint firstItem="xEd-aN-JeM" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="30" id="QUh-M4-HgP"/>
+                <constraint firstAttribute="bottom" secondItem="iAe-od-pmg" secondAttribute="bottom" id="bc3-ZK-4Ig"/>
+                <constraint firstAttribute="trailing" secondItem="xEd-aN-JeM" secondAttribute="trailing" constant="25" id="fch-vl-vcf"/>
+                <constraint firstItem="iAe-od-pmg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hDc-0D-1Rd"/>
+                <constraint firstItem="X2h-7z-2LV" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="vZR-c3-OFZ"/>
+                <constraint firstAttribute="trailing" secondItem="iAe-od-pmg" secondAttribute="trailing" id="ySX-jW-wBG"/>
+            </constraints>
+            <point key="canvasLocation" x="-58" y="28"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="erweimabeijing" width="387" height="196"/>
+    </resources>
+</document>

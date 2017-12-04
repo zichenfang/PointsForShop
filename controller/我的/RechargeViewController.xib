@@ -13,7 +13,9 @@
             <connections>
                 <outlet property="inputPointsTF" destination="hwh-ho-npb" id="6ZV-Jf-yTe"/>
                 <outlet property="moneyLabel" destination="LZL-4Q-sdr" id="5cK-Rf-L7D"/>
+                <outlet property="rechargeBtn" destination="j30-0B-rcY" id="In2-9j-JsW"/>
                 <outlet property="rechargeDesTV" destination="ONo-2F-TcL" id="TeM-9x-9i2"/>
+                <outlet property="rechargeHistoryBtn" destination="9ax-l5-IZz" id="GcE-Ow-LSg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -81,7 +83,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <state key="normal" image="zhifubaochongzhi"/>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j30-0B-rcY">
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j30-0B-rcY">
                                     <rect key="frame" x="10" y="315" width="355" height="44"/>
                                     <color key="backgroundColor" red="0.89411764709999997" green="0.22352941179999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
@@ -89,6 +91,9 @@
                                     </constraints>
                                     <state key="normal" title="去支付">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="disabled" backgroundImage="disableBtnBac">
+                                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -116,6 +121,20 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 </textView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ax-l5-IZz">
+                                    <rect key="frame" x="288" y="128" width="72" height="26"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="26" id="9eo-fg-dy7"/>
+                                        <constraint firstAttribute="width" constant="72" id="ce3-JO-jek"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" title="充值记录">
+                                        <color key="titleColor" red="0.89411764709999997" green="0.22352941179999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="goRechargeHistory:" destination="-1" eventType="touchUpInside" id="sZM-64-Hvn"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="ONo-2F-TcL" firstAttribute="leading" secondItem="6s3-gX-Mid" secondAttribute="leading" constant="10" id="5GB-0P-UhG"/>
@@ -124,8 +143,10 @@
                                 <constraint firstItem="5Kh-zg-noj" firstAttribute="top" secondItem="6s3-gX-Mid" secondAttribute="top" constant="50" id="CtV-gu-Rf7"/>
                                 <constraint firstAttribute="trailing" secondItem="5Kh-zg-noj" secondAttribute="trailing" constant="10" id="Lcj-JR-UbZ"/>
                                 <constraint firstAttribute="bottom" secondItem="ONo-2F-TcL" secondAttribute="bottom" constant="10" id="Rod-HD-3HF"/>
+                                <constraint firstAttribute="trailing" secondItem="9ax-l5-IZz" secondAttribute="trailing" constant="15" id="X51-dW-glt"/>
                                 <constraint firstItem="j30-0B-rcY" firstAttribute="leading" secondItem="6s3-gX-Mid" secondAttribute="leading" constant="10" id="hwT-pU-gIE"/>
                                 <constraint firstAttribute="trailing" secondItem="ONo-2F-TcL" secondAttribute="trailing" constant="10" id="jIS-7Q-sHD"/>
+                                <constraint firstItem="9ax-l5-IZz" firstAttribute="top" secondItem="6s3-gX-Mid" secondAttribute="top" constant="128" id="ltU-7y-JyL"/>
                                 <constraint firstAttribute="trailing" secondItem="j30-0B-rcY" secondAttribute="trailing" constant="10" id="rYg-mC-AVG"/>
                                 <constraint firstItem="5Kh-zg-noj" firstAttribute="leading" secondItem="6s3-gX-Mid" secondAttribute="leading" constant="10" id="vNt-5C-eus"/>
                             </constraints>
@@ -152,6 +173,7 @@
         </view>
     </objects>
     <resources>
+        <image name="disableBtnBac" width="595" height="249"/>
         <image name="zhifubaochongzhi" width="107" height="31"/>
     </resources>
 </document>

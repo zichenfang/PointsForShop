@@ -38,7 +38,6 @@
     }
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:phone forKey:@"mobile"];
-    
     [ProgressHUD show:nil Interaction:NO];
     [TTRequestOperationManager POST:API_USER_SEND_CODE Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];

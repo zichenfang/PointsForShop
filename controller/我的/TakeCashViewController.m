@@ -8,15 +8,15 @@
 
 #import "TakeCashViewController.h"
 #import "ResignKeyboardView.h"
-#import "SetPayPasswordViewController.h"
 #import "TakeCashDesViewController.h"
-#import "SetTakeCashAccountViewController.h"
+
 
 @interface TakeCashViewController ()
 @property (strong, nonatomic) IBOutlet UILabel *pointsLastLabel;//积分余额
 @property (strong, nonatomic) IBOutlet UITextField *inputPointsTF;//提现积分
 @property (strong, nonatomic) IBOutlet UILabel *moneyLabel;//显示可提现金额
 @property (assign, nonatomic) double withdraw_proportion;//1积分可以兑换的人民币",
+@property (strong, nonatomic) IBOutlet UITextField *passWordTF;
 
 @end
 
@@ -27,47 +27,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title  =@"积分提现";
+    [self loadTakeCashConfigInfo];
     [self configUI];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tfChanged:) name:UITextFieldTextDidChangeNotification object:nil];
 }
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    //检测是否设置过支付账号，没有的话则进入支付账号设置页面
-    if ([[TTUserInfoManager userInfo] string_ForKey:@"withdraw_account"].length<=4) {
-        [self presentAlertWithTitle:@"您尚未设置提现账号" Handler:^{
-            [self goSettingPayAccount];
-        } Cancel:^{
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
-    }
-    //检查是否有设置过支付密码，没有则进入支付密码设置界面
-    else if ([[TTUserInfoManager userInfo] string_ForKey:@"withdraw_password"].length<=4) {
-        [self presentAlertWithTitle:@"提现需要设置支付密码" Handler:^{
-            [self goSettingPayPassword];
-        } Cancel:^{
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
-    }
-    else{
-        [self loadTakeCashConfigInfo];
-    }
-}
 
-- (void)goSettingPayAccount{
-    SetTakeCashAccountViewController *vc = [[SetTakeCashAccountViewController alloc] init];
-    vc.hidesBottomBarWhenPushed  =NO;
-    [self.navigationController pushViewController:vc animated:YES];
-}
-- (void)goSettingPayPassword{
-    SetPayPasswordViewController *vc = [[SetPayPasswordViewController alloc] init];
-    vc.hidesBottomBarWhenPushed  =NO;
-    [self.navigationController pushViewController:vc animated:YES];
-
-}
 - (void)configUI{
     self.inputPointsTF.inputAccessoryView = [[ResignKeyboardView alloc] initWithTextField:self.inputPointsTF TextView:nil Instruction:@"积分"];
     NSString *member_points = [[TTUserInfoManager userInfo]string_ForKey:@"integral_withdraw"];
-    self.pointsLastLabel.text = [NSString stringWithFormat:@"积分余额:%@",member_points];
+    self.pointsLastLabel.text = member_points;
+    self.inputPointsTF.placeholder = [NSString stringWithFormat:@"您本次最多可兑换%@积分",member_points];
 }
 - (void)tfChanged :(NSNotification *)noti{
     if (noti.object == self.inputPointsTF) {
@@ -77,12 +46,14 @@
 //MARK:获取提现比例
 - (void)loadTakeCashConfigInfo{
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
-    [para setObject:[TTUserInfoManager token] forKey:@"token"];    
-    [TTRequestOperationManager POST:API_USER_GET_RATE Parameters:para Success:^(NSDictionary *responseJsonObject) {
+    [para setObject:[TTUserInfoManager token] forKey:@"token"];
+    [ProgressHUD show:nil Interaction:NO];
+    [TTRequestOperationManager POST:API_USER_GET_ALLINFO Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
         if ([code isEqualToString:@"200"]) {
             self.withdraw_proportion = [[[responseJsonObject dictionary_ForKey:@"result"]string_ForKey:@"withdraw_proportion" ]doubleValue];
+            [ProgressHUD dismiss];
         }
         else{
             [ProgressHUD showError:msg Interaction:NO];
@@ -108,26 +79,20 @@
         [ProgressHUD showError:@"积分余额不足" Interaction:NO];
         return;
     }
-    //输入提现密码
-    UIAlertController *alerVC = [UIAlertController alertControllerWithTitle:@"请输入提现密码" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    [alerVC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.secureTextEntry = YES;
-    }];
-    [alerVC addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
-    [alerVC addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        UITextField *tf = [alerVC textFields][0];
-        [self presentAlertWithTitle:[NSString stringWithFormat:@"确认提现%@积分",self.inputPointsTF.text] Handler:^{
-            [self requestWithPassword:tf.text];
-        } Cancel:nil];
-    }]];
-    [self presentViewController:alerVC animated:YES completion:nil];
+    if (self.passWordTF.text.length<6) {
+        [ProgressHUD showError:@"请输入不少于6位数提现密码" Interaction:NO];
+        return;
+    }
+    [self presentAlertWithTitle:[NSString stringWithFormat:@"确认提现%@积分",self.inputPointsTF.text] Handler:^{
+        [self requestTakeCash];
+    } Cancel:nil];
+
 }
-- (void)requestWithPassword:(NSString *)password{
+- (void)requestTakeCash{
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:[TTUserInfoManager token] forKey:@"token"];
     [para setObject:self.inputPointsTF.text forKey:@"amount"];//
-    [para setObject:password.md5_32Bit_String forKey:@"withdraw_password"];//密码
-
+    [para setObject:self.passWordTF.text.md5_32Bit_String forKey:@"withdraw_password"];//密码
     [TTRequestOperationManager POST:API_USER_POINTS_TAKE_CASH Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];

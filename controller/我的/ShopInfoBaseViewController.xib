@@ -13,7 +13,10 @@
             <connections>
                 <outlet property="contentView" destination="7ok-UY-gB6" id="CM7-H0-9Vc"/>
                 <outlet property="recmondFromTF" destination="oeh-0m-S2y" id="jcX-Id-OKo"/>
+                <outlet property="rejectReasonLabel" destination="oRF-qS-6k6" id="GQT-x0-ZPJ"/>
                 <outlet property="saveBtn" destination="FEx-Cy-xCJ" id="I2X-M8-bBz"/>
+                <outlet property="scrollView" destination="67T-aL-XSA" id="poN-RC-boE"/>
+                <outlet property="shenhezhongView" destination="L8e-wj-3Lc" id="Uzg-Fd-IbY"/>
                 <outlet property="shopNameLabel" destination="lKN-Gc-ZfI" id="Crz-2t-jIj"/>
                 <outlet property="uploadTipLabel1" destination="0Dz-EM-TAN" id="0ul-PX-VyX"/>
                 <outlet property="uploadTipLabel2" destination="5R6-nD-1NX" id="kQI-eG-Iar"/>
@@ -29,7 +32,36 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="67T-aL-XSA" customClass="TPKeyboardAvoidingScrollView">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L8e-wj-3Lc" userLabel="审核中View">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guide_1" translatesAutoresizingMaskIntoConstraints="NO" id="D5T-dX-5vh">
+                            <rect key="frame" x="87" y="233" width="200" height="200"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="200" id="SGa-O6-gnh"/>
+                                <constraint firstAttribute="height" constant="200" id="ZkC-G4-D7i"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上传信息审核中" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ycg-v0-ycG">
+                            <rect key="frame" x="10" y="443" width="355" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="dC3-Yt-TCk"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="D5T-dX-5vh" firstAttribute="centerY" secondItem="L8e-wj-3Lc" secondAttribute="centerY" id="05z-rb-KLM"/>
+                        <constraint firstItem="ycg-v0-ycG" firstAttribute="top" secondItem="D5T-dX-5vh" secondAttribute="bottom" constant="10" id="RXA-1d-5NG"/>
+                        <constraint firstAttribute="trailing" secondItem="ycg-v0-ycG" secondAttribute="trailing" constant="10" id="ldE-Pa-Pp3"/>
+                        <constraint firstItem="ycg-v0-ycG" firstAttribute="leading" secondItem="L8e-wj-3Lc" secondAttribute="leading" constant="10" id="nu1-s9-XCb"/>
+                        <constraint firstItem="D5T-dX-5vh" firstAttribute="centerX" secondItem="L8e-wj-3Lc" secondAttribute="centerX" id="rW6-iP-az2"/>
+                    </constraints>
+                </view>
+                <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="67T-aL-XSA" customClass="TPKeyboardAvoidingScrollView">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
                         <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ok-UY-gB6">
@@ -184,6 +216,15 @@
                                         <constraint firstAttribute="width" constant="240" id="dS7-BC-Vgx"/>
                                     </constraints>
                                 </view>
+                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未通过原因" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="oRF-qS-6k6">
+                                    <rect key="frame" x="10" y="533" width="355" height="57"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="57" id="kPg-JW-Cyu"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -193,8 +234,10 @@
                                 <constraint firstItem="aa0-HH-XJ2" firstAttribute="top" secondItem="7ok-UY-gB6" secondAttribute="top" constant="321" id="I9z-aZ-IlW"/>
                                 <constraint firstItem="oeh-0m-S2y" firstAttribute="leading" secondItem="7ok-UY-gB6" secondAttribute="leading" constant="100" id="Icf-Dg-pmk"/>
                                 <constraint firstItem="lKN-Gc-ZfI" firstAttribute="top" secondItem="7ok-UY-gB6" secondAttribute="top" constant="255" id="J3H-Bk-fcH"/>
+                                <constraint firstAttribute="bottom" secondItem="oRF-qS-6k6" secondAttribute="bottom" constant="77" id="Shr-DS-0OF"/>
                                 <constraint firstItem="IdS-JS-OH2" firstAttribute="centerX" secondItem="7ok-UY-gB6" secondAttribute="centerX" id="UU4-Bb-dMJ"/>
                                 <constraint firstAttribute="bottom" secondItem="FEx-Cy-xCJ" secondAttribute="bottom" constant="25" id="V0m-OP-2jc"/>
+                                <constraint firstAttribute="trailing" secondItem="oRF-qS-6k6" secondAttribute="trailing" constant="10" id="Vli-hI-RYT"/>
                                 <constraint firstItem="lKN-Gc-ZfI" firstAttribute="leading" secondItem="7ok-UY-gB6" secondAttribute="leading" constant="105" id="Yd7-64-U0z"/>
                                 <constraint firstAttribute="height" constant="667" id="Z4U-dj-X2g"/>
                                 <constraint firstItem="mbM-AA-0nR" firstAttribute="top" secondItem="7ok-UY-gB6" secondAttribute="top" constant="390" id="cn0-FV-Hy2"/>
@@ -202,6 +245,7 @@
                                 <constraint firstAttribute="trailing" secondItem="mbM-AA-0nR" secondAttribute="trailing" id="gNw-Uj-bPs"/>
                                 <constraint firstAttribute="trailing" secondItem="oeh-0m-S2y" secondAttribute="trailing" constant="44" id="hzW-0Z-MEs"/>
                                 <constraint firstItem="oeh-0m-S2y" firstAttribute="top" secondItem="7ok-UY-gB6" secondAttribute="top" constant="310" id="iS0-fZ-zKD"/>
+                                <constraint firstItem="oRF-qS-6k6" firstAttribute="leading" secondItem="7ok-UY-gB6" secondAttribute="leading" constant="10" id="oPd-HU-hUM"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -217,9 +261,13 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="67T-aL-XSA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="2JP-Wb-Fnj"/>
+                <constraint firstItem="L8e-wj-3Lc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="4MQ-CM-gzP"/>
+                <constraint firstAttribute="trailing" secondItem="L8e-wj-3Lc" secondAttribute="trailing" id="5oS-Gu-bM2"/>
+                <constraint firstItem="L8e-wj-3Lc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="5vJ-DK-Xbd"/>
                 <constraint firstAttribute="trailing" secondItem="67T-aL-XSA" secondAttribute="trailing" id="6dH-U0-VEU"/>
                 <constraint firstAttribute="bottom" secondItem="67T-aL-XSA" secondAttribute="bottom" id="9HC-Uv-uKA"/>
                 <constraint firstItem="67T-aL-XSA" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="cvS-aP-aGn"/>
+                <constraint firstAttribute="bottom" secondItem="L8e-wj-3Lc" secondAttribute="bottom" id="xYg-dS-jMK"/>
             </constraints>
             <point key="canvasLocation" x="11.5" y="45.5"/>
         </view>
@@ -235,7 +283,8 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="jinggao" width="33" height="34"/>
+        <image name="guide_1" width="147" height="254"/>
+        <image name="jinggao" width="16" height="16"/>
         <image name="youjiantou" width="9" height="17"/>
         <image name="zhaoxiangji" width="69" height="69"/>
     </resources>
