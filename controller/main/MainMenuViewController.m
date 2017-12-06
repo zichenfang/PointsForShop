@@ -17,6 +17,7 @@
 #import "SettingViewController.h"
 #import "SetTakeCashAccountViewController.h"
 #import "SetPayPasswordViewController.h"
+#import "TuiDanListViewController.h"
 
 @interface MainMenuViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) IBOutlet UICollectionView *cv;
@@ -108,20 +109,20 @@
     else if (state ==2){
         disabledMenus =@[];
     }
-    //在禁用菜单当中
-    if ([disabledMenus indexOfObject:title]!=NSNotFound) {
-        if (state ==9) {
-            //信息不完整，则弹出alert，提示进入设置信息维护页面
-            [self presentAlertWithTitle:errMsg Handler:^{
-                [self goUserInfo];
-            } Cancel:nil];
-        }
-        else{
-            //信息不完整，则弹出alert
-            [self presentToastAlertWithTitle:errMsg Handler:nil];
-        }
-        return;
-    }
+//    //在禁用菜单当中
+//    if ([disabledMenus indexOfObject:title]!=NSNotFound) {
+//        if (state ==9) {
+//            //信息不完整，则弹出alert，提示进入设置信息维护页面
+//            [self presentAlertWithTitle:errMsg Handler:^{
+//                [self goUserInfo];
+//            } Cancel:nil];
+//        }
+//        else{
+//            //信息不完整，则弹出alert
+//            [self presentToastAlertWithTitle:errMsg Handler:nil];
+//        }
+//        return;
+//    }
     if ([title isEqualToString:@"店铺维护"]) {
         [self goUserInfo];
     }
@@ -142,6 +143,7 @@
     }
     else if ([title isEqualToString:@"查看店铺"]){}
     else if ([title isEqualToString:@"退单"]){
+        [self goTuiDan];
     }
     else if ([title isEqualToString:@"联系我们"]){
     }
@@ -204,5 +206,9 @@
     SettingViewController *vc = [[SettingViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
-
+//MARK:退单
+- (void)goTuiDan{
+    TuiDanListViewController *vc = [[TuiDanListViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 @end

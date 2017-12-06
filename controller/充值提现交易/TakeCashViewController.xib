@@ -12,9 +12,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TakeCashViewController">
             <connections>
                 <outlet property="inputPointsTF" destination="p5v-3j-z7R" id="cyp-gf-aSK"/>
+                <outlet property="lastPointsLabel" destination="Mx8-nA-23U" id="yay-ek-qHI"/>
                 <outlet property="moneyLabel" destination="ylb-cN-M4I" id="YOB-jH-3nR"/>
                 <outlet property="passWordTF" destination="ahQ-Td-xdN" id="hon-xg-dOs"/>
-                <outlet property="pointsLastLabel" destination="Mx8-nA-23U" id="5B6-fa-Nxj"/>
+                <outlet property="takeCashHistoryBtn" destination="ISq-0U-Wmw" id="eJC-fT-hFR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -90,7 +91,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ylb-cN-M4I">
-                                    <rect key="frame" x="100" y="225" width="245" height="30"/>
+                                    <rect key="frame" x="100" y="225" width="175" height="30"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="FA8-WS-N6c"/>
                                     </constraints>
@@ -98,6 +99,20 @@
                                     <color key="textColor" red="0.89411764709999997" green="0.22352941179999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ISq-0U-Wmw">
+                                    <rect key="frame" x="288" y="228" width="72" height="26"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="72" id="7fq-qs-CQe"/>
+                                        <constraint firstAttribute="height" constant="26" id="bnh-p0-2od"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" title="提现记录">
+                                        <color key="titleColor" red="0.89411764709999997" green="0.22352941179999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="takeCashHistory:" destination="-1" eventType="touchUpInside" id="mdN-x5-4b3"/>
+                                    </connections>
+                                </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="提现密码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FXM-Ka-iJB">
                                     <rect key="frame" x="15" y="280" width="70" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -111,7 +126,7 @@
                                             <rect key="frame" x="10" y="5" width="325" height="55"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" keyboardType="decimalPad" secureTextEntry="YES"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="alphabet" secureTextEntry="YES"/>
                                         </textField>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -164,7 +179,8 @@
                                 <constraint firstItem="Fvn-TI-Upb" firstAttribute="leading" secondItem="8gl-9F-3B6" secondAttribute="leading" constant="15" id="2YB-Ic-vpV"/>
                                 <constraint firstItem="ylb-cN-M4I" firstAttribute="leading" secondItem="8gl-9F-3B6" secondAttribute="leading" constant="100" id="C8A-06-amI"/>
                                 <constraint firstAttribute="trailing" secondItem="ay9-rt-yHt" secondAttribute="trailing" constant="15" id="CSK-uL-pXF"/>
-                                <constraint firstAttribute="trailing" secondItem="ylb-cN-M4I" secondAttribute="trailing" constant="30" id="GaX-Ka-XAG"/>
+                                <constraint firstItem="ISq-0U-Wmw" firstAttribute="top" secondItem="8gl-9F-3B6" secondAttribute="top" constant="228" id="G4f-dL-6sU"/>
+                                <constraint firstAttribute="trailing" secondItem="ylb-cN-M4I" secondAttribute="trailing" constant="100" id="GaX-Ka-XAG"/>
                                 <constraint firstItem="ylb-cN-M4I" firstAttribute="top" secondItem="8gl-9F-3B6" secondAttribute="top" constant="225" id="LSk-qu-QlS"/>
                                 <constraint firstItem="HBO-sa-TDH" firstAttribute="top" secondItem="8gl-9F-3B6" secondAttribute="top" id="Le4-WS-MwE"/>
                                 <constraint firstItem="OOA-7k-c4s" firstAttribute="leading" secondItem="8gl-9F-3B6" secondAttribute="leading" constant="15" id="M20-nQ-TxQ"/>
@@ -178,6 +194,7 @@
                                 <constraint firstItem="HjS-hr-Ssp" firstAttribute="leading" secondItem="8gl-9F-3B6" secondAttribute="leading" constant="15" id="pag-O3-8JH"/>
                                 <constraint firstItem="ay9-rt-yHt" firstAttribute="leading" secondItem="8gl-9F-3B6" secondAttribute="leading" constant="15" id="pu5-LP-d5z"/>
                                 <constraint firstAttribute="height" constant="667" id="tRg-e9-0tL"/>
+                                <constraint firstAttribute="trailing" secondItem="ISq-0U-Wmw" secondAttribute="trailing" constant="15" id="uPw-km-ref"/>
                             </constraints>
                         </view>
                     </subviews>

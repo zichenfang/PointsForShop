@@ -59,6 +59,8 @@
 #define API_USER_POINTS_TAKE_CASH  @"/api.php/v1.Seller/applyWithdraw"
 //MARK: ●API获取商户积分流水
 #define API_USER_POINTS_HISTORY  @"/api.php/v1.Seller/statement"
+//MARK: ●API积分提现记录
+#define API_USER_TAKECASH_HISTORY  @""
 
 //MARK: ●API设置提现账户
 #define API_SET_TAKECASH_ACCOUNT  @"/api.php/v1.Seller/setWithdrawAccount"
@@ -66,11 +68,16 @@
 #define API_POINTS_RECHARGE  @"/api.php/v1.Seller/integralRecharge"
 //MARK: ●API积分充值记录
 #define API_USER_RECHARGE_HISTORY  @""
-
+//MARK: ●API积分退单（消费）
+#define API_USER_POINTS_TUIDAN_HISTORY  @"/api.php/v1.Seller/orders"
 
 
 //MARK: ●API获取用户当前信息（包括用户信息、积分账户信息、积分汇率等）
 #define API_USER_GET_ALLINFO  @"/api.php/v1.Seller/account"
+//MARK: ●API通过退款
+#define API_USER_AGREE_TUIDAN  @"/api.php/v1.Seller/agreeRefund"
+
+
 
 @interface TTRequestOperationManager : NSObject
 

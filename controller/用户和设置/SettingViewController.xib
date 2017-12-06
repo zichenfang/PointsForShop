@@ -56,7 +56,7 @@
                     </constraints>
                     <state key="normal" title="退出登录"/>
                     <connections>
-                        <action selector="goChangeLoginPassword:" destination="-1" eventType="touchUpInside" id="yG4-zL-VH6"/>
+                        <action selector="logOut:" destination="-1" eventType="touchUpInside" id="nDx-cF-ggh"/>
                     </connections>
                 </button>
             </subviews>

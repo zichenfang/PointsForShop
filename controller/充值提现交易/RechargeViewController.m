@@ -12,6 +12,7 @@
 
 
 @interface RechargeViewController ()
+@property (strong, nonatomic) IBOutlet UILabel *lastPointsLabel;//积分余额
 @property (strong, nonatomic) IBOutlet UITextField *inputPointsTF;
 @property (strong, nonatomic) IBOutlet UILabel *moneyLabel;
 @property (strong, nonatomic) IBOutlet UITextView *rechargeDesTV;
@@ -58,9 +59,12 @@
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
         if ([code isEqualToString:@"200"]) {
-            self.recharge_proportion = [[[responseJsonObject dictionary_ForKey:@"result"]string_ForKey:@"recharge_proportion" ]doubleValue];
+            NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
+            self.recharge_proportion = [[result string_ForKey:@"recharge_proportion" ]doubleValue];
             [ProgressHUD dismiss];
             self.rechargeBtn.enabled = YES;
+            //显示积分余额
+            self.lastPointsLabel.text = [result string_ForKey:@"integral_balance"];
         }
         else{
             [ProgressHUD showError:msg Interaction:NO];
@@ -120,7 +124,7 @@
 
 - (void)paySuccess{
     [ProgressHUD showSuccess:@"充值成功！" Interaction:NO];
-    [self performSelector:@selector(successBack) withObject:nil afterDelay:1.2];
+    [self performSelector:@selector(loadTakeCashConfigInfo) withObject:nil afterDelay:1.5];
 }
 
 - (void)payFaildWithNoti :(NSNotification *)noti{
@@ -151,9 +155,7 @@
             break;
     }
 }
-- (void)successBack{
-    [self.navigationController popViewControllerAnimated:YES];
-}
+
 //MARK:充值记录
 - (IBAction)goRechargeHistory:(id)sender {
     RechargeHistoryViewController *vc =[[RechargeHistoryViewController alloc] init];

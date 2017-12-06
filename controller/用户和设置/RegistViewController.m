@@ -7,7 +7,7 @@
 //
 
 #import "RegistViewController.h"
-//#import "MainMenuViewController.h"
+#import "AgreementViewController.h"
 
 @interface RegistViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *shopNameTF;
@@ -15,7 +15,11 @@
 @property (strong, nonatomic) IBOutlet UITextField *codeTF;
 @property (strong, nonatomic) IBOutlet UIButton *codeBtn;
 @property (strong, nonatomic) IBOutlet UITextField *passWordTF;
+@property (strong, nonatomic) IBOutlet UIButton *registBtn;//注册按钮（在未同意合同之前，不能点击）
+
+
 @property (nonatomic,assign) int leftCount;//验证码倒计时
+@property (strong, nonatomic) IBOutlet UIButton *agreeBtn;//同意合同按钮
 
 @end
 
@@ -134,4 +138,23 @@
 - (void)registSuccess{
     [self.navigationController popViewControllerAnimated:YES];
 }
+//MARK:同意合同
+- (IBAction)agreeDeal:(id)sender {
+    if (self.agreeBtn.selected ==YES) {
+        self.agreeBtn.selected = NO;
+        self.registBtn.enabled = NO;
+    }
+    else{
+        self.agreeBtn.selected = YES;
+        self.registBtn.enabled = YES;
+    }
+}
+
+//MARK:查看合同
+- (IBAction)checkDeal:(id)sender {
+    AgreementViewController *vc = [[AgreementViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
 @end
