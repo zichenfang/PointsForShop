@@ -99,6 +99,15 @@
 		E2D80BBE1FD638C50002C9AF /* SetPayPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D80B8F1FD638190002C9AF /* SetPayPasswordViewController.m */; };
 		E2D80BBF1FD638C50002C9AF /* SetTakeCashAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D80B921FD638190002C9AF /* SetTakeCashAccountViewController.m */; };
 		E2D80BC01FD638C60002C9AF /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D80B951FD638190002C9AF /* SettingViewController.m */; };
+		E2D8D52B1FD92DD3006246FA /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D8D5291FD92DD3006246FA /* FeedBackViewController.m */; };
+		E2D8D52C1FD92DD3006246FA /* FeedBackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2D8D52A1FD92DD3006246FA /* FeedBackViewController.xib */; };
+		E2D8D52F1FD93268006246FA /* TTFAQObj.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D8D52E1FD93268006246FA /* TTFAQObj.m */; };
+		E2D8D5331FD93301006246FA /* FAQIssueTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D8D5311FD93301006246FA /* FAQIssueTableViewCell.m */; };
+		E2D8D5341FD93301006246FA /* FAQIssueTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2D8D5321FD93301006246FA /* FAQIssueTableViewCell.xib */; };
+		E2D8D5381FD93413006246FA /* FAQAnswerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D8D5361FD93413006246FA /* FAQAnswerTableViewCell.m */; };
+		E2D8D5391FD93413006246FA /* FAQAnswerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2D8D5371FD93413006246FA /* FAQAnswerTableViewCell.xib */; };
+		E2D8D53D1FD93497006246FA /* FAQViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D8D53B1FD93497006246FA /* FAQViewController.m */; };
+		E2D8D53E1FD93497006246FA /* FAQViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2D8D53C1FD93497006246FA /* FAQViewController.xib */; };
 		E2E9E3301FB970EE00246122 /* UserHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E9E32E1FB970EE00246122 /* UserHeaderCollectionReusableView.m */; };
 		E2E9E3311FB970EE00246122 /* UserHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2E9E32F1FB970EE00246122 /* UserHeaderCollectionReusableView.xib */; };
 		E2E9E3351FB9726100246122 /* UserCenterCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E9E3331FB9726100246122 /* UserCenterCollectionViewCell.m */; };
@@ -254,6 +263,20 @@
 		E2D80B941FD638190002C9AF /* SettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		E2D80B951FD638190002C9AF /* SettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		E2D80B961FD638190002C9AF /* SettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		E2D8D5281FD92DD3006246FA /* FeedBackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedBackViewController.h; sourceTree = "<group>"; };
+		E2D8D5291FD92DD3006246FA /* FeedBackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedBackViewController.m; sourceTree = "<group>"; };
+		E2D8D52A1FD92DD3006246FA /* FeedBackViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedBackViewController.xib; sourceTree = "<group>"; };
+		E2D8D52D1FD93268006246FA /* TTFAQObj.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTFAQObj.h; sourceTree = "<group>"; };
+		E2D8D52E1FD93268006246FA /* TTFAQObj.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTFAQObj.m; sourceTree = "<group>"; };
+		E2D8D5301FD93301006246FA /* FAQIssueTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FAQIssueTableViewCell.h; sourceTree = "<group>"; };
+		E2D8D5311FD93301006246FA /* FAQIssueTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FAQIssueTableViewCell.m; sourceTree = "<group>"; };
+		E2D8D5321FD93301006246FA /* FAQIssueTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FAQIssueTableViewCell.xib; sourceTree = "<group>"; };
+		E2D8D5351FD93413006246FA /* FAQAnswerTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FAQAnswerTableViewCell.h; sourceTree = "<group>"; };
+		E2D8D5361FD93413006246FA /* FAQAnswerTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FAQAnswerTableViewCell.m; sourceTree = "<group>"; };
+		E2D8D5371FD93413006246FA /* FAQAnswerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FAQAnswerTableViewCell.xib; sourceTree = "<group>"; };
+		E2D8D53A1FD93497006246FA /* FAQViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FAQViewController.h; sourceTree = "<group>"; };
+		E2D8D53B1FD93497006246FA /* FAQViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FAQViewController.m; sourceTree = "<group>"; };
+		E2D8D53C1FD93497006246FA /* FAQViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FAQViewController.xib; sourceTree = "<group>"; };
 		E2DAC7CC1FBAD061006BEBC6 /* PointsForShop.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PointsForShop.entitlements; sourceTree = "<group>"; };
 		E2E9E32D1FB970EE00246122 /* UserHeaderCollectionReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserHeaderCollectionReusableView.h; sourceTree = "<group>"; };
 		E2E9E32E1FB970EE00246122 /* UserHeaderCollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserHeaderCollectionReusableView.m; sourceTree = "<group>"; };
@@ -381,6 +404,8 @@
 				E28720791FC5155D0001AD67 /* TTPointsHistoryObj.m */,
 				E235D27E1FD8C9CF000BFF76 /* TTOrderObj.h */,
 				E235D27F1FD8C9CF000BFF76 /* TTOrderObj.m */,
+				E2D8D52D1FD93268006246FA /* TTFAQObj.h */,
+				E2D8D52E1FD93268006246FA /* TTFAQObj.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -481,6 +506,12 @@
 				E235D2811FD8CA02000BFF76 /* OrderTableViewCell.h */,
 				E235D2821FD8CA02000BFF76 /* OrderTableViewCell.m */,
 				E235D2831FD8CA02000BFF76 /* OrderTableViewCell.xib */,
+				E2D8D5301FD93301006246FA /* FAQIssueTableViewCell.h */,
+				E2D8D5311FD93301006246FA /* FAQIssueTableViewCell.m */,
+				E2D8D5321FD93301006246FA /* FAQIssueTableViewCell.xib */,
+				E2D8D5351FD93413006246FA /* FAQAnswerTableViewCell.h */,
+				E2D8D5361FD93413006246FA /* FAQAnswerTableViewCell.m */,
+				E2D8D5371FD93413006246FA /* FAQAnswerTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -575,6 +606,12 @@
 				E235EFFB1FD69C96006EEADB /* AgreementViewController.h */,
 				E235EFFC1FD69C96006EEADB /* AgreementViewController.m */,
 				E235EFFD1FD69C96006EEADB /* AgreementViewController.xib */,
+				E2D8D5281FD92DD3006246FA /* FeedBackViewController.h */,
+				E2D8D5291FD92DD3006246FA /* FeedBackViewController.m */,
+				E2D8D52A1FD92DD3006246FA /* FeedBackViewController.xib */,
+				E2D8D53A1FD93497006246FA /* FAQViewController.h */,
+				E2D8D53B1FD93497006246FA /* FAQViewController.m */,
+				E2D8D53C1FD93497006246FA /* FAQViewController.xib */,
 			);
 			path = "用户和设置";
 			sourceTree = "<group>";
@@ -647,6 +684,7 @@
 			files = (
 				E2D80B971FD6385D0002C9AF /* DealViewController.xib in Resources */,
 				E2D80B9A1FD6385D0002C9AF /* QRCodeImageShowViewController.xib in Resources */,
+				E2D8D52C1FD92DD3006246FA /* FeedBackViewController.xib in Resources */,
 				E2D80B9B1FD6385D0002C9AF /* RechargeHistoryViewController.xib in Resources */,
 				E2D80B9C1FD6385D0002C9AF /* RechargeViewController.xib in Resources */,
 				E2D80B9D1FD6385D0002C9AF /* TakeCashDesViewController.xib in Resources */,
@@ -658,13 +696,16 @@
 				E2D80BA31FD6385D0002C9AF /* ShopInfoViewController.xib in Resources */,
 				E2D80BA41FD6385D0002C9AF /* ShopStatusViewController.xib in Resources */,
 				E2D80BA51FD6385D0002C9AF /* FndPassWordViewController.xib in Resources */,
+				E2D8D5341FD93301006246FA /* FAQIssueTableViewCell.xib in Resources */,
 				E2D80BA61FD6385D0002C9AF /* LoginViewController.xib in Resources */,
 				E235D2851FD8CA02000BFF76 /* OrderTableViewCell.xib in Resources */,
 				E2D80BA71FD6385D0002C9AF /* RegistViewController.xib in Resources */,
+				E2D8D5391FD93413006246FA /* FAQAnswerTableViewCell.xib in Resources */,
 				E2D80BA81FD6385D0002C9AF /* SetLoginPasswordViewController.xib in Resources */,
 				E2D80BA91FD6385D0002C9AF /* SetPayPasswordViewController.xib in Resources */,
 				E2D80BAA1FD6385D0002C9AF /* SetTakeCashAccountViewController.xib in Resources */,
 				E2D80BAB1FD6385D0002C9AF /* SettingViewController.xib in Resources */,
+				E2D8D53E1FD93497006246FA /* FAQViewController.xib in Resources */,
 				E28720801FC51E0D0001AD67 /* TTNullDataTableViewCell.xib in Resources */,
 				E22E3B8B1FD4ECDE00ACA38A /* RechargeHistoryTableViewCell.xib in Resources */,
 				E2A2AD931FB9316C00C0C098 /* LaunchScreen.storyboard in Resources */,
@@ -755,6 +796,7 @@
 				E2D80BC01FD638C60002C9AF /* SettingViewController.m in Sources */,
 				E25956C71FBD64530012E624 /* TTNormalPickerView.m in Sources */,
 				E235EFFE1FD69C96006EEADB /* AgreementViewController.m in Sources */,
+				E2D8D5381FD93413006246FA /* FAQAnswerTableViewCell.m in Sources */,
 				E20267831FBFDEFF00970DEE /* TTDistrictPickerView.m in Sources */,
 				E235D2841FD8CA02000BFF76 /* OrderTableViewCell.m in Sources */,
 				E2A2AEB51FB9340100C0C098 /* TTLocationManager.m in Sources */,
@@ -765,11 +807,14 @@
 				E2A2AEB71FB9340100C0C098 /* TTUserInfoManager.m in Sources */,
 				E2A2AEB81FB9340100C0C098 /* NSDate+MyDate.m in Sources */,
 				E23952871FC4083700502FCC /* TTShopInfoObj.m in Sources */,
+				E2D8D5331FD93301006246FA /* FAQIssueTableViewCell.m in Sources */,
 				E2A2AEB91FB9340100C0C098 /* NSString+MyCustomString.m in Sources */,
 				E2A2AEBA1FB9340100C0C098 /* UIBarButtonItem+TTStyle.m in Sources */,
+				E2D8D52F1FD93268006246FA /* TTFAQObj.m in Sources */,
 				E2A2AEBB1FB9340100C0C098 /* UIColor+MyColor.m in Sources */,
 				E2A2AEBC1FB9340100C0C098 /* UIImage+MyCustomImage.m in Sources */,
 				E2A2AEBD1FB9340100C0C098 /* UIViewController+MyViewController.m in Sources */,
+				E2D8D53D1FD93497006246FA /* FAQViewController.m in Sources */,
 				E2A2AEBE1FB9340100C0C098 /* ImageBrowserVC.m in Sources */,
 				E2A2AEC01FB9340100C0C098 /* TTBaseNavigationViewController.m in Sources */,
 				E2A2AEC11FB9340100C0C098 /* TTBaseViewController.m in Sources */,
@@ -785,6 +830,7 @@
 				E2A2AEF71FB9340100C0C098 /* TTObject.m in Sources */,
 				E2A2AD961FB9316C00C0C098 /* main.m in Sources */,
 				E2A2AD881FB9316C00C0C098 /* AppDelegate.m in Sources */,
+				E2D8D52B1FD92DD3006246FA /* FeedBackViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

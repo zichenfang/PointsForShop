@@ -74,7 +74,11 @@
 #define API_USER_GET_ALLINFO  @"/api.php/v1.Seller/account"
 //MARK: ●API通过退款
 #define API_USER_AGREE_TUIDAN  @"/api.php/v1.Seller/agreeRefund"
+//MARK: ●API意见反馈
+#define API_USER_FEED_BACK  @"/api.php/v1.Seller/feedback"
 
+//MARK: ●API常见问题
+#define API_USER_FAQ_LIST  @"/api.php/v1.User/FAQs"
 
 
 @interface TTRequestOperationManager : NSObject

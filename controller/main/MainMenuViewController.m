@@ -17,6 +17,7 @@
 #import "SetTakeCashAccountViewController.h"
 #import "SetPayPasswordViewController.h"
 #import "OrderListViewController.h"
+#import "FeedBackViewController.h"
 
 @interface MainMenuViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) IBOutlet UICollectionView *cv;
@@ -32,7 +33,7 @@
     [self prepareCV];
 }
 - (void)prepareCV{
-    self.menus =@[@"店铺维护",@"订单记录",@"提现申请",@"充值",@"买单",@"设置",@"查看店铺"];
+    self.menus =@[@"店铺维护",@"订单记录",@"提现申请",@"充值",@"买单",@"设置",@"查看店铺",@"意见反馈"];
     UINib *nibHeader = [UINib nibWithNibName:@"UserHeaderCollectionReusableView" bundle:nil];
     [self.cv registerNib:nibHeader forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"home"];
     
@@ -165,7 +166,8 @@
         [self goSetting];
     }
     else if ([title isEqualToString:@"查看店铺"]){}
-    else if ([title isEqualToString:@"联系我们"]){
+    else if ([title isEqualToString:@"意见反馈"]){
+        [self goFeedBack];
     }
     NSLog(@"%@",title);
 }
@@ -205,11 +207,13 @@
     RechargeViewController *vc = [[RechargeViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
+//MARK:设置提现账号
 - (void)goSettingPayAccount{
     SetTakeCashAccountViewController *vc = [[SetTakeCashAccountViewController alloc] init];
     vc.hidesBottomBarWhenPushed  =NO;
     [self.navigationController pushViewController:vc animated:YES];
 }
+//MARK:设置提现密码
 - (void)goSettingPayPassword{
     SetPayPasswordViewController *vc = [[SetPayPasswordViewController alloc] init];
     vc.hidesBottomBarWhenPushed  =NO;
@@ -224,6 +228,11 @@
 //MARK:设置
 - (void)goSetting{
     SettingViewController *vc = [[SettingViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+//MARK:意见反馈
+- (void)goFeedBack{
+    FeedBackViewController *vc = [[FeedBackViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 @end
