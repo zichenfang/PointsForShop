@@ -11,12 +11,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RechargeViewController">
             <connections>
+                <outlet property="contentHeightConstraint" destination="Cpk-j3-g63" id="Am2-0C-Mw1"/>
+                <outlet property="desWebView" destination="Szf-U4-5Ud" id="ayf-G3-wBo"/>
                 <outlet property="inputPointsTF" destination="hwh-ho-npb" id="6ZV-Jf-yTe"/>
                 <outlet property="lastPointsLabel" destination="gdc-Kc-6w0" id="jwR-kc-reO"/>
                 <outlet property="moneyLabel" destination="LZL-4Q-sdr" id="5cK-Rf-L7D"/>
                 <outlet property="rechargeBtn" destination="j30-0B-rcY" id="In2-9j-JsW"/>
-                <outlet property="rechargeDesTV" destination="ONo-2F-TcL" id="TeM-9x-9i2"/>
                 <outlet property="rechargeHistoryBtn" destination="9ax-l5-IZz" id="GcE-Ow-LSg"/>
+                <outlet property="scrollView" destination="ba8-H5-nZH" id="wir-E2-9Vy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -25,7 +27,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="767"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ba8-H5-nZH" customClass="TPKeyboardAvoidingScrollView">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ba8-H5-nZH" customClass="TPKeyboardAvoidingScrollView">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="767"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6s3-gX-Mid" userLabel="content View">
@@ -134,22 +136,6 @@
                                         <action selector="pay:" destination="-1" eventType="touchUpInside" id="Erw-lQ-Rv0"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="充值说明" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfh-FV-1bX">
-                                    <rect key="frame" x="10" y="479" width="75" height="35"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ONo-2F-TcL">
-                                    <rect key="frame" x="10" y="508" width="355" height="249"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="249" id="HlE-70-WfI"/>
-                                    </constraints>
-                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore mag</string>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                </textView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ax-l5-IZz">
                                     <rect key="frame" x="288" y="228" width="72" height="26"/>
                                     <constraints>
@@ -164,18 +150,41 @@
                                         <action selector="goRechargeHistory:" destination="-1" eventType="touchUpInside" id="sZM-64-Hvn"/>
                                     </connections>
                                 </button>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jh3-fV-jc0">
+                                    <rect key="frame" x="0.0" y="500" width="375" height="267"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="提现说明:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lu5-tK-AWY">
+                                            <rect key="frame" x="8" y="5" width="80" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Szf-U4-5Ud">
+                                            <rect key="frame" x="0.0" y="50" width="375" height="217"/>
+                                            <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </webView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Szf-U4-5Ud" firstAttribute="leading" secondItem="jh3-fV-jc0" secondAttribute="leading" id="Tp8-7E-zLF"/>
+                                        <constraint firstItem="Szf-U4-5Ud" firstAttribute="top" secondItem="jh3-fV-jc0" secondAttribute="top" constant="50" id="fKM-aJ-q4e"/>
+                                        <constraint firstAttribute="trailing" secondItem="Szf-U4-5Ud" secondAttribute="trailing" id="gPi-ET-m48"/>
+                                        <constraint firstAttribute="bottom" secondItem="Szf-U4-5Ud" secondAttribute="bottom" id="vKw-iw-YMy"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="ONo-2F-TcL" firstAttribute="leading" secondItem="6s3-gX-Mid" secondAttribute="leading" constant="10" id="5GB-0P-UhG"/>
                                 <constraint firstItem="j30-0B-rcY" firstAttribute="top" secondItem="6s3-gX-Mid" secondAttribute="top" constant="415" id="7N3-pQ-eTN"/>
+                                <constraint firstItem="jh3-fV-jc0" firstAttribute="leading" secondItem="6s3-gX-Mid" secondAttribute="leading" id="9eR-N5-ofN"/>
                                 <constraint firstAttribute="height" constant="767" id="Cpk-j3-g63"/>
                                 <constraint firstItem="5Kh-zg-noj" firstAttribute="top" secondItem="6s3-gX-Mid" secondAttribute="top" constant="150" id="CtV-gu-Rf7"/>
+                                <constraint firstItem="jh3-fV-jc0" firstAttribute="top" secondItem="6s3-gX-Mid" secondAttribute="top" constant="500" id="JQk-QV-LeE"/>
                                 <constraint firstAttribute="trailing" secondItem="5Kh-zg-noj" secondAttribute="trailing" constant="10" id="Lcj-JR-UbZ"/>
-                                <constraint firstAttribute="bottom" secondItem="ONo-2F-TcL" secondAttribute="bottom" constant="10" id="Rod-HD-3HF"/>
                                 <constraint firstItem="jnB-Hj-OrE" firstAttribute="centerX" secondItem="6s3-gX-Mid" secondAttribute="centerX" id="SPD-nD-O36"/>
                                 <constraint firstAttribute="trailing" secondItem="9ax-l5-IZz" secondAttribute="trailing" constant="15" id="X51-dW-glt"/>
+                                <constraint firstAttribute="trailing" secondItem="jh3-fV-jc0" secondAttribute="trailing" id="aEf-JG-EKI"/>
                                 <constraint firstItem="j30-0B-rcY" firstAttribute="leading" secondItem="6s3-gX-Mid" secondAttribute="leading" constant="10" id="hwT-pU-gIE"/>
-                                <constraint firstAttribute="trailing" secondItem="ONo-2F-TcL" secondAttribute="trailing" constant="10" id="jIS-7Q-sHD"/>
+                                <constraint firstAttribute="bottom" secondItem="jh3-fV-jc0" secondAttribute="bottom" id="leZ-Jk-kxZ"/>
                                 <constraint firstItem="9ax-l5-IZz" firstAttribute="top" secondItem="6s3-gX-Mid" secondAttribute="top" constant="228" id="ltU-7y-JyL"/>
                                 <constraint firstAttribute="trailing" secondItem="j30-0B-rcY" secondAttribute="trailing" constant="10" id="rYg-mC-AVG"/>
                                 <constraint firstItem="5Kh-zg-noj" firstAttribute="leading" secondItem="6s3-gX-Mid" secondAttribute="leading" constant="10" id="vNt-5C-eus"/>

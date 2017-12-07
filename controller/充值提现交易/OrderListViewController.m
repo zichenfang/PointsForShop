@@ -6,9 +6,9 @@
 //  Copyright © 2017年 Heizi. All rights reserved.
 //
 
-#import "TuiDanListViewController.h"
-#import "TuiDanTableViewCell.h"
-#import "TTTuiDanObj.h"
+#import "OrderListViewController.h"
+#import "OrderTableViewCell.h"
+#import "TTOrderObj.h"
 #import "TTNullDataTableViewCell.h"
 
 /*存放消费类型、列表数据、分页页码的object*/
@@ -35,18 +35,20 @@
 @end
 
 
-@interface TuiDanListViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface OrderListViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *segView;
 @property (strong, nonatomic) IBOutlet UIView *flagView;
 @property (nonatomic,strong)NSArray *containerDatas;//二维数组
+@property (assign, nonatomic) NSInteger typeSelectedIndex;//选中的分类下标
+
 @end
 
-@implementation TuiDanListViewController
+@implementation OrderListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"消费积分";
+    self.title = @"订单记录";
     [self configTableView];
 }
 #pragma mark-configTableViewI
@@ -54,9 +56,9 @@
     [self updateTypeUI];
     //数据容器 2-冻结中 3-退款中 5-已完成  9-已退款
     self.containerDatas = @[[[OrderContainerObj alloc] initWithType:@"2"],
-                   [[OrderContainerObj alloc] initWithType:@"3"],
-                   [[OrderContainerObj alloc] initWithType:@"9"],
-                   [[OrderContainerObj alloc] initWithType:@"5"]];
+                            [[OrderContainerObj alloc] initWithType:@"3"],
+                            [[OrderContainerObj alloc] initWithType:@"9"],
+                            [[OrderContainerObj alloc] initWithType:@"5"]];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self refreshData];
     }];
@@ -128,12 +130,11 @@
         }
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
-        NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
-        NSArray *items = [result array_ForKey:@"items"];
+        NSArray *items = [responseJsonObject array_ForKey:@"result"];
         if ([code isEqualToString:@"200"])//
         {
             for (NSDictionary *dic in items) {
-                TTTuiDanObj *obj = [[TTTuiDanObj alloc] initWithDic:dic];
+                TTOrderObj *obj = [[TTOrderObj alloc] initWithDic:dic];
                 [container.datas addObject:obj];
             }
             if (container.datas.count < [pageSize integerValue]) {
@@ -141,7 +142,7 @@
                 container.hasMore = NO;
             }
             if (container.datas.count == 0) {
-                TTTuiDanObj *obj = [[TTTuiDanObj alloc] initWithNullDataMsg:@"亲，暂无数据～"];
+                TTOrderObj *obj = [[TTOrderObj alloc] initWithNullDataMsg:@"亲，暂无数据～"];
                 [container.datas addObject:obj];
             }
             [self.tableView reloadData];
@@ -162,7 +163,7 @@
 #pragma mark-UITableView
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     OrderContainerObj *container = self.containerDatas[self.typeSelectedIndex];
-    TTTuiDanObj *historyObj = (TTTuiDanObj *)[container.datas objectAtIndex:indexPath.row];
+    TTOrderObj *historyObj = (TTOrderObj *)[container.datas objectAtIndex:indexPath.row];
     if (historyObj.isNullData == YES) {
         TTNullDataTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"nulldata"];
         if (cell == nil) {
@@ -172,9 +173,9 @@
         return cell;
     }
     else{
-        TuiDanTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"points"];
+        OrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"points"];
         if (cell == nil) {
-            cell = [[NSBundle mainBundle] loadNibNamed:@"RechargeHistoryTableViewCell" owner:self options:nil][0];
+            cell = [[NSBundle mainBundle] loadNibNamed:@"OrderTableViewCell" owner:self options:nil][0];
             [cell.agreeBtn addTarget:self action:@selector(agreeTuiDan:) forControlEvents:UIControlEventTouchUpInside];
         }
         cell.agreeBtn.tag = indexPath.row;
@@ -184,7 +185,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     OrderContainerObj *container = self.containerDatas[self.typeSelectedIndex];
-    TTTuiDanObj *historyObj = (TTTuiDanObj *)[container.datas objectAtIndex:indexPath.row];
+    TTOrderObj *historyObj = (TTOrderObj *)[container.datas objectAtIndex:indexPath.row];
     if (historyObj.isNullData == YES) {
         return SCREEN_HEIGHT - 64 - 50;
     }
@@ -205,19 +206,19 @@
 //MARK:退单
 - (void)agreeTuiDan :(UIButton*)sender{
     OrderContainerObj *container = self.containerDatas[self.typeSelectedIndex];
-    TTTuiDanObj *historyObj = (TTTuiDanObj *)[container.datas objectAtIndex:sender.tag];
+    TTOrderObj *historyObj = (TTOrderObj *)[container.datas objectAtIndex:sender.tag];
     [self presentDestructiveAlertWithTitle:@"是否同意退单?" Handler:^{
         [self requesAagreeTuiDan:historyObj];
     }];
 }
-- (void)requesAagreeTuiDan :(TTTuiDanObj *)historyObj{
+- (void)requesAagreeTuiDan :(TTOrderObj *)historyObj{
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:[TTUserInfoManager token] forKey:@"token"];
     if (historyObj.order_id) {
         [para setObject:historyObj.order_id forKey:@"order_id"];//
     }
     [ProgressHUD show:nil Interaction:NO];
-    [TTRequestOperationManager POST:API_USER_AGREE_TUIDAN Parameters:para Success:^(NSDictionary *responseJsonObject) {
+    [TTRequestOperationManager GET:API_USER_AGREE_TUIDAN Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
         if ([code isEqualToString:@"1"])//
@@ -233,5 +234,6 @@
 }
 
 @end
+
 
 

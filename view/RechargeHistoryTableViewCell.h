@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TTRechargeHistoryObj.h"
+#import "TTPointsHistoryObj.h"
 
 @interface RechargeHistoryTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *statusDesLabel;//充值成功
@@ -15,6 +15,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *timeLabel;
 
 
-- (void)data :(TTRechargeHistoryObj *)obj;
+- (void)data :(TTPointsHistoryObj *)obj;
 
 @end

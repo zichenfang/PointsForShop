@@ -1,15 +1,15 @@
 //
-//  TuiDanTableViewCell.h
+//  OrderTableViewCell.h
 //  PointsForShop
 //
-//  Created by 殷玉秋 on 2017/12/6.
+//  Created by 殷玉秋 on 2017/12/7.
 //  Copyright © 2017年 Heizi. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "TTTuiDanObj.h"
+#import "TTOrderObj.h"
 
-@interface TuiDanTableViewCell : UITableViewCell
+@interface OrderTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *userNameLabel;//用户名
 @property (strong, nonatomic) IBOutlet UILabel *timeLabel;//时间
 @property (strong, nonatomic) IBOutlet UILabel *moneyLabel;//金额
@@ -17,5 +17,5 @@
 //控制金额显示右边距
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *moneyLabelTrailingConstraint;
 
-- (void)data :(TTTuiDanObj *)obj;
+- (void)data :(TTOrderObj *)obj;
 @end

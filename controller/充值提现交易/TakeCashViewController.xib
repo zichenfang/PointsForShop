@@ -11,10 +11,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TakeCashViewController">
             <connections>
+                <outlet property="contentHeightConstraint" destination="tRg-e9-0tL" id="kNn-Gn-TkF"/>
+                <outlet property="desWebView" destination="QP0-UB-GsA" id="HdU-gq-2if"/>
                 <outlet property="inputPointsTF" destination="p5v-3j-z7R" id="cyp-gf-aSK"/>
                 <outlet property="lastPointsLabel" destination="Mx8-nA-23U" id="yay-ek-qHI"/>
                 <outlet property="moneyLabel" destination="ylb-cN-M4I" id="YOB-jH-3nR"/>
                 <outlet property="passWordTF" destination="ahQ-Td-xdN" id="hon-xg-dOs"/>
+                <outlet property="scrollView" destination="OiL-TF-6sf" id="a0n-eG-mx0"/>
                 <outlet property="takeCashHistoryBtn" destination="ISq-0U-Wmw" id="eJC-fT-hFR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,7 +27,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OiL-TF-6sf" customClass="TPKeyboardAvoidingScrollView">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OiL-TF-6sf" customClass="TPKeyboardAvoidingScrollView">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8gl-9F-3B6" userLabel="content View">
@@ -157,27 +160,36 @@
                                         <action selector="ok:" destination="-1" eventType="touchUpInside" id="J1q-Pa-91q"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="提现说明:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LLv-1O-HWN">
-                                    <rect key="frame" x="15" y="520" width="80" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="每周可提现一次，工作人员将在5各工作日内审核" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HjS-hr-Ssp">
-                                    <rect key="frame" x="15" y="550" width="345" height="50"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="siT-ru-hYe">
+                                    <rect key="frame" x="0.0" y="500" width="375" height="167"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="提现说明:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LLv-1O-HWN">
+                                            <rect key="frame" x="8" y="5" width="80" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QP0-UB-GsA">
+                                            <rect key="frame" x="0.0" y="50" width="375" height="117"/>
+                                            <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </webView>
+                                    </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="50" id="jWK-uV-uyl"/>
+                                        <constraint firstAttribute="bottom" secondItem="QP0-UB-GsA" secondAttribute="bottom" id="YTX-Us-c62"/>
+                                        <constraint firstItem="QP0-UB-GsA" firstAttribute="top" secondItem="siT-ru-hYe" secondAttribute="top" constant="50" id="a0B-QY-nrP"/>
+                                        <constraint firstItem="QP0-UB-GsA" firstAttribute="leading" secondItem="siT-ru-hYe" secondAttribute="leading" id="bT3-ui-k1e"/>
+                                        <constraint firstAttribute="trailing" secondItem="QP0-UB-GsA" secondAttribute="trailing" id="hmy-VZ-gYR"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="OOA-7k-c4s" secondAttribute="trailing" constant="15" id="1kE-4N-jJV"/>
                                 <constraint firstItem="Fvn-TI-Upb" firstAttribute="leading" secondItem="8gl-9F-3B6" secondAttribute="leading" constant="15" id="2YB-Ic-vpV"/>
+                                <constraint firstAttribute="bottom" secondItem="siT-ru-hYe" secondAttribute="bottom" id="67B-Tg-EXb"/>
                                 <constraint firstItem="ylb-cN-M4I" firstAttribute="leading" secondItem="8gl-9F-3B6" secondAttribute="leading" constant="100" id="C8A-06-amI"/>
+                                <constraint firstItem="siT-ru-hYe" firstAttribute="leading" secondItem="8gl-9F-3B6" secondAttribute="leading" id="CEI-mu-oQ1"/>
                                 <constraint firstAttribute="trailing" secondItem="ay9-rt-yHt" secondAttribute="trailing" constant="15" id="CSK-uL-pXF"/>
                                 <constraint firstItem="ISq-0U-Wmw" firstAttribute="top" secondItem="8gl-9F-3B6" secondAttribute="top" constant="228" id="G4f-dL-6sU"/>
                                 <constraint firstAttribute="trailing" secondItem="ylb-cN-M4I" secondAttribute="trailing" constant="100" id="GaX-Ka-XAG"/>
@@ -185,13 +197,12 @@
                                 <constraint firstItem="HBO-sa-TDH" firstAttribute="top" secondItem="8gl-9F-3B6" secondAttribute="top" id="Le4-WS-MwE"/>
                                 <constraint firstItem="OOA-7k-c4s" firstAttribute="leading" secondItem="8gl-9F-3B6" secondAttribute="leading" constant="15" id="M20-nQ-TxQ"/>
                                 <constraint firstItem="ay9-rt-yHt" firstAttribute="top" secondItem="8gl-9F-3B6" secondAttribute="top" constant="430" id="PU0-6D-q7z"/>
+                                <constraint firstItem="siT-ru-hYe" firstAttribute="top" secondItem="8gl-9F-3B6" secondAttribute="top" constant="500" id="Pnm-pc-ruD"/>
                                 <constraint firstAttribute="trailing" secondItem="Fvn-TI-Upb" secondAttribute="trailing" constant="15" id="S81-lj-VSx"/>
+                                <constraint firstAttribute="trailing" secondItem="siT-ru-hYe" secondAttribute="trailing" id="W2B-KW-Xdh"/>
                                 <constraint firstItem="Fvn-TI-Upb" firstAttribute="top" secondItem="8gl-9F-3B6" secondAttribute="top" constant="320" id="XAb-sb-1pU"/>
-                                <constraint firstAttribute="trailing" secondItem="HjS-hr-Ssp" secondAttribute="trailing" constant="15" id="dC8-TO-HzH"/>
-                                <constraint firstAttribute="bottom" secondItem="HjS-hr-Ssp" secondAttribute="bottom" constant="67" id="dd5-as-Hox"/>
                                 <constraint firstItem="HBO-sa-TDH" firstAttribute="centerX" secondItem="8gl-9F-3B6" secondAttribute="centerX" id="h0L-Sg-9fY"/>
                                 <constraint firstItem="OOA-7k-c4s" firstAttribute="top" secondItem="8gl-9F-3B6" secondAttribute="top" constant="145" id="oFc-yL-VTp"/>
-                                <constraint firstItem="HjS-hr-Ssp" firstAttribute="leading" secondItem="8gl-9F-3B6" secondAttribute="leading" constant="15" id="pag-O3-8JH"/>
                                 <constraint firstItem="ay9-rt-yHt" firstAttribute="leading" secondItem="8gl-9F-3B6" secondAttribute="leading" constant="15" id="pu5-LP-d5z"/>
                                 <constraint firstAttribute="height" constant="667" id="tRg-e9-0tL"/>
                                 <constraint firstAttribute="trailing" secondItem="ISq-0U-Wmw" secondAttribute="trailing" constant="15" id="uPw-km-ref"/>

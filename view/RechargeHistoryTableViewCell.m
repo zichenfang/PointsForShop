@@ -20,7 +20,7 @@
 
     // Configure the view for the selected state
 }
-- (void)data :(TTRechargeHistoryObj *)obj{
+- (void)data :(TTPointsHistoryObj *)obj{
 //    self.bankNameLabel.text = obj.pdr_payment_name;
 //    self.userNameLabel.text = obj.pdr_member_name;
 //    self.cardNOLabel.text = [NSString stringWithFormat:@"银行卡号:%@",obj.pdr_payment_code];

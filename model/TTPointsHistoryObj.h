@@ -7,38 +7,19 @@
 //
 
 #import "TTObject.h"
-
+/*
+ 此model 服务于充值记录与提现记录页面
+ */
 @interface TTPointsHistoryObj : TTObject
-@property (nonatomic,assign) NSTimeInterval pdr_add_time;//
-@property (nonatomic,strong) NSString * pdr_add_time_format;//
 
-@property (nonatomic,strong) NSString *pdr_admin;//
-@property (nonatomic,assign) NSTimeInterval pdr_amount;//
-@property (nonatomic,strong) NSString *pdr_id;//
-@property (nonatomic,strong) NSString *pdr_member_id;//
-@property (nonatomic,strong) NSString *pdr_member_name;//
-@property (nonatomic,strong) NSString *pdr_payment_code;//
-@property (nonatomic,strong) NSString *pdr_payment_name;//
-@property (nonatomic,strong) NSString *pdr_payment_state;//
-@property (nonatomic,assign) NSTimeInterval pdr_payment_time;//
-@property (nonatomic,strong) NSString * pdr_payment_time_format;//
-@property (nonatomic,strong) NSString *pdr_sn;//
-@property (nonatomic,strong) NSString *pdr_trade_sn;//
-
-//0:未知，1:充值，2：体现
-@property (nonatomic,strong) NSString *historyType;//
+@property (nonatomic,assign) int num;//
+//type为1|2时是订单号,为3|4为流水号
+@property (nonatomic,strong) NSString *order_no;//
+//备注.type为3|4时显示
+@property (nonatomic,strong) NSString *remark;//
+//类型：1收入，2支出 3购买，4提现
+@property (nonatomic,strong) NSString *type;//
 
 @end
-//"pdr_add_time" = 1510108036;
-//"pdr_admin" = "";
-//"pdr_amount" = "200.00";
-//"pdr_id" = 2;
-//"pdr_member_id" = 15;
-//"pdr_member_name" = "186****1270";
-//"pdr_payment_code" = "";
-//"pdr_payment_name" = "";
-//"pdr_payment_state" = 0;
-//"pdr_payment_time" = 0;
-//"pdr_sn" = 790563452036798015;
-//"pdr_trade_sn" = "";
+
 

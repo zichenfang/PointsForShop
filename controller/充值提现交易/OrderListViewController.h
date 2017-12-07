@@ -1,5 +1,5 @@
 //
-//  PointsDesViewController.h
+//  OrderListViewController.h
 //  PointsForShop
 //
 //  Created by 殷玉秋 on 2017/12/7.
@@ -8,6 +8,6 @@
 
 #import "TTBaseViewController.h"
 
-@interface PointsDesViewController : TTBaseViewController
+@interface OrderListViewController : TTBaseViewController
 
 @end

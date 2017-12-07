@@ -37,13 +37,19 @@
     RechargeViewController *vc = [[RechargeViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
+//MAR:生成二维码
 - (IBAction)makeQRCode:(id)sender {
     if (self.inputMoneyTF.text.intValue<=0) {
         [ProgressHUD showError:@"请输入消费金额" Interaction:NO];
         return;
     }
     [self.inputMoneyTF resignFirstResponder];
-    NSString *qrStr = [NSString stringWithFormat:@"zzz:%@",self.inputMoneyTF.text];
+//  25jfnmuhgpbv春风十里jfnmuhgpbv5jfnmuhgpbv100 ()
+//  店铺idjfnmuhgpbv店铺名jfnmuhgpbv转换比例jfnmuhgpbv消费金额
+    NSString *shopID = [[TTUserInfoManager userInfo] string_ForKey:@"id"];
+    NSString *shopName = [[TTUserInfoManager userInfo] string_ForKey:@"name"];
+    NSString *pointsPercent = [[TTUserInfoManager userInfo] string_ForKey:@"integral_ratio"];
+    NSString *qrStr = [NSString stringWithFormat:@"%@idjfnmuhgpbv%@idjfnmuhgpbv%@idjfnmuhgpbv%@",shopID,shopName,pointsPercent,self.inputMoneyTF.text];
     [self makeQRCodeWithContent:qrStr];
 }
 

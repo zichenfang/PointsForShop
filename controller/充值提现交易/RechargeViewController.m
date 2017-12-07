@@ -12,14 +12,15 @@
 
 
 @interface RechargeViewController ()
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UILabel *lastPointsLabel;//积分余额
 @property (strong, nonatomic) IBOutlet UITextField *inputPointsTF;
 @property (strong, nonatomic) IBOutlet UILabel *moneyLabel;
-@property (strong, nonatomic) IBOutlet UITextView *rechargeDesTV;
 @property (assign, nonatomic) double recharge_proportion;//充值汇率：一元人民币可以充值多少积分
 @property (strong, nonatomic) IBOutlet UIButton *rechargeHistoryBtn;//充值记录按钮
 @property (strong, nonatomic) IBOutlet UIButton *rechargeBtn;//充值按钮
-
+@property (strong, nonatomic) IBOutlet UIWebView *desWebView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *contentHeightConstraint;//页面contentsize高度为500+屏幕高度-64
 @end
 
 @implementation RechargeViewController
@@ -37,12 +38,18 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paySuccess) name:kNoti_AliPaySuccess object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(payFaildWithNoti:) name:kNoti_AliPayFailed object:nil];
     [self loadTakeCashConfigInfo];
+    [self loadRechargeDes];
+}
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    self.contentHeightConstraint.constant = 500+SCREEN_HEIGHT-64;
 }
 - (void)configUI{
     self.rechargeHistoryBtn.layer.masksToBounds = YES;
     self.rechargeHistoryBtn.layer.cornerRadius = 5;
     self.rechargeHistoryBtn.layer.borderWidth =1;
     self.rechargeHistoryBtn.layer.borderColor = [UIColor stylePinkColor].CGColor;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"说明" style:UIBarButtonItemStylePlain target:self action:@selector(showDes)];
 }
 - (void)tfChanged:(NSNotification *)noti{
     if (noti.object ==self.inputPointsTF) {
@@ -64,7 +71,7 @@
             [ProgressHUD dismiss];
             self.rechargeBtn.enabled = YES;
             //显示积分余额
-            self.lastPointsLabel.text = [result string_ForKey:@"integral_balance"];
+            self.lastPointsLabel.text = [result string_ForKey:@"integral_withdraw_balance"];
         }
         else{
             [ProgressHUD showError:msg Interaction:NO];
@@ -73,6 +80,26 @@
         
     } Failure:^(NSError *error) {
     }];
+}
+//MARK:获取充值说明
+- (void)loadRechargeDes{
+    NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
+    [para setObject:[TTUserInfoManager token] forKey:@"token"];
+    //    recharge-充值说明    withdraw-提现说明
+    [para setObject:@"recharge" forKey:@"type"];//
+    [TTRequestOperationManager POST:API_USER_RECHARGE_TAKECASH_DES Parameters:para Success:^(NSDictionary *responseJsonObject) {
+        NSString *code = [responseJsonObject string_ForKey:@"code"];
+        if ([code isEqualToString:@"200"]) {
+            NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
+            NSString *content = [result string_ForKey:@"content"];
+            [self.desWebView loadHTMLString:content baseURL:nil];
+        }
+    } Failure:^(NSError *error) {
+    }];
+    
+}
+- (void)showDes{
+    [self.scrollView scrollRectToVisible:CGRectMake(0, 500, SCREEN_HEIGHT, SCREEN_HEIGHT-64) animated:YES];
 }
 - (IBAction)pay:(id)sender {
     if (self.inputPointsTF.text.absolute_String.intValue<=0) {
@@ -132,28 +159,30 @@
     [self payFaildWithStatus:resultStatus];
 }
 - (void)payFaildWithStatus :(NSString *)status{
+    NSString *errorMsg;
     switch (status.intValue) {
         case 8000: {
-            [ProgressHUD showSuccess:@"正在处理中，支付结果未知" Interaction:NO];
+           errorMsg =@"正在处理中，支付结果未知";
         }
             break;
         case 4000: {
-            [ProgressHUD showError:@"订单支付失败" Interaction:NO];
+            errorMsg =@"订单支付失败";
         }
             break;
         case 6001: {
-            [ProgressHUD showError:@"用户中途取消" Interaction:NO];
+            errorMsg =@"用户中途取消";
         }
             break;
         case 6002: {
-            [ProgressHUD showError:@"支付结果未知" Interaction:NO];
+            errorMsg =@"支付结果未知";
         }
             break;
         default:  {
-            [ProgressHUD showError:@"其它支付错误" Interaction:NO];
+            errorMsg =@"其它支付错误";
         }
             break;
     }
+    [self presentToastAlertWithTitle:errorMsg Handler:nil];
 }
 
 //MARK:充值记录

@@ -2,7 +2,7 @@
 //  PointsDesViewController.m
 //  PointsForShop
 //
-//  Created by 殷玉秋 on 2017/11/20.
+//  Created by 殷玉秋 on 2017/12/7.
 //  Copyright © 2017年 Heizi. All rights reserved.
 //
 
@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title =@"积分说明";
+    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)didReceiveMemoryWarning {

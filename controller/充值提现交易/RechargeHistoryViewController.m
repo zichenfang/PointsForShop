@@ -8,7 +8,7 @@
 
 #import "RechargeHistoryViewController.h"
 #import "RechargeHistoryTableViewCell.h"
-#import "TTRechargeHistoryObj.h"
+#import "TTPointsHistoryObj.h"
 #import "TTNullDataTableViewCell.h"
 
 @interface RechargeHistoryViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -46,7 +46,9 @@
     [para setObject:[TTUserInfoManager token] forKey:@"token"];
     [para setObject:pageSize forKey:@"pagesize"];
     [para setObject:[NSNumber numberWithInt:self.page] forKey:@"p"];
-    [TTRequestOperationManager POST:API_USER_RECHARGE_HISTORY Parameters:para Success:^(NSDictionary *responseJsonObject) {
+    //    类型：1收入，2支出 3充值，4提现 5 退款支出 6.退款收入
+    [para setObject:@"4" forKey:@"type"];
+    [TTRequestOperationManager POST:API_USER_POINTS_HISTORY Parameters:para Success:^(NSDictionary *responseJsonObject) {
         if (self.page == 1) {
             [self.tableView.mj_header endRefreshing];
         }
@@ -55,19 +57,18 @@
         }
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
-        NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
-        NSArray *items = [result array_ForKey:@"items"];
+        NSArray *items = [responseJsonObject array_ForKey:@"result"];
         if ([code isEqualToString:@"200"])//
         {
             for (NSDictionary *dic in items) {
-                TTRechargeHistoryObj *obj = [[TTRechargeHistoryObj alloc] initWithDic:dic];
+                TTPointsHistoryObj *obj = [[TTPointsHistoryObj alloc] initWithDic:dic];
                 [self.datas addObject:obj];
             }
             if (self.datas.count < [pageSize integerValue]) {
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }
             if (self.datas.count == 0) {
-                TTRechargeHistoryObj *obj = [[TTRechargeHistoryObj alloc] initWithNullDataMsg:@"亲，暂无数据～"];
+                TTPointsHistoryObj *obj = [[TTPointsHistoryObj alloc] initWithNullDataMsg:@"亲，暂无数据～"];
                 [self.datas addObject:obj];
             }
             [self.tableView reloadData];
@@ -84,10 +85,9 @@
         }
     }];
 }
-
 #pragma mark-UITableView
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    TTRechargeHistoryObj *historyObj = (TTRechargeHistoryObj *)[self.datas objectAtIndex:indexPath.row];
+    TTPointsHistoryObj *historyObj = (TTPointsHistoryObj *)[self.datas objectAtIndex:indexPath.row];
     if (historyObj.isNullData == YES) {
         TTNullDataTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"nulldata"];
         if (cell == nil) {
@@ -107,7 +107,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TTRechargeHistoryObj *historyObj = (TTRechargeHistoryObj *)[self.datas objectAtIndex:indexPath.row];
+    TTPointsHistoryObj *historyObj = (TTPointsHistoryObj *)[self.datas objectAtIndex:indexPath.row];
     if (historyObj.isNullData == YES) {
         return SCREEN_HEIGHT - 64 - 50;
     }

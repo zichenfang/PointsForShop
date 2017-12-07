@@ -11,13 +11,12 @@
 #import "UserCenterCollectionViewCell.h"
 #import "ShopInfoViewController.h"
 #import "TakeCashViewController.h"
-#import "PoinstHistoryListViewController.h"
 #import "RechargeViewController.h"
 #import "DealViewController.h"
 #import "SettingViewController.h"
 #import "SetTakeCashAccountViewController.h"
 #import "SetPayPasswordViewController.h"
-#import "TuiDanListViewController.h"
+#import "OrderListViewController.h"
 
 @interface MainMenuViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) IBOutlet UICollectionView *cv;
@@ -33,12 +32,36 @@
     [self prepareCV];
 }
 - (void)prepareCV{
-    self.menus =@[@"店铺维护",@"积分记录",@"提现申请",@"充值",@"买单",@"设置",@"查看店铺",@"退单",@"联系我们"];
+    self.menus =@[@"店铺维护",@"订单记录",@"提现申请",@"充值",@"买单",@"设置",@"查看店铺"];
     UINib *nibHeader = [UINib nibWithNibName:@"UserHeaderCollectionReusableView" bundle:nil];
     [self.cv registerNib:nibHeader forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"home"];
     
     UINib *nib = [UINib nibWithNibName:@"UserCenterCollectionViewCell" bundle:nil];
     [self.cv registerNib:nib forCellWithReuseIdentifier:@"home"];
+    self.cv.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self loadShopStatusInfo];
+    }];
+}
+//MARK:获取最新状态信息
+- (void)loadShopStatusInfo{
+    NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
+    [para setObject:[TTUserInfoManager token] forKey:@"token"];
+    [TTRequestOperationManager POST:API_USER_GET_ALLINFO Parameters:para Success:^(NSDictionary *responseJsonObject) {
+        [self.cv.mj_header endRefreshing];
+        NSString *code = [responseJsonObject string_ForKey:@"code"];
+        NSString *msg = [responseJsonObject string_ForKey:@"msg"];
+        if ([code isEqualToString:@"200"]) {
+            NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
+            [TTUserInfoManager setUserInfo:result];
+            [self.cv reloadData];
+        }
+        else{
+            [ProgressHUD showError:msg Interaction:NO];
+        }
+        
+    } Failure:^(NSError *error) {
+        [self.cv.mj_header endRefreshing];
+    }];
 }
 - (void)updateUI{
 }
@@ -74,7 +97,7 @@
     [headerView.whiteBackView addGestureRecognizer:tap];
     //
     headerView.shopNameLabel.text = [[TTUserInfoManager userInfo] string_ForKey:@"name"];
-    NSString *avatarUrl = [[TTUserInfoManager userInfo] string_ForKey:@"avatar"];
+    NSString *avatarUrl = [[TTUserInfoManager userInfo] string_ForKey:@"head_img"];
     [headerView.avatarIV sd_setImageWithURL:[NSURL URLWithString:avatarUrl] placeholderImage:PLACEHOLDER_USER];
     return headerView;
 }
@@ -91,14 +114,14 @@
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSString *title = self.menus[indexPath.row];
-//    商户状态:0禁用 1审核中 2审核通过9注册未填写信息
+    //MARK:    商户状态:0禁用 1审核中 2审核通过9注册未填写信息
     NSInteger state =[[[TTUserInfoManager userInfo] string_ForKey:@"state"] integerValue];
 //    state =9;
-    NSArray *disabledMenus= @[@"积分记录",@"提现申请",@"充值",@"买单",@"查看店铺"];//禁用掉的菜单
+    NSArray *disabledMenus= @[@"订单记录",@"提现申请",@"充值",@"买单",@"查看店铺"];//禁用掉的菜单
     NSString *errMsg =@"";//禁用弹窗描述
     if (state ==0) {
         errMsg = @"当前账户已被禁用";
-        disabledMenus= @[@"店铺维护",@"积分记录",@"提现申请",@"充值",@"买单",@"查看店铺"];
+        disabledMenus= @[@"店铺维护",@"订单记录",@"提现申请",@"充值",@"买单",@"查看店铺"];
     }
     else if (state ==1){
         errMsg = @"店铺信息审核中";
@@ -109,7 +132,7 @@
     else if (state ==2){
         disabledMenus =@[];
     }
-//    //在禁用菜单当中
+    //在禁用菜单当中
 //    if ([disabledMenus indexOfObject:title]!=NSNotFound) {
 //        if (state ==9) {
 //            //信息不完整，则弹出alert，提示进入设置信息维护页面
@@ -126,7 +149,7 @@
     if ([title isEqualToString:@"店铺维护"]) {
         [self goUserInfo];
     }
-    else if ([title isEqualToString:@"积分记录"]){
+    else if ([title isEqualToString:@"订单记录"]){
         [self goPointsHistory];
     }
     else if ([title isEqualToString:@"提现申请"]){
@@ -142,9 +165,6 @@
         [self goSetting];
     }
     else if ([title isEqualToString:@"查看店铺"]){}
-    else if ([title isEqualToString:@"退单"]){
-        [self goTuiDan];
-    }
     else if ([title isEqualToString:@"联系我们"]){
     }
     NSLog(@"%@",title);
@@ -154,9 +174,9 @@
     ShopInfoViewController *vc = [[ShopInfoViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
-//MARK:积分纪录
+//MARK:订单记录
 - (void)goPointsHistory{
-    PoinstHistoryListViewController *vc = [[PoinstHistoryListViewController alloc] init];
+    OrderListViewController *vc = [[OrderListViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 //MARK:提现
@@ -204,11 +224,6 @@
 //MARK:设置
 - (void)goSetting{
     SettingViewController *vc = [[SettingViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-//MARK:退单
-- (void)goTuiDan{
-    TuiDanListViewController *vc = [[TuiDanListViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 @end
