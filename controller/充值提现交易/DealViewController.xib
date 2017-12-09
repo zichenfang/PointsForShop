@@ -15,6 +15,7 @@
                 <outlet property="inputMoneyTF" destination="jxG-WY-Mgb" id="RTa-ex-Ski"/>
                 <outlet property="pointsLabel" destination="VIc-Wz-oJU" id="tho-Ka-xf7"/>
                 <outlet property="rechargeBtn" destination="52b-RN-cOX" id="2tp-GQ-p1F"/>
+                <outlet property="saveBtn" destination="J4x-rh-fUI" id="D6T-MJ-WpI"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -29,7 +30,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7h0-T8-Mzr" userLabel="content View">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J4x-rh-fUI">
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J4x-rh-fUI">
                                     <rect key="frame" x="10" y="295" width="355" height="44"/>
                                     <color key="backgroundColor" red="0.89411764709999997" green="0.22352941179999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
@@ -37,6 +38,9 @@
                                     </constraints>
                                     <state key="normal" title="生成二维码">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="disabled" title="生成二维码" backgroundImage="disableBtnBac">
+                                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -144,6 +148,7 @@
         </view>
     </objects>
     <resources>
+        <image name="disableBtnBac" width="595" height="249"/>
         <image name="maidanbeijing" width="362" height="162"/>
     </resources>
 </document>

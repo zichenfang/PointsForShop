@@ -130,8 +130,8 @@
                                                 <constraint firstAttribute="height" constant="1" id="4et-GD-95W"/>
                                             </constraints>
                                         </view>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jCr-MM-z3C">
-                                            <rect key="frame" x="100" y="0.0" width="265" height="60"/>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="适用范围" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jCr-MM-z3C">
+                                            <rect key="frame" x="100" y="14" width="265" height="46"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
@@ -139,7 +139,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="jCr-MM-z3C" secondAttribute="trailing" constant="10" id="Db2-9u-68p"/>
-                                        <constraint firstItem="jCr-MM-z3C" firstAttribute="top" secondItem="tfv-qg-uqf" secondAttribute="top" id="EYU-UJ-puU"/>
+                                        <constraint firstItem="jCr-MM-z3C" firstAttribute="top" secondItem="tfv-qg-uqf" secondAttribute="top" constant="14" id="EYU-UJ-puU"/>
                                         <constraint firstAttribute="bottom" secondItem="qQu-eC-YIP" secondAttribute="bottom" id="Irm-bq-jPT"/>
                                         <constraint firstItem="qQu-eC-YIP" firstAttribute="leading" secondItem="tfv-qg-uqf" secondAttribute="leading" id="KVT-vv-lam"/>
                                         <constraint firstAttribute="height" constant="60" id="M95-r2-6Fh"/>

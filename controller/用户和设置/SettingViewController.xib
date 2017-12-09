@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingViewController">
             <connections>
+                <outlet property="tableView" destination="Kd3-XP-xmf" id="b9v-cB-OC8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,63 +20,27 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L9I-nV-3yQ">
-                    <rect key="frame" x="0.0" y="73" width="375" height="50"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="000-nc-Fdm"/>
-                    </constraints>
-                    <state key="normal" title="设置支付密码"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kd3-XP-xmf">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <view key="tableFooterView" contentMode="scaleToFill" id="B8I-u2-cwZ">
+                        <rect key="frame" x="0.0" y="666" width="375" height="1"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </view>
                     <connections>
-                        <action selector="goSetPassWord:" destination="-1" eventType="touchUpInside" id="4kV-Oj-uIF"/>
+                        <outlet property="dataSource" destination="-1" id="wLa-qK-Sbh"/>
+                        <outlet property="delegate" destination="-1" id="zCP-3a-Xol"/>
                     </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="psJ-V8-apr">
-                    <rect key="frame" x="0.0" y="135" width="375" height="50"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="ttB-5b-YxM"/>
-                    </constraints>
-                    <state key="normal" title="设置支付账号"/>
-                    <connections>
-                        <action selector="goSetAccount:" destination="-1" eventType="touchUpInside" id="wyE-t3-T89"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T3E-er-u2W">
-                    <rect key="frame" x="0.0" y="197" width="375" height="50"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="CTM-2f-Gr7"/>
-                    </constraints>
-                    <state key="normal" title="修改登录密码"/>
-                    <connections>
-                        <action selector="goChangeLoginPassword:" destination="-1" eventType="touchUpInside" id="iTz-mO-Ogj"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pep-vr-j8Z">
-                    <rect key="frame" x="0.0" y="259" width="375" height="50"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="0BJ-Yq-ul7"/>
-                    </constraints>
-                    <state key="normal" title="退出登录"/>
-                    <connections>
-                        <action selector="logOut:" destination="-1" eventType="touchUpInside" id="nDx-cF-ggh"/>
-                    </connections>
-                </button>
+                </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="T3E-er-u2W" secondAttribute="trailing" id="5pZ-ML-pda"/>
-                <constraint firstAttribute="trailing" secondItem="psJ-V8-apr" secondAttribute="trailing" id="6fQ-Kz-F4Y"/>
-                <constraint firstItem="pep-vr-j8Z" firstAttribute="top" secondItem="T3E-er-u2W" secondAttribute="bottom" constant="12" id="8yn-UK-AhK"/>
-                <constraint firstAttribute="trailing" secondItem="L9I-nV-3yQ" secondAttribute="trailing" id="FL1-Vg-pdC"/>
-                <constraint firstItem="pep-vr-j8Z" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Loj-H3-3ht"/>
-                <constraint firstAttribute="trailing" secondItem="pep-vr-j8Z" secondAttribute="trailing" id="MZ8-US-cxF"/>
-                <constraint firstItem="L9I-nV-3yQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Mb8-ZW-c1p"/>
-                <constraint firstItem="T3E-er-u2W" firstAttribute="top" secondItem="psJ-V8-apr" secondAttribute="bottom" constant="12" id="QpX-tq-XNJ"/>
-                <constraint firstItem="L9I-nV-3yQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="73" id="dBs-cr-hgf"/>
-                <constraint firstItem="T3E-er-u2W" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="dWI-Sq-WCO"/>
-                <constraint firstItem="psJ-V8-apr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="uix-Ui-odF"/>
-                <constraint firstItem="psJ-V8-apr" firstAttribute="top" secondItem="L9I-nV-3yQ" secondAttribute="bottom" constant="12" id="yP5-jh-UGO"/>
+                <constraint firstItem="Kd3-XP-xmf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Ert-rk-Os7"/>
+                <constraint firstAttribute="trailing" secondItem="Kd3-XP-xmf" secondAttribute="trailing" id="e0g-Hd-4lV"/>
+                <constraint firstAttribute="bottom" secondItem="Kd3-XP-xmf" secondAttribute="bottom" id="koB-aM-5Je"/>
+                <constraint firstItem="Kd3-XP-xmf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="tM5-Vd-nyy"/>
             </constraints>
-            <point key="canvasLocation" x="-398" y="25"/>
+            <point key="canvasLocation" x="-432" y="-45"/>
         </view>
     </objects>
 </document>

@@ -16,6 +16,7 @@
 #import <AMapSearchKit/AMapSearchKit.h>
 #import "PointsDesViewController.h"
 #import "TTShopInfoObj.h"
+#import "PointsDesViewController.h"
 
 @interface ShopInfoMoreViewController ()<UITextFieldDelegate,MAMapViewDelegate,AMapSearchDelegate,MAMapViewDelegate>
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -46,6 +47,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"更多信息";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"积分说明" style:UIBarButtonItemStylePlain target:self action:@selector(checkPoinsDes)];
     [self configMapUIAndOtherUI];
     [self loadShopInfo];
 }
@@ -53,7 +55,7 @@
 - (void)loadShopInfo{
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:[TTUserInfoManager token] forKey:@"token"];
-    [para setObject:@"pending" forKey:@"type"];
+//    [para setObject:@"pending" forKey:@"type"];
     [ProgressHUD show:nil Interaction:NO];
     [TTRequestOperationManager POST:API_GET_SHOP_OTHER_INFO Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
@@ -82,19 +84,16 @@
     //审核通过，显示已上传的信息
     else if (state ==2){
         self.scrollView.hidden = NO;
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"积分说明" style:UIBarButtonItemStylePlain target:self action:@selector(checkPoinsDes)];
         [self updateInfoUI];
     }
     //未上传信息
     else if (state ==9){
         self.scrollView.hidden = NO;
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"积分说明" style:UIBarButtonItemStylePlain target:self action:@selector(checkPoinsDes)];
     }
     //未通过
     else if (state ==0){
         self.scrollView.hidden = NO;
         self.rejectReasonLabel.hidden = NO;
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"积分说明" style:UIBarButtonItemStylePlain target:self action:@selector(checkPoinsDes)];
         [self updateInfoUI];
     }
 }
@@ -108,8 +107,8 @@
         if (self.shopInfo.use_range.length>1) {
             self.pointsUseDesTV.text =self.shopInfo.use_range;//积分使用说明
         }
-        if (self.shopInfo.mobile.length>1) {
-            self.phoneTF.text =self.shopInfo.mobile;//电话
+        if (self.shopInfo.shop_phone.length>1) {
+            self.phoneTF.text =self.shopInfo.shop_phone;//电话
         }
         if (self.shopInfo.province_text.length>2&&self.shopInfo.city_text.length>2&&self.shopInfo.area_text.length>2) {
             self.areaTF.text =[NSString stringWithFormat:@"%@ %@ %@",self.shopInfo.province_text,self.shopInfo.city_text,self.shopInfo.area_text];//
@@ -345,11 +344,11 @@
     }
     //积分使用说明
     if (![self.pointsUseDesTV.text.absolute_String isEqualToString:self.shopInfo.use_range.absolute_String]&&self.pointsUseDesTV.text.absolute_String.length>1) {
-        [para setObject:self.phoneTF.text forKey:@"use_range"];
+        [para setObject:self.pointsUseDesTV.text forKey:@"use_range"];
     }
     //电话
-    if (![self.phoneTF.text.absolute_String isEqualToString:self.shopInfo.mobile.absolute_String]&&self.phoneTF.text.absolute_String.length>1) {
-        [para setObject:self.phoneTF.text forKey:@"mobile"];
+    if (![self.phoneTF.text.absolute_String isEqualToString:self.shopInfo.shop_phone.absolute_String]&&self.phoneTF.text.absolute_String.length>1) {
+        [para setObject:self.phoneTF.text forKey:@"shop_phone"];
     }
     //地区
     if (self.areaObj!=nil) {
@@ -385,11 +384,9 @@
         if ([code isEqualToString:@"200"]){
             [ProgressHUD showSuccess:msg Interaction:NO];
             //提交成功之后，会获取state，该state等效于登录接口中的state
-            NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
-            NSString *state = [result string_ForKey:@"state"];
-            NSMutableDictionary *userinfo = [NSMutableDictionary dictionaryWithDictionary:[TTUserInfoManager userInfo]];
-            [userinfo setObject:state forKey:@"state"];
-            [TTUserInfoManager setUserInfo:userinfo];
+//            NSMutableDictionary *userinfo = [NSMutableDictionary dictionaryWithDictionary:[TTUserInfoManager userInfo]];
+//            [userinfo setObject:@"1" forKey:@"state"];
+//            [TTUserInfoManager setUserInfo:userinfo];
             [self performSelector:@selector(successBack) withObject:nil afterDelay:1.2];
         }
         else{

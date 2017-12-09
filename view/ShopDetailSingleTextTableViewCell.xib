@@ -11,31 +11,31 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="FAQAnswerTableViewCell">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ShopDetailSingleTextTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BRd-z3-8VT">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pm8-LA-jYt">
                         <rect key="frame" x="10" y="0.0" width="300" height="44"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>
             <constraints>
-                <constraint firstItem="BRd-z3-8VT" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="10" id="CmZ-Qq-gg0"/>
-                <constraint firstAttribute="bottom" secondItem="BRd-z3-8VT" secondAttribute="bottom" id="KTB-X2-0BE"/>
-                <constraint firstItem="BRd-z3-8VT" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" id="MyQ-kX-2xd"/>
-                <constraint firstAttribute="trailing" secondItem="BRd-z3-8VT" secondAttribute="trailing" constant="10" id="j8q-7A-ETS"/>
+                <constraint firstAttribute="trailing" secondItem="pm8-LA-jYt" secondAttribute="trailing" constant="10" id="7sC-RW-B3q"/>
+                <constraint firstItem="pm8-LA-jYt" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="10" id="Ieu-O9-BzL"/>
+                <constraint firstAttribute="bottom" secondItem="pm8-LA-jYt" secondAttribute="bottom" id="ZxA-Cn-8di"/>
+                <constraint firstItem="pm8-LA-jYt" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" id="rOp-3h-9p7"/>
             </constraints>
             <connections>
-                <outlet property="answerLabel" destination="BRd-z3-8VT" id="feD-Gz-eci"/>
+                <outlet property="contentLabel" destination="pm8-LA-jYt" id="LIM-ty-5Yn"/>
             </connections>
+            <point key="canvasLocation" x="5" y="41"/>
         </tableViewCell>
     </objects>
 </document>

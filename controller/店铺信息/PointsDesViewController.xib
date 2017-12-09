@@ -12,13 +12,26 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PointsDesViewController">
             <connections>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="webView" destination="adZ-1o-l6p" id="kVO-R2-00l"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="adZ-1o-l6p">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </webView>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="adZ-1o-l6p" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="JN7-Mx-BgM"/>
+                <constraint firstAttribute="bottom" secondItem="adZ-1o-l6p" secondAttribute="bottom" id="QB2-1p-4M5"/>
+                <constraint firstItem="adZ-1o-l6p" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gMU-0X-HO8"/>
+                <constraint firstAttribute="trailing" secondItem="adZ-1o-l6p" secondAttribute="trailing" id="npq-Ps-fTH"/>
+            </constraints>
         </view>
     </objects>
 </document>

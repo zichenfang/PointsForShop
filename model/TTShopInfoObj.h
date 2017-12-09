@@ -28,7 +28,7 @@
 @property (nonatomic,strong)NSString * latitude;//
 @property (nonatomic,strong)NSString * longitude;//
 @property (nonatomic,strong)NSString *name;//
-@property (nonatomic,strong)NSString *mobile;//
+@property (nonatomic,strong)NSString *shop_phone;//
 @property (nonatomic,strong)NSString *province_id;//
 @property (nonatomic,strong)NSString *province_text;//
 @property (nonatomic,strong)NSString *push_token;//

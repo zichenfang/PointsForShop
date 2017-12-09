@@ -45,6 +45,10 @@
 //MARK: ●API获取商户信息
 #define API_GET_SHOP_OTHER_INFO @"/api.php/v1.Seller/info"
 
+//MARK: ●API获取商户信息（用户端接口）
+#define API_SHOP_SHOPS_DETAIL @"/api.php/v1.Index/sellerDetail"
+
+
 //MARK: ●API找回密码
 #define API_USER_FINDPASSWORD  @"/api.php/v1.Publics/sellerRetrievePassword"
 //MARK: ●API修改登录
@@ -78,8 +82,13 @@
 #define API_USER_FEED_BACK  @"/api.php/v1.Seller/feedback"
 
 //MARK: ●API常见问题
-#define API_USER_FAQ_LIST  @"/api.php/v1.User/FAQs"
-
+#define API_USER_FAQ_LIST  @"/api.php/v1.Seller/FAQs"
+//MARK: ●API获取注册协议
+#define API_USER_REGIST_PROTOCOL  @"/api.php/v1.Publics/registrationProtocol"
+//MARK: ●API获取商户评价列表
+#define API_SHOP_COMMENTS  @"/api.php/v1.Index/Comments"
+//MARK: ●API获取积分说明
+#define API_SHOP_POINTS_DES  @"/api.php/v1.Publics/integralExplain"
 
 @interface TTRequestOperationManager : NSObject
 

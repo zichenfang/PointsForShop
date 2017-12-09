@@ -50,6 +50,7 @@
         {
             [self startTimeLimit];
             [ProgressHUD showSuccess:msg Interaction:NO];
+            [self presentToastAlertWithTitle:[NSString stringWithFormat:@"%@",responseJsonObject] Handler:nil];
         }
         else{
             [ProgressHUD showError:msg Interaction:NO];
@@ -87,6 +88,12 @@
     dispatch_resume(_timer);
 }
 - (IBAction)registNow:(id)sender {
+    [self presentAlertWithTitle:@"确认提交？" Handler:^{
+        [self requestRegist];
+    } Cancel:nil];
+   
+}
+- (void)requestRegist{
     if (self.shopNameTF.text.length<2) {
         [ProgressHUD showError:@"请输入店铺名称" Interaction:NO];
         return;
@@ -153,6 +160,10 @@
 //MARK:查看合同
 - (IBAction)checkDeal:(id)sender {
     AgreementViewController *vc = [[AgreementViewController alloc] init];
+    vc.handler = ^(NSDictionary *info) {
+        self.agreeBtn.selected = YES;
+        self.registBtn.enabled = YES;
+    };
     [self.navigationController pushViewController:vc animated:YES];
     
 }

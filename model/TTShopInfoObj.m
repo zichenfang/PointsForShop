@@ -32,7 +32,7 @@
     self.latitude = [info string_ForKey:@"latitude"];
     self.longitude = [info string_ForKey:@"longitude"];
     self.name = [info string_ForKey:@"name"];
-    self.mobile = [info string_ForKey:@"mobile"];
+    self.shop_phone = [info string_ForKey:@"shop_phone"];
     self.province_id = [info string_ForKey:@"province_id"];
     self.province_text = [info string_ForKey:@"province_text"];
     self.push_token = [info string_ForKey:@"push_token"];

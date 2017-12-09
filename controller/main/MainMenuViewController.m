@@ -18,6 +18,8 @@
 #import "SetPayPasswordViewController.h"
 #import "OrderListViewController.h"
 #import "FeedBackViewController.h"
+#import "ShopPreviewViewController.h"
+#import "LoginViewController.h"
 
 @interface MainMenuViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) IBOutlet UICollectionView *cv;
@@ -33,7 +35,7 @@
     [self prepareCV];
 }
 - (void)prepareCV{
-    self.menus =@[@"店铺维护",@"订单记录",@"提现申请",@"充值",@"买单",@"设置",@"查看店铺",@"意见反馈"];
+    self.menus =@[@"店铺维护",@"订单记录",@"提现申请",@"充值",@"买单",@"设置",@"查看店铺",@"注销登录",@"意见反馈"];
     UINib *nibHeader = [UINib nibWithNibName:@"UserHeaderCollectionReusableView" bundle:nil];
     [self.cv registerNib:nibHeader forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"home"];
     
@@ -64,8 +66,7 @@
         [self.cv.mj_header endRefreshing];
     }];
 }
-- (void)updateUI{
-}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
@@ -134,19 +135,19 @@
         disabledMenus =@[];
     }
     //在禁用菜单当中
-//    if ([disabledMenus indexOfObject:title]!=NSNotFound) {
-//        if (state ==9) {
-//            //信息不完整，则弹出alert，提示进入设置信息维护页面
-//            [self presentAlertWithTitle:errMsg Handler:^{
-//                [self goUserInfo];
-//            } Cancel:nil];
-//        }
-//        else{
-//            //信息不完整，则弹出alert
-//            [self presentToastAlertWithTitle:errMsg Handler:nil];
-//        }
-//        return;
-//    }
+    if ([disabledMenus indexOfObject:title]!=NSNotFound) {
+        if (state ==9) {
+            //信息不完整，则弹出alert，提示进入设置信息维护页面
+            [self presentAlertWithTitle:errMsg Handler:^{
+                [self goUserInfo];
+            } Cancel:nil];
+        }
+        else{
+            //信息不完整，则弹出alert
+            [self presentToastAlertWithTitle:errMsg Handler:nil];
+        }
+        return;
+    }
     if ([title isEqualToString:@"店铺维护"]) {
         [self goUserInfo];
     }
@@ -165,9 +166,16 @@
     else if ([title isEqualToString:@"设置"]){
         [self goSetting];
     }
-    else if ([title isEqualToString:@"查看店铺"]){}
+    else if ([title isEqualToString:@"查看店铺"]){
+        [self gpPreviewShopDetail];
+    }
     else if ([title isEqualToString:@"意见反馈"]){
         [self goFeedBack];
+    }
+    else if ([title isEqualToString:@"注销登录"]){
+        [self presentAlertWithTitle:@"退出登录？" Handler:^{
+            [self gologinOut];
+        } Cancel:nil];
     }
     NSLog(@"%@",title);
 }
@@ -233,6 +241,22 @@
 //MARK:意见反馈
 - (void)goFeedBack{
     FeedBackViewController *vc = [[FeedBackViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+//MARK:退出登录
+- (void)gologinOut{
+    [TTUserInfoManager setLogined:NO];
+    [TTUserInfoManager setUserInfo:@{}];
+    LoginViewController *vc = [[LoginViewController alloc] init];
+    UIWindow *keyWindow =[[UIApplication sharedApplication] delegate].window;
+    [UIView transitionWithView:keyWindow duration:0.4 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+        keyWindow.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];;
+    } completion:nil];
+}
+
+//MARK:查看店铺预览
+- (void)gpPreviewShopDetail{
+    ShopPreviewViewController *vc = [[ShopPreviewViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 @end

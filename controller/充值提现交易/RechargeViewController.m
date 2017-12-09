@@ -21,6 +21,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *rechargeBtn;//充值按钮
 @property (strong, nonatomic) IBOutlet UIWebView *desWebView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *contentHeightConstraint;//页面contentsize高度为500+屏幕高度-64
+//充值说明
+@property (strong, nonatomic) NSString *desContent;
+
 @end
 
 @implementation RechargeViewController
@@ -57,7 +60,7 @@
         self.moneyLabel.text = [NSString stringWithFormat:@"¥%.2f",inputText.intValue/self.recharge_proportion];
     }
 }
-//MARK:获取提现比例
+//MARK:获取提现比例和余额
 - (void)loadTakeCashConfigInfo{
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:[TTUserInfoManager token] forKey:@"token"];
@@ -71,7 +74,7 @@
             [ProgressHUD dismiss];
             self.rechargeBtn.enabled = YES;
             //显示积分余额
-            self.lastPointsLabel.text = [result string_ForKey:@"integral_withdraw_balance"];
+            self.lastPointsLabel.text = [result string_ForKey:@"integral_balance"];
         }
         else{
             [ProgressHUD showError:msg Interaction:NO];
@@ -91,13 +94,14 @@
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         if ([code isEqualToString:@"200"]) {
             NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
-            NSString *content = [result string_ForKey:@"content"];
-            [self.desWebView loadHTMLString:content baseURL:nil];
+            self.desContent = [result string_ForKey:@"content"];
+            [self.desWebView loadHTMLString:self.desContent baseURL:nil];
         }
     } Failure:^(NSError *error) {
     }];
     
 }
+//MARK:跳转到充值说明
 - (void)showDes{
     [self.scrollView scrollRectToVisible:CGRectMake(0, 500, SCREEN_HEIGHT, SCREEN_HEIGHT-64) animated:YES];
 }

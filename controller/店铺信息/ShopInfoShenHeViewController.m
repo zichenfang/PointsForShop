@@ -100,22 +100,46 @@
 }
 - (void)updateInfoUI:(NSDictionary *)info{
     //头图
-    NSString *head_img = [info string_ForKey:@"head_img"];
-    [self.iv_head sd_setImageWithURL:[NSURL URLWithString:head_img] placeholderImage:PLACEHOLDER_GENERAL];
+    self.imageUrl_head = [info string_ForKey:@"head_img"];
+    [self.iv_head sd_setImageWithURL:[NSURL URLWithString:self.imageUrl_head] placeholderImage:PLACEHOLDER_GENERAL];
     self.tv_head.text =[info string_ForKey:@"introduction"];
+    if (self.tv_head.text.length>1) {
+        self.placeHolderLabel_head.hidden = YES;
+    }
+    else{
+        self.placeHolderLabel_head.hidden = NO;
+    }
     //主图
-    NSString *imageUrl_1 = [info string_ForKey:@"image"];
-    [self.iv1 sd_setImageWithURL:[NSURL URLWithString:imageUrl_1] placeholderImage:PLACEHOLDER_GENERAL];
+    self.imageUrl1 = [info string_ForKey:@"image"];
+    [self.iv1 sd_setImageWithURL:[NSURL URLWithString:self.imageUrl1] placeholderImage:PLACEHOLDER_GENERAL];
     self.tv1.text =[info string_ForKey:@"desc"];
-    //副图1
-    NSString *imageUrl_2 = [info string_ForKey:@"image2"];
-    [self.iv_head sd_setImageWithURL:[NSURL URLWithString:imageUrl_2] placeholderImage:PLACEHOLDER_GENERAL];
-    self.tv_head.text =[info string_ForKey:@"desc2"];
+    if (self.tv1.text.length>1) {
+        self.placeHolderLabel1.hidden = YES;
+    }
+    else{
+        self.placeHolderLabel1.hidden = NO;
+    }
+//    //副图1
+    self.imageUrl2 = [info string_ForKey:@"image2"];
+    [self.iv2 sd_setImageWithURL:[NSURL URLWithString:self.imageUrl2] placeholderImage:PLACEHOLDER_GENERAL];
+    self.tv2.text =[info string_ForKey:@"desc2"];
+    if (self.tv2.text.length>1) {
+        self.placeHolderLabel2.hidden = YES;
+    }
+    else{
+        self.placeHolderLabel2.hidden = NO;
+    }
     //副图2
-    NSString *imageUrl_3 = [info string_ForKey:@"image3"];
-    [self.iv_head sd_setImageWithURL:[NSURL URLWithString:imageUrl_3] placeholderImage:PLACEHOLDER_GENERAL];
-    self.tv_head.text =[info string_ForKey:@"desc3"];
+    self.imageUrl3 = [info string_ForKey:@"image3"];
+    [self.iv3 sd_setImageWithURL:[NSURL URLWithString:self.imageUrl3] placeholderImage:PLACEHOLDER_GENERAL];
+    self.tv3.text =[info string_ForKey:@"desc3"];
     self.rejectReasonLabel.text =[info string_ForKey:@"check_remark"];//审核意见（审核不通过的原因）
+    if (self.tv3.text.length>1) {
+        self.placeHolderLabel3.hidden = YES;
+    }
+    else{
+        self.placeHolderLabel3.hidden = NO;
+    }
 }
 - (void)resignKeyBorad{
     [self.iv1.superview.superview endEditing:YES];
@@ -256,8 +280,8 @@
 }
 //MARK:保存
 - (IBAction)save:(id)sender {
-    if (self.imageUrl1.length<2||self.imageUrl2.length<2||self.imageUrl3.length<2||self.imageUrl_head.length<2) {
-        [ProgressHUD showError:@"请上传完整介绍图片" Interaction:NO];
+    if (self.imageUrl_head.absolute_String.length<2||self.imageUrl1.absolute_String.length<2||self.imageUrl2.absolute_String.length<2||self.imageUrl3.absolute_String.length<2) {
+        [ProgressHUD showError:@"请上传完整店铺图片" Interaction:NO];
         return;
     }
     if (self.tv1.text.absolute_String.length<2||self.tv2.text.absolute_String.length<2||self.tv2.text.absolute_String.length<2||self.tv_head.text.absolute_String.length<2) {
@@ -271,10 +295,18 @@
 - (void)saveNow{
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:[TTUserInfoManager token] forKey:@"token"];
-    [para setObject:self.imageUrl1 forKey:@"image"];
-    [para setObject:self.imageUrl2 forKey:@"image2"];
-    [para setObject:self.imageUrl3 forKey:@"image3"];
-    [para setObject:self.imageUrl_head forKey:@"head_img"];
+    if (self.imageUrl1) {
+        [para setObject:self.imageUrl1 forKey:@"image"];
+    }
+    if (self.imageUrl2) {
+        [para setObject:self.imageUrl2 forKey:@"image2"];
+    }
+    if (self.imageUrl3) {
+        [para setObject:self.imageUrl3 forKey:@"image3"];
+    }
+    if (self.imageUrl_head) {
+        [para setObject:self.imageUrl_head forKey:@"head_img"];
+    }
 
     [para setObject:self.tv1.text forKey:@"desc"];
     [para setObject:self.tv2.text forKey:@"desc2"];
@@ -287,11 +319,8 @@
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
         if ([code isEqualToString:@"200"]){
             [ProgressHUD showSuccess:msg Interaction:NO];
-            //提交成功之后，会获取state，该state等效于登录接口中的state
-            NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
-            NSString *state = [result string_ForKey:@"state"];
             NSMutableDictionary *userinfo = [NSMutableDictionary dictionaryWithDictionary:[TTUserInfoManager userInfo]];
-            [userinfo setObject:state forKey:@"state"];
+            [userinfo setObject:@"1" forKey:@"state"];
             [TTUserInfoManager setUserInfo:userinfo];
             [self performSelector:@selector(successBack) withObject:nil afterDelay:1.2];
         }

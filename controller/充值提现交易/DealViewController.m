@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *inputMoneyTF;
 @property (strong, nonatomic) IBOutlet UIButton *rechargeBtn;//充值按钮
 @property (strong, nonatomic) IBOutlet UILabel *pointsLabel;//积分余额
+@property (strong, nonatomic) IBOutlet UIButton *saveBtn;//获取不到最新店铺配置信息时，禁用掉按钮
 
 @end
 
@@ -25,12 +26,15 @@
     self.title = @"买单";
     [self configUI];
 }
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self loadShopStatusInfo];
+}
 - (void)configUI{
     self.rechargeBtn.layer.masksToBounds = YES;
     self.rechargeBtn.layer.cornerRadius = 12;
     self.rechargeBtn.layer.borderWidth =1;
     self.rechargeBtn.layer.borderColor = [UIColor stylePinkColor].CGColor;
-    self.pointsLabel.text = [[TTUserInfoManager userInfo] string_ForKey:@"integral_recharge"];
 }
 //MARK:充值
 - (IBAction)goRecharge:(id)sender {
@@ -44,15 +48,37 @@
         return;
     }
     [self.inputMoneyTF resignFirstResponder];
-//  25jfnmuhgpbv春风十里jfnmuhgpbv5jfnmuhgpbv100 ()
-//  店铺idjfnmuhgpbv店铺名jfnmuhgpbv转换比例jfnmuhgpbv消费金额
-    NSString *shopID = [[TTUserInfoManager userInfo] string_ForKey:@"id"];
-    NSString *shopName = [[TTUserInfoManager userInfo] string_ForKey:@"name"];
-    NSString *pointsPercent = [[TTUserInfoManager userInfo] string_ForKey:@"integral_ratio"];
+    //  25jfnmuhgpbv春风十里jfnmuhgpbv5jfnmuhgpbv100 ()
+    //  店铺idjfnmuhgpbv店铺名jfnmuhgpbv转换比例jfnmuhgpbv消费金额
+    NSDictionary *result = [TTUserInfoManager userInfo];
+    NSString *shopID = [result string_ForKey:@"id"];
+    NSString *shopName = [result string_ForKey:@"name"];
+    NSString *pointsPercent = [result string_ForKey:@"integral_ratio"];
     NSString *qrStr = [NSString stringWithFormat:@"%@idjfnmuhgpbv%@idjfnmuhgpbv%@idjfnmuhgpbv%@",shopID,shopName,pointsPercent,self.inputMoneyTF.text];
     [self makeQRCodeWithContent:qrStr];
 }
-
+//MARK:获取最新状态信息
+- (void)loadShopStatusInfo{
+    NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
+    [para setObject:[TTUserInfoManager token] forKey:@"token"];
+    [ProgressHUD show:nil Interaction:NO];
+    [TTRequestOperationManager POST:API_USER_GET_ALLINFO Parameters:para Success:^(NSDictionary *responseJsonObject) {
+        NSString *code = [responseJsonObject string_ForKey:@"code"];
+        NSString *msg = [responseJsonObject string_ForKey:@"msg"];
+        if ([code isEqualToString:@"200"]) {
+            NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
+            [TTUserInfoManager setUserInfo:result];
+            self.pointsLabel.text = [[TTUserInfoManager userInfo] string_ForKey:@"integral_recharge"];
+            self.saveBtn.enabled = YES;
+            [ProgressHUD dismiss];
+        }
+        else{
+            [ProgressHUD showError:msg Interaction:NO];
+        }
+        
+    } Failure:^(NSError *error) {
+    }];
+}
 - (void)makeQRCodeWithContent :(NSString *)content{
     CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     [filter setDefaults];

@@ -22,7 +22,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *takeCashHistoryBtn;//充值记录按钮
 @property (strong, nonatomic) IBOutlet UIWebView *desWebView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *contentHeightConstraint;//页面contentsize高度为500+屏幕高度-64
-
+//提现说明
+@property (strong, nonatomic) NSString *desContent;
 @end
 
 @implementation TakeCashViewController
@@ -94,13 +95,14 @@
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         if ([code isEqualToString:@"200"]) {
             NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
-            NSString *content = [result string_ForKey:@"content"];
-            [self.desWebView loadHTMLString:content baseURL:nil];
+            self.desContent = [result string_ForKey:@"content"];
+            [self.desWebView loadHTMLString:self.desContent baseURL:nil];
         }
     } Failure:^(NSError *error) {
     }];
 
 }
+//MARK:跳转到说明
 - (void)showDes{
     [self.scrollView scrollRectToVisible:CGRectMake(0, 500, SCREEN_HEIGHT, SCREEN_HEIGHT-64) animated:YES];
 }

@@ -10,9 +10,11 @@
 #import "SetTakeCashAccountViewController.h"
 #import "SetPayPasswordViewController.h"
 #import "SetLoginPasswordViewController.h"
-#import "LoginViewController.h"
+#import "SettingTableViewCell.h"
 
-@interface SettingViewController ()
+@interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSArray *menus;
 
 @end
 
@@ -21,39 +23,46 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"设置";
+    self.menus = @[@"设置提现密码",@"设置提现账号",@"修改登录密码"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"SettingTableViewCell" bundle:nil] forCellReuseIdentifier:@"setting"];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark-UITableView
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    SettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"setting"];
+    NSString *menu = self.menus[indexPath.row];
+    cell.nameLabel.text =menu;
+    cell.iv.image = [UIImage imageNamed:[NSString stringWithFormat:@"setting_%@",menu]];
+    return cell;
 }
-- (IBAction)goSetPassWord:(id)sender {
-    SetPayPasswordViewController *vc = [[SetPayPasswordViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.menus.count;
 }
-- (IBAction)goSetAccount:(id)sender {
-    SetTakeCashAccountViewController *vc = [[SetTakeCashAccountViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
 }
-- (IBAction)goChangeLoginPassword:(id)sender {
-    SetLoginPasswordViewController *vc = [[SetLoginPasswordViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-- (IBAction)logOut:(id)sender {
-    [self presentAlertWithTitle:@"退出登录" Handler:^{
-        [self gologinOut];
-    } Cancel:nil];
-
-}
-//MARK:退出登录
-- (void)gologinOut{
-    [TTUserInfoManager setLogined:NO];
-    [TTUserInfoManager setUserInfo:@{}];
-    LoginViewController *vc = [[LoginViewController alloc] init];
-    UIWindow *keyWindow =[[UIApplication sharedApplication] delegate].window;
-    [UIView transitionWithView:keyWindow duration:0.4 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
-        keyWindow.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];;
-    } completion:nil];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    switch (indexPath.row) {
+        case 0:{
+            SetPayPasswordViewController *vc = [[SetPayPasswordViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 1: {
+            SetTakeCashAccountViewController *vc = [[SetTakeCashAccountViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 2: {
+            SetLoginPasswordViewController *vc = [[SetLoginPasswordViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end
