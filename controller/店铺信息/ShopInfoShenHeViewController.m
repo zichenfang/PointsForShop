@@ -319,9 +319,6 @@
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
         if ([code isEqualToString:@"200"]){
             [ProgressHUD showSuccess:msg Interaction:NO];
-            NSMutableDictionary *userinfo = [NSMutableDictionary dictionaryWithDictionary:[TTUserInfoManager userInfo]];
-            [userinfo setObject:@"1" forKey:@"state"];
-            [TTUserInfoManager setUserInfo:userinfo];
             [self performSelector:@selector(successBack) withObject:nil afterDelay:1.2];
         }
         else{

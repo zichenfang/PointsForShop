@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "iv_my_dianpu.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "分享软件@2x.png",
       "scale" : "2x"
     },
     {

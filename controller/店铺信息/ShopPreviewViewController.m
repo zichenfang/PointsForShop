@@ -119,7 +119,7 @@
 
     NSString *ave_score =[self.shopInfo string_ForKey:@"ave_score"];
     int  starValue = [ave_score intValue];
-    for (int index =0;index<4;index++) {
+    for (int index =0;index<5;index++) {
         UIImageView *starIV = [self.subContentView viewWithTag:100+index];
         if (index+1 <= starValue){
             starIV.image = [UIImage imageNamed:@"xingxing_liang"];

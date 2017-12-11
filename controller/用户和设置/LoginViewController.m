@@ -26,7 +26,10 @@
         self.phoneTF.text =[TTUserInfoManager account];
     }
 }
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
 
 - (IBAction)findPassword:(id)sender {
     FndPassWordViewController *vc = [[FndPassWordViewController alloc] init];

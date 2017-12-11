@@ -22,14 +22,14 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JOa-wc-tLq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabbar_发现" translatesAutoresizingMaskIntoConstraints="NO" id="2Ti-ds-O27">
-                                <rect key="frame" x="10" y="5" width="50" height="50"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="setting_修改登录密码" translatesAutoresizingMaskIntoConstraints="NO" id="2Ti-ds-O27">
+                                <rect key="frame" x="10" y="20" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="2Ti-ds-O27" secondAttribute="height" multiplier="1:1" id="8Vo-qR-G2Y"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="菜单" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQj-vY-Msl">
-                                <rect key="frame" x="68" y="0.0" width="203" height="60"/>
+                                <rect key="frame" x="38" y="0.0" width="233" height="60"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -47,11 +47,11 @@
                             <constraint firstItem="QQj-vY-Msl" firstAttribute="leading" secondItem="2Ti-ds-O27" secondAttribute="trailing" constant="8" id="0aa-bJ-Wov"/>
                             <constraint firstAttribute="trailing" secondItem="8Co-W6-dGc" secondAttribute="trailing" constant="20" id="Aab-3S-dat"/>
                             <constraint firstItem="8Co-W6-dGc" firstAttribute="centerY" secondItem="JOa-wc-tLq" secondAttribute="centerY" id="Bfk-j9-6ua"/>
-                            <constraint firstAttribute="bottom" secondItem="2Ti-ds-O27" secondAttribute="bottom" constant="5" id="C3z-5M-2KG"/>
+                            <constraint firstAttribute="bottom" secondItem="2Ti-ds-O27" secondAttribute="bottom" constant="20" id="C3z-5M-2KG"/>
                             <constraint firstItem="2Ti-ds-O27" firstAttribute="leading" secondItem="JOa-wc-tLq" secondAttribute="leading" constant="10" id="Det-Rd-BYV"/>
                             <constraint firstAttribute="trailing" secondItem="QQj-vY-Msl" secondAttribute="trailing" constant="49" id="Pqo-li-bdl"/>
                             <constraint firstItem="QQj-vY-Msl" firstAttribute="top" secondItem="JOa-wc-tLq" secondAttribute="top" id="Sws-9y-Igs"/>
-                            <constraint firstItem="2Ti-ds-O27" firstAttribute="top" secondItem="JOa-wc-tLq" secondAttribute="top" constant="5" id="deF-dW-2YQ"/>
+                            <constraint firstItem="2Ti-ds-O27" firstAttribute="top" secondItem="JOa-wc-tLq" secondAttribute="top" constant="20" id="deF-dW-2YQ"/>
                             <constraint firstAttribute="bottom" secondItem="QQj-vY-Msl" secondAttribute="bottom" id="ruf-ZB-f9M"/>
                         </constraints>
                     </view>
@@ -70,7 +70,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="tabbar_发现" width="16" height="16"/>
+        <image name="setting_修改登录密码" width="31" height="39"/>
         <image name="youjiantou" width="9" height="17"/>
     </resources>
 </document>

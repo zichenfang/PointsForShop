@@ -18,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"设置提现账号";
 }
 - (IBAction)ok:(id)sender {
     if (self.accountTF.text.length<6) {

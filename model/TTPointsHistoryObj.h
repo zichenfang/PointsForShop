@@ -19,6 +19,7 @@
 @property (nonatomic,strong) NSString *remark;//
 //类型：1收入，2支出 3购买，4提现
 @property (nonatomic,strong) NSString *type;//
+@property (nonatomic,strong) NSString *create_time;//时间
 
 @end
 

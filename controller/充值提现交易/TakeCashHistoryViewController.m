@@ -100,7 +100,6 @@
         RechargeHistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"points"];
         if (cell == nil) {
             cell = [[NSBundle mainBundle] loadNibNamed:@"RechargeHistoryTableViewCell" owner:self options:nil][0];
-            cell.statusDesLabel.text = @"提现成功";
         }
         [cell data:historyObj];
         return cell;

@@ -87,6 +87,8 @@
 #define API_USER_REGIST_PROTOCOL  @"/api.php/v1.Publics/registrationProtocol"
 //MARK: ●API获取商户评价列表
 #define API_SHOP_COMMENTS  @"/api.php/v1.Index/Comments"
+//MARK: ●API获取商户三个评分
+#define API_SHOP_COMMENTS_TRIBLE_SCORE  @"/api.php/v1.Index/average"
 //MARK: ●API获取积分说明
 #define API_SHOP_POINTS_DES  @"/api.php/v1.Publics/integralExplain"
 

@@ -35,7 +35,7 @@
     [self prepareCV];
 }
 - (void)prepareCV{
-    self.menus =@[@"店铺维护",@"订单记录",@"提现申请",@"充值",@"买单",@"设置",@"查看店铺",@"注销登录",@"意见反馈"];
+    self.menus =@[@"店铺维护",@"订单记录",@"提现申请",@"充值",@"买单",@"设置",@"查看店铺",@"注销登录",@"联系我们"];
     UINib *nibHeader = [UINib nibWithNibName:@"UserHeaderCollectionReusableView" bundle:nil];
     [self.cv registerNib:nibHeader forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"home"];
     
@@ -169,7 +169,7 @@
     else if ([title isEqualToString:@"查看店铺"]){
         [self gpPreviewShopDetail];
     }
-    else if ([title isEqualToString:@"意见反馈"]){
+    else if ([title isEqualToString:@"联系我们"]){
         [self goFeedBack];
     }
     else if ([title isEqualToString:@"注销登录"]){

@@ -47,7 +47,7 @@
     [para setObject:pageSize forKey:@"pagesize"];
     [para setObject:[NSNumber numberWithInt:self.page] forKey:@"p"];
     //    类型：1收入，2支出 3充值，4提现 5 退款支出 6.退款收入
-    [para setObject:@"4" forKey:@"type"];
+    [para setObject:@"3" forKey:@"type"];
     [TTRequestOperationManager POST:API_USER_POINTS_HISTORY Parameters:para Success:^(NSDictionary *responseJsonObject) {
         if (self.page == 1) {
             [self.tableView.mj_header endRefreshing];

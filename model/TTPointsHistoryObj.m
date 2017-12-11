@@ -15,6 +15,11 @@
     if (![info isKindOfClass:NSClassFromString(@"NSDictionary")]) {
         info = @{};
     }
+    self.num = [[info string_ForKey:@"num"] intValue];
+    self.order_no = [info string_ForKey:@"order_no"];
+    self.remark = [info string_ForKey:@"remark"];
+    self.type = [info string_ForKey:@"type"];
+    self.create_time = [info string_ForKey:@"create_time"];
     return self;
 }
 @end

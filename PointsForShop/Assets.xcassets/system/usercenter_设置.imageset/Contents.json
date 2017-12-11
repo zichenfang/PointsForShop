@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "iv_my_shezhi.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "我的邀请@2x.png",
       "scale" : "2x"
     },
     {

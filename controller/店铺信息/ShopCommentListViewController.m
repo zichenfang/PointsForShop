@@ -39,16 +39,17 @@
     self.datas = [NSMutableArray arrayWithCapacity:1];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         self.page = 1;
-        [self loadData];
+        [self loadCommentListData];
+        [self loadCommentScore];
     }];
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.page = self.page + 1;
-        [self loadData];
+        [self loadCommentListData];
     }];
     [self.tableView.mj_header beginRefreshing];
 }
-#pragma mark-获取记录
-- (void)loadData{
+//MARK:获取评论列表记录
+- (void)loadCommentListData{
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:[[TTUserInfoManager userInfo] string_ForKey:@"id"] forKey:@"seller_id"];
     [para setObject:pageSize forKey:@"pagesize"];
@@ -91,7 +92,43 @@
         }
     }];
 }
+//MARK:获取评论评分
+- (void)loadCommentScore{
+    NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
+    [para setObject:[[TTUserInfoManager userInfo] string_ForKey:@"id"] forKey:@"seller_id"];
+    [TTRequestOperationManager POST:API_SHOP_COMMENTS_TRIBLE_SCORE Parameters:para Success:^(NSDictionary *responseJsonObject) {
+        NSString *code = [responseJsonObject string_ForKey:@"code"];
+        NSString *msg = [responseJsonObject string_ForKey:@"msg"];
+        NSDictionary *result = [responseJsonObject dictionary_ForKey:@"result"];
+        if ([code isEqualToString:@"200"]) {
+            float fuwuPoints = [[result string_ForKey:@"server_average"] floatValue];
+            float chanpinPoints = [[result string_ForKey:@"product_average"] floatValue];
+            float huanjingPoints = [[result string_ForKey:@"milieu_average"] floatValue];
+            self.fuwuPointsLabel.text = [NSString stringWithFormat:@"%.1f分",fuwuPoints];
+            self.chanpinPointsLabel.text = [NSString stringWithFormat:@"%.1f分",chanpinPoints];
+            self.huanjingPointsLabel.text = [NSString stringWithFormat:@"%.1f分",huanjingPoints];
+            [self updateStarOnStarView:self.fuwuView withScore:fuwuPoints];
+            [self updateStarOnStarView:self.chanpinView withScore:chanpinPoints];
+            [self updateStarOnStarView:self.huanjingView withScore:huanjingPoints];
+        }
+        else{
+            [ProgressHUD showError:msg Interaction:NO];
+        }
+    } Failure:^(NSError *error) {
+    }];
+}
+- (void)updateStarOnStarView :(UIView *)starView withScore:(float)score{
+    for (int index =0;index<5;index++) {
+        UIImageView *starIV = [starView viewWithTag:100+index];
+        if (index+1 <= score){
+            starIV.image = [UIImage imageNamed:@"xiaolian_huang"];
+        }
+        else{
+            starIV.image = [UIImage imageNamed:@"xiaolian_hui"];
+        }
+    }
 
+}
 #pragma mark-UITableView
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TTCommentObj *obj = (TTCommentObj *)[self.datas objectAtIndex:indexPath.row];

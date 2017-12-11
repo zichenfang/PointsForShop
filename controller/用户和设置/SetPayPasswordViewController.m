@@ -20,7 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"设置支付密码";
+    self.title = @"设置提现密码";
     //当没有设置过支付密码，但是需要输入支付密码的操作时，进入到该页面（例如订单支付）
     if (self.handler) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancelSetPassWord)];

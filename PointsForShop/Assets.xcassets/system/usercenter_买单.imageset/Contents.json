@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "iv_my_maidan.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "个人资料@2x.png",
       "scale" : "2x"
     },
     {

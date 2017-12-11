@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "iv_my_tixian.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "联系我们@2x.png",
       "scale" : "2x"
     },
     {
