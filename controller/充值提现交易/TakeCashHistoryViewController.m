@@ -30,7 +30,6 @@
     self.datas = [NSMutableArray arrayWithCapacity:1];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         self.page = 1;
-        [self.datas removeAllObjects];
         [self loadData];
     }];
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -59,6 +58,9 @@
         NSArray *items = [responseJsonObject array_ForKey:@"result"];
         if ([code isEqualToString:@"200"])//
         {
+            if (self.page ==1) {
+                [self.datas removeAllObjects];
+            }
             for (NSDictionary *dic in items) {
                 TTPointsHistoryObj *obj = [[TTPointsHistoryObj alloc] initWithDic:dic];
                 [self.datas addObject:obj];

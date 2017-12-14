@@ -74,7 +74,6 @@
     //数据容器，包含hasmore ,page ,list
     container.hasMore =YES;
     container.page = 1;
-    [container.datas removeAllObjects];
     [self loadData];
 }
 //MARK:分类
@@ -133,6 +132,9 @@
         NSArray *items = [responseJsonObject array_ForKey:@"result"];
         if ([code isEqualToString:@"200"])//
         {
+            if (container.page == 1) {
+                [container.datas removeAllObjects];
+            }
             for (NSDictionary *dic in items) {
                 TTOrderObj *obj = [[TTOrderObj alloc] initWithDic:dic];
                 [container.datas addObject:obj];

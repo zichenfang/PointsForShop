@@ -54,7 +54,7 @@
     NSString *shopID = [result string_ForKey:@"id"];
     NSString *shopName = [result string_ForKey:@"name"];
     NSString *pointsPercent = [result string_ForKey:@"integral_ratio"];
-    NSString *qrStr = [NSString stringWithFormat:@"%@idjfnmuhgpbv%@idjfnmuhgpbv%@idjfnmuhgpbv%@",shopID,shopName,pointsPercent,self.inputMoneyTF.text];
+    NSString *qrStr = [NSString stringWithFormat:@"%@jfnmuhgpbv%@jfnmuhgpbv%@jfnmuhgpbv%@",shopID,shopName,pointsPercent,self.inputMoneyTF.text];
     [self makeQRCodeWithContent:qrStr];
 }
 //MARK:获取最新状态信息
