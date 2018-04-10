@@ -45,6 +45,10 @@
 
 + (void)setArea_id:(NSString *)area_id;
 + (NSString *)area_id;
+//MARK:拒绝版本更新的版本号
++ (void)setRejectUpdateVersion:(NSString *)version;
++ (NSString *)rejectUpdateVersion;
+
 @end
 /*
  result =     {

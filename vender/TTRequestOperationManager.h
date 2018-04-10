@@ -91,6 +91,9 @@
 #define API_SHOP_COMMENTS_TRIBLE_SCORE  @"/api.php/v1.Index/average"
 //MARK: ●API获取积分说明
 #define API_SHOP_POINTS_DES  @"/api.php/v1.Publics/integralExplain"
+//MARK: ●API获取版本信息
+#define API_APP_VERSION_INFO @"/api.php/v1.Publics/checkVersion"
+
 
 @interface TTRequestOperationManager : NSObject
 

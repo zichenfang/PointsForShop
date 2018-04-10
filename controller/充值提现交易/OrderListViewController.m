@@ -220,11 +220,10 @@
         [para setObject:historyObj.order_id forKey:@"order_id"];//
     }
     [ProgressHUD show:nil Interaction:NO];
-    [TTRequestOperationManager GET:API_USER_AGREE_TUIDAN Parameters:para Success:^(NSDictionary *responseJsonObject) {
+    [TTRequestOperationManager POST:API_USER_AGREE_TUIDAN Parameters:para Success:^(NSDictionary *responseJsonObject) {
         NSString *code = [responseJsonObject string_ForKey:@"code"];
         NSString *msg = [responseJsonObject string_ForKey:@"msg"];
-        if ([code isEqualToString:@"1"])//
-        {
+        if ([code isEqualToString:@"200"]) {
             [ProgressHUD showSuccess:msg Interaction:NO];
             [self performSelector:@selector(refreshData) withObject:nil afterDelay:1.2];
         }

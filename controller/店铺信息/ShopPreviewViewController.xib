@@ -16,6 +16,7 @@
                 <outlet property="bannerScrollView" destination="FAE-N2-4Ke" id="naa-8M-nbW"/>
                 <outlet property="commentCountBtn" destination="aUB-aj-hp2" id="kxu-Y3-VNv"/>
                 <outlet property="contentLabel" destination="blc-V2-85y" id="K7a-tA-9Va"/>
+                <outlet property="headIV" destination="D23-jD-1Ya" id="GXz-Xk-zvB"/>
                 <outlet property="kdaLabel" destination="Cmj-ey-5qp" id="Lor-Oe-Z1O"/>
                 <outlet property="pointScaleLabel" destination="ikl-oI-jB7" id="z7q-Pg-hRa"/>
                 <outlet property="shiyongDesTV" destination="8mM-VZ-5vi" id="eai-4k-MQy"/>
@@ -44,8 +45,15 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3bi-2b-PQ1" userLabel="banner View">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="175"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FAE-N2-4Ke" userLabel="banner Cycle Scroll View" customClass="SDCycleScrollView">
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D23-jD-1Ya">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="175"/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="02M-Cd-fPZ" appends="YES" id="Do6-7x-9B3"/>
+                                        </connections>
+                                    </imageView>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FAE-N2-4Ke" userLabel="banner Cycle Scroll View" customClass="SDCycleScrollView">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="175"/>
+                                        <gestureRecognizers/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -54,7 +62,11 @@
                                     <constraint firstAttribute="trailing" secondItem="FAE-N2-4Ke" secondAttribute="trailing" id="6Jc-K7-NHk"/>
                                     <constraint firstAttribute="width" secondItem="3bi-2b-PQ1" secondAttribute="height" multiplier="15:7" id="Hfg-Yv-EqF"/>
                                     <constraint firstItem="FAE-N2-4Ke" firstAttribute="top" secondItem="3bi-2b-PQ1" secondAttribute="top" id="Rmk-MK-SfC"/>
+                                    <constraint firstAttribute="trailing" secondItem="D23-jD-1Ya" secondAttribute="trailing" id="VAe-Bg-fQb"/>
+                                    <constraint firstItem="D23-jD-1Ya" firstAttribute="leading" secondItem="3bi-2b-PQ1" secondAttribute="leading" id="W0b-Xx-Xk2"/>
+                                    <constraint firstItem="D23-jD-1Ya" firstAttribute="top" secondItem="3bi-2b-PQ1" secondAttribute="top" id="oih-GC-NBr"/>
                                     <constraint firstItem="FAE-N2-4Ke" firstAttribute="leading" secondItem="3bi-2b-PQ1" secondAttribute="leading" id="qsX-kF-LQZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="D23-jD-1Ya" secondAttribute="bottom" id="zV9-rL-hHP"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1hk-YF-Y84" userLabel="title View">
@@ -420,6 +432,11 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
+        <tapGestureRecognizer id="02M-Cd-fPZ">
+            <connections>
+                <action selector="checkHeadIV:" destination="-1" id="8hI-qT-UU7"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="doallor" width="21" height="21"/>

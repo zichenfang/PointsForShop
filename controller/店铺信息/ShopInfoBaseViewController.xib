@@ -35,7 +35,7 @@
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L8e-wj-3Lc" userLabel="审核中View">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guide_1" translatesAutoresizingMaskIntoConstraints="NO" id="D5T-dX-5vh">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shenhezhong" translatesAutoresizingMaskIntoConstraints="NO" id="D5T-dX-5vh">
                             <rect key="frame" x="87" y="233" width="200" height="200"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="200" id="SGa-O6-gnh"/>
@@ -204,11 +204,6 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uh2-4q-vLp" userLabel="line View">
-                                            <rect key="frame" x="0.0" y="10" width="2" height="20"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
@@ -283,8 +278,8 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="guide_1" width="147" height="254"/>
         <image name="jinggao" width="16" height="16"/>
+        <image name="shenhezhong" width="16" height="16"/>
         <image name="youjiantou" width="9" height="17"/>
         <image name="zhaoxiangji" width="69" height="69"/>
     </resources>

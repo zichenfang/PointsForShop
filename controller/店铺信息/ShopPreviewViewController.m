@@ -14,6 +14,8 @@
 
 @interface ShopPreviewViewController ()<UITableViewDataSource,UITableViewDelegate,SDCycleScrollViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+
+@property (strong, nonatomic) IBOutlet UIImageView *headIV;
 @property (strong, nonatomic) IBOutlet SDCycleScrollView *bannerScrollView;
  //标题
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
@@ -100,7 +102,8 @@
 }
 //    MARK:更新头部数据（除图文以外的数据）
 -(void)updateHeaderUIData{
-    self.bannerScrollView.imageURLStringsGroup = self.bannerImages;
+//    self.bannerScrollView.imageURLStringsGroup = self.bannerImages;
+    [self.headIV sd_setImageWithURL:[NSURL URLWithString:[self.shopInfo string_ForKey:@"head_img"]] placeholderImage:PLACEHOLDER_GENERAL];
     //headerView高度
     self.titleLabel.text = [self.shopInfo string_ForKey:@"name"];
     NSString *introduction = [self.shopInfo string_ForKey:@"introduction"];
@@ -270,4 +273,9 @@
     ImageBrowserVC *vc = [[ImageBrowserVC alloc] initWithLinks:self.bannerImages CurrentIndex:index];
     [vc show];
 }
+- (IBAction)checkHeadIV:(id)sender {
+    ImageBrowserVC *vc = [[ImageBrowserVC alloc] initWithLinks:@[[self.shopInfo string_ForKey:@"head_img"]] CurrentIndex:0];
+    [vc show];
+}
+
 @end

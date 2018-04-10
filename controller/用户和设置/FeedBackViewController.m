@@ -56,7 +56,7 @@
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
     [para setObject:[TTUserInfoManager token] forKey:@"token"];
     
-    [para setObject:self.inputTV.text forKey:@"content"];
+    [para setObject:self.inputTV.text.killEmoji forKey:@"content"];
     if (self.inputPhoneTF.text) {
         [para setObject:self.inputPhoneTF.text forKey:@"phone"];
     }

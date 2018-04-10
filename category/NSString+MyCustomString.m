@@ -271,6 +271,12 @@
     }
 }
 
-
+//过滤掉emoji表情
+- (NSString *)killEmoji{
+    //去除表情规则
+    NSRegularExpression* expression = [NSRegularExpression regularExpressionWithPattern:@"[^0-9a-zA-z,.，。!！?？_\u2E80-\u9FFF]+" options:NSRegularExpressionCaseInsensitive error:nil];
+    return [expression stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, self.length) withTemplate:@""];
+    
+}
 
 @end

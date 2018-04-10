@@ -117,8 +117,8 @@
             self.addressTF.text =self.shopInfo.address;//地址
         }
         if (self.shopInfo.longitude.length>1) {
-            long long longitude = [self.shopInfo.longitude doubleValue];
-            long long latitude = [self.shopInfo.latitude doubleValue];
+            double longitude = [self.shopInfo.longitude doubleValue];
+            double latitude = [self.shopInfo.latitude doubleValue];
             CLLocationCoordinate2D coordinate =CLLocationCoordinate2DMake(latitude, longitude);
             [self.mapView setCenterCoordinate:coordinate animated:YES];
             [self addPointAnnotationAtCoordinate:coordinate];
@@ -344,7 +344,7 @@
     }
     //积分使用说明
     if (![self.pointsUseDesTV.text.absolute_String isEqualToString:self.shopInfo.use_range.absolute_String]&&self.pointsUseDesTV.text.absolute_String.length>1) {
-        [para setObject:self.pointsUseDesTV.text forKey:@"use_range"];
+        [para setObject:self.pointsUseDesTV.text.killEmoji forKey:@"use_range"];
     }
     //电话
     if (![self.phoneTF.text.absolute_String isEqualToString:self.shopInfo.shop_phone.absolute_String]&&self.phoneTF.text.absolute_String.length>1) {
@@ -361,7 +361,7 @@
     }
     //详细地址
     if (self.addressTF.text.absolute_String.length>0&&![self.addressTF.text.absolute_String isEqualToString:self.shopInfo.address.absolute_String]) {
-        [para setObject:self.addressTF.text forKey:@"address"];
+        [para setObject:self.addressTF.text.killEmoji forKey:@"address"];
     }
     //经纬度
     if (self.pointAnnotation !=nil&&self.pointAnnotation.coordinate.latitude!=self.shopInfo.latitude.doubleValue) {
@@ -375,7 +375,7 @@
     }
     //营业时间
     if (self.openTimeTF.text.absolute_String.length>0&&![self.openTimeTF.text.absolute_String isEqualToString:self.shopInfo.business_hours.absolute_String]) {
-        [para setObject:self.openTimeTF.text forKey:@"business_hours"];
+        [para setObject:self.openTimeTF.text.killEmoji forKey:@"business_hours"];
     }
     [ProgressHUD show:nil Interaction:NO];
     [TTRequestOperationManager POST:API_USER_UPLOAD_INFORMATION_OTHER Parameters:para Success:^(NSDictionary *responseJsonObject) {

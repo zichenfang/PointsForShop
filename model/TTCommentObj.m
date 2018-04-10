@@ -25,13 +25,13 @@
     self.image2 = [info string_ForKey:@"image2"];
     self.image3 = [info string_ForKey:@"image3"];
     self.images = [NSMutableArray array];
-    if (self.image1) {
+    if (self.image1.length>1) {
         [self.images addObject:self.image1];
     }
-    if (self.image2) {
+    if (self.image2.length>1) {
         [self.images addObject:self.image2];
     }
-    if (self.image3) {
+    if (self.image3.length>1) {
         [self.images addObject:self.image3];
     }
     self.create_time = [info string_ForKey:@"create_time"];

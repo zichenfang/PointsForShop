@@ -46,4 +46,6 @@
 - (NSString *)normalToBase64Str;
 //baee64转化为普通字符串
 - (NSString *)base64ToNormalStr;
+//过滤掉emoji表情
+- (NSString *)killEmoji;
 @end

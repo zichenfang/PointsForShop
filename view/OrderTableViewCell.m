@@ -38,6 +38,6 @@
     }
     self.userNameLabel.text = obj.user_name;
     self.timeLabel.text = obj.pay_time;
-    self.moneyLabel.text = [NSString stringWithFormat:@"¥%d",obj.amount];
+    self.moneyLabel.text = [NSString stringWithFormat:@"¥%.0f",obj.amount*0.01];
 }
 @end

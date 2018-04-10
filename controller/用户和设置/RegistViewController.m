@@ -50,7 +50,6 @@
         {
             [self startTimeLimit];
             [ProgressHUD showSuccess:msg Interaction:NO];
-            [self presentToastAlertWithTitle:[NSString stringWithFormat:@"%@",responseJsonObject] Handler:nil];
         }
         else{
             [ProgressHUD showError:msg Interaction:NO];
@@ -112,7 +111,7 @@
         return;
     }
     NSMutableDictionary *para = [NSMutableDictionary dictionaryWithCapacity:1];
-    [para setObject:self.shopNameTF.text.absolute_String forKey:@"name"];
+    [para setObject:self.shopNameTF.text.killEmoji forKey:@"name"];
     [para setObject:phone forKey:@"mobile"];
     [para setObject:self.passWordTF.text.md5_32Bit_String forKey:@"password"];
     [para setObject:self.codeTF.text forKey:@"code"];

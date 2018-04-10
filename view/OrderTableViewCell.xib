@@ -47,7 +47,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="金额" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Avw-Wp-Xci">
-                        <rect key="frame" x="210" y="0.0" width="100" height="35"/>
+                        <rect key="frame" x="210" y="15" width="100" height="35"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="S0a-Jg-pWr"/>
                             <constraint firstAttribute="height" constant="35" id="kgk-Yw-J5C"/>
@@ -62,7 +62,7 @@
                     <constraint firstItem="Avw-Wp-Xci" firstAttribute="leading" secondItem="Mon-pI-sjD" secondAttribute="trailing" constant="5" id="63C-RI-Fza"/>
                     <constraint firstItem="Mon-pI-sjD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="HCH-jf-V1Q"/>
                     <constraint firstItem="UoI-YO-6op" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="14" id="ILN-Nr-kfr"/>
-                    <constraint firstItem="Avw-Wp-Xci" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="NoU-fR-TSg"/>
+                    <constraint firstItem="Avw-Wp-Xci" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="NoU-fR-TSg"/>
                     <constraint firstItem="Mon-pI-sjD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="c5j-Sp-NE8"/>
                     <constraint firstAttribute="trailing" secondItem="Avw-Wp-Xci" secondAttribute="trailing" constant="10" id="vZ3-vI-d0E"/>
                 </constraints>

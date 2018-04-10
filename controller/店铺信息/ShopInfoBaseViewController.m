@@ -43,6 +43,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"基本信息";
+    self.shopNameLabel.text = [[TTUserInfoManager userInfo] string_ForKey:@"name"];
     [self loadShopInfo];
 }
 //MARK:获取店铺信息-不可修改信息
@@ -100,7 +101,6 @@
     }
 }
 - (void)updateInfoUI:(NSDictionary *)info{
-    self.shopNameLabel.text = [[TTUserInfoManager userInfo] string_ForKey:@"name"];
     //将已经上传过的信息赋值到当前页面
     NSString *business_license = [info string_ForKey:@"business_license"];//营业执照
     [self.zhizhaoIV sd_setImageWithURL:[NSURL URLWithString:business_license] placeholderImage:PLACEHOLDER_GENERAL];

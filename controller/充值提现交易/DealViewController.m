@@ -47,6 +47,8 @@
         [ProgressHUD showError:@"请输入消费金额" Interaction:NO];
         return;
     }
+    
+    
     [self.inputMoneyTF resignFirstResponder];
     //  25jfnmuhgpbv春风十里jfnmuhgpbv5jfnmuhgpbv100 ()
     //  店铺idjfnmuhgpbv店铺名jfnmuhgpbv转换比例jfnmuhgpbv消费金额
@@ -54,6 +56,10 @@
     NSString *shopID = [result string_ForKey:@"id"];
     NSString *shopName = [result string_ForKey:@"name"];
     NSString *pointsPercent = [result string_ForKey:@"integral_ratio"];
+    if (self.inputMoneyTF.text.intValue*pointsPercent.floatValue*0.01>self.pointsLabel.text.intValue){
+        [ProgressHUD showError:@"积分余额不足" Interaction:NO];
+        return;
+    }
     NSString *qrStr = [NSString stringWithFormat:@"%@jfnmuhgpbv%@jfnmuhgpbv%@jfnmuhgpbv%@",shopID,shopName,pointsPercent,self.inputMoneyTF.text];
     [self makeQRCodeWithContent:qrStr];
 }

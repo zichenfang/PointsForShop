@@ -22,6 +22,10 @@ NSString *const Logined = @"Logined";
 NSString *const deviceTokenKey = @"deviceToken";
 //极光推送注册ID
 NSString *const jpushRid = @"jpushRid";
+//拒绝更新的版本号key
+NSString *const USERDEFAULTS_KEY_REJECT_VERSION_UPDATE = @"userdefaults_004";
+
+
 
 @interface TTUserInfoManager()
 @property(nonatomic, strong)NSDictionary *userInfo;
@@ -158,7 +162,16 @@ NSString *const jpushRid = @"jpushRid";
 {
     return [[NSUserDefaults standardUserDefaults] stringForKey:@"area_id"];
 }
-
+//    MARK:拒绝版本更新的版本号
++ (void)setRejectUpdateVersion:(NSString *)version
+{
+    [[NSUserDefaults standardUserDefaults] setObject:version forKey:USERDEFAULTS_KEY_REJECT_VERSION_UPDATE];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
++ (NSString *)rejectUpdateVersion
+{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_KEY_REJECT_VERSION_UPDATE];
+}
 @end
 /*
  "available_predeposit" = "999999.00";

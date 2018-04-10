@@ -9,6 +9,7 @@
 #import "ShopCommentListViewController.h"
 #import "CommentTableViewCell.h"
 #import "TTCommentObj.h"
+#import "ImageBrowserVC.h"
 
 @interface ShopCommentListViewController ()<UITableViewDataSource,UITableViewDelegate,SDCycleScrollViewDelegate>
 @property (nonatomic,strong) IBOutlet UITableView *tableView;
@@ -143,11 +144,11 @@
     TTCommentObj *obj = (TTCommentObj *)[self.datas objectAtIndex:indexPath.row];
     //包含图片
     if (obj.images.count>0) {
-        return 74 + SCREEN_WIDTH * 0.2 + [obj.comment heightWithFont:[UIFont systemFontOfSize:14] Width:SCREEN_WIDTH - 10*2];
+        return 90 + SCREEN_WIDTH * 0.2 + [obj.comment heightWithFont:[UIFont systemFontOfSize:14] Width:SCREEN_WIDTH - 10*2];
     }
     //不包含图片，只有文字
     else{
-        return 74 + [obj.comment heightWithFont:[UIFont systemFontOfSize:14] Width:SCREEN_WIDTH - 10*2];
+        return 90 + [obj.comment heightWithFont:[UIFont systemFontOfSize:14] Width:SCREEN_WIDTH - 10*2];
     }
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -158,5 +159,11 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    TTCommentObj *obj = (TTCommentObj *)[self.datas objectAtIndex:indexPath.row];
+    //包含图片
+    if (obj.images.count>0) {
+        ImageBrowserVC *vc = [[ImageBrowserVC alloc] initWithLinks:obj.images CurrentIndex:0];
+        [vc show];
+    }
 }
 @end

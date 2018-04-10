@@ -19,6 +19,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"设置提现账号";
+    NSString *withdraw_account = [[TTUserInfoManager userInfo] string_ForKey:@"withdraw_account"];
+    if (withdraw_account.length>1) {
+        self.accountTF.text = withdraw_account;
+    }
 }
 - (IBAction)ok:(id)sender {
     if (self.accountTF.text.length<6) {

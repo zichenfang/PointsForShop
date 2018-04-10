@@ -308,10 +308,10 @@
         [para setObject:self.imageUrl_head forKey:@"head_img"];
     }
 
-    [para setObject:self.tv1.text forKey:@"desc"];
-    [para setObject:self.tv2.text forKey:@"desc2"];
-    [para setObject:self.tv3.text forKey:@"desc3"];
-    [para setObject:self.tv_head.text forKey:@"introduction"];
+    [para setObject:self.tv1.text.killEmoji forKey:@"desc"];
+    [para setObject:self.tv2.text.killEmoji forKey:@"desc2"];
+    [para setObject:self.tv3.text.killEmoji forKey:@"desc3"];
+    [para setObject:self.tv_head.text.killEmoji forKey:@"introduction"];
 
     [ProgressHUD show:nil Interaction:NO];
     [TTRequestOperationManager POST:API_USER_UPLOAD_INFORMATION_PRODUCT Parameters:para Success:^(NSDictionary *responseJsonObject) {
